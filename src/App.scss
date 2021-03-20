@@ -1,0 +1,17 @@
+body h1 {
+  font-family: "Gill Sans Nova Cn" !important;
+  font-weight: normal !important;
+  text-shadow: 1px 1px 2px black !important;
+  font-size: 60px;
+}
+
+.your-style {
+  font-family: "Gill Sans Nova Book";
+  font-weight: 500;
+  font-style: italic;
+}
+
+.logo,
+.logo span {
+  background-image: url("./assets/img/logo.png");
+}
