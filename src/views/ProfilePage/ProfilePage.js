@@ -58,7 +58,7 @@ export default function ProfilePage(props) {
         {...rest}
       />
       
-      <Parallax small filter color="headerGreen" ><h3 className={classes.title}>Sergio Antonio</h3></Parallax>
+      <Parallax small filter color="headerGreen" ><h3 className={classes.title + "nombreProf"}>Sergio Antonio</h3></Parallax>
       
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>

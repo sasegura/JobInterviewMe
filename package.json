@@ -1,5 +1,6 @@
 {
-  "name": "material-kit-react",
+  "homepage": "http://sasegura.github.io/JobInterviewMe",
+  "name": "JobInterviewMe",
   "version": "1.9.0",
   "description": "Material Kit React. Coded by Creative Tim",
   "private": true,
@@ -8,6 +9,7 @@
     "@material-ui/core": "4.10.0",
     "@material-ui/icons": "4.9.1",
     "classnames": "2.2.6",
+    "gh-pages": "^3.1.0",
     "history": "4.10.1",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
@@ -17,7 +19,7 @@
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^4.0.3",
     "react-slick": "0.26.1",
     "react-swipeable-views": "0.13.9"
   },
@@ -37,6 +39,8 @@
     "typescript": "3.9.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test --env=jsdom",
