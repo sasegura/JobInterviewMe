@@ -24,9 +24,9 @@ import './HeaderLink.styles.scss';
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
-  
+
   const classes = useStyles();
-  
+
   return (
     <List className={classes.list}>
       {/*<ListItem className={classes.listItem}>
@@ -54,14 +54,13 @@ export default function HeaderLinks(props) {
       </ListItem>*/}
 
       <ListItem className={classes.listItem}>
-        <Link to="/formpreparador"><Button
-          color="transparent"
-          className={classes.navLink}
-        >
-         {// <CloudDownload className={classes.icons} /> 
-          }
+        <Link to="/formpreparador">
+          <Button
+            id="menu"
+            color="transparent"
+            className={classes.navLink}>
             Ser Preparador
-        </Button>
+          </Button>
         </Link>
       </ListItem>
 
@@ -71,8 +70,8 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_self"
           className={classes.navLink}
-        > 
-            Inscribirse
+        >
+          Inscribirse
         </Button>
       </ListItem>
 
@@ -82,8 +81,8 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_self"
           className={classes.navLink}
-        > 
-            Área personal
+        >
+          Área personal
         </Button>
       </ListItem>
 
@@ -93,8 +92,8 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_self"
           className={classes.navLink}
-        > 
-            Ayuda
+        >
+          Ayuda
         </Button>
       </ListItem>
 

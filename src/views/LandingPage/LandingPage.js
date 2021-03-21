@@ -22,6 +22,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
+import image from '../../assets/img/landing-bg.jpg';
 
 const dashboardRoutes = [];
 
@@ -30,7 +31,7 @@ const useStyles = makeStyles(styles);
 export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
-  
+
   return (
     <div>
       <Header
@@ -46,16 +47,16 @@ export default function LandingPage(props) {
         {...rest}
       />
 
-      <Parallax filter image={require("assets/img/landing-bg.jpg")}>        
-        
+      <Parallax id="landingImg" filter image={image}>
+
         <div className={classes.container}>
           <GridContainer className="primerGrid">
             <GridItem xs={12} sm={12} md={6} lg={6}>
               <h1 className={classes.title}> Descubre como se prepara una entrevista profesional</h1>
-            </GridItem> 
-            
+            </GridItem>
+
             <GridItem xs={12} sm={12} md={6} lg={6} className="segundoItem">
-              <Button                
+              <Button
                 size="lg"
                 href=""
                 target="_self"
@@ -63,13 +64,13 @@ export default function LandingPage(props) {
                 rel="noopener noreferrer"
               >Buscar mi preparador
               </Button>
-            </GridItem>             
+            </GridItem>
           </GridContainer>
-        
-          
-        </div>     
+
+
+        </div>
       </Parallax>
-      
+
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
