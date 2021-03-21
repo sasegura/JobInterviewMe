@@ -1,7 +1,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import {ErrorMessage, Formik} from "formik";
+import {ErrorMessage, Formik,Field} from "formik";
 import * as yup from "yup";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -20,6 +20,9 @@ import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './FormPreparador.styles.scss'
+import CustomInput from "components/CustomInput/CustomInput";
+import { InputAdornment } from "@material-ui/core";
+import { Email, People } from "@material-ui/icons";
 
 const useStyles = makeStyles(styles);
 
@@ -38,17 +41,14 @@ const FormPrepador=(props)=> {
   const handleSubmit=(values)=> {
     console.log(values)
   }
+
   return (
     <div>
       <Header
-        color="white"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
         fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "white"
-        }}
+        color="white"
+        brand=""
+        rightLinks={<HeaderLinks />}
         {...rest}
       />
       
@@ -74,28 +74,26 @@ const FormPrepador=(props)=> {
                           validationSchema={validationSchema}>
                           {({ handleSubmit}) => (
                               <form onSubmit={handleSubmit} className="register-form">
-                                <ErrorMessage name="auth" className="invalid-feedback">{message =>
-                                    <div>{message}</div>}</ErrorMessage>
                                 <GridContainer >
                                   <GridItem xs={12} sm={12} md={5}>
                                       <div >
                                           <label htmlFor={"nombrePerfil"} className="text textMarca">Nombre de tu perfil</label>
                                           <div>
-                                              <InputText id="nombrePerfil" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                              <Field id="nombrePerfil" name="nombrePerfil" type="text" className="with100"/>                                            
                                           </div>
                                           <div><ErrorMessage name={"nombrePerfil"} className="invalid-feedback">{message => <div><small className="p-error p-d-block">{message}</small></div>}</ErrorMessage></div>
                                       </div>
                                       <div className="p-field p-col p-md-6 p-col-12">
                                           <label htmlFor={"annosExperiencia"} className="text textMarca">Años de experiencia en RRHH</label>
                                           <div>
-                                              <InputText id="annosExperiencia" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                              <Field id="annosExperiencia" name="annosExperiencia" type="text" className="with100"/>                                            
                                           </div>
                                           <div><ErrorMessage name={"annosExperiencia"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                       </div>
                                       <div className="p-field p-col p-md-6 p-col-12">
                                           <label htmlFor={"experiencia"} className="text textMarca">Tu experiencia (máx. 40 caracteres)</label>
                                           <div>
-                                              <InputTextarea id="experiencia" aria-describedby="username2-help" className="with100 height80px p-invalid p-d-block" />
+                                              <Field type="textarea" id="experiencia" name="experiencia" aria-describedby="username2-help" className="with100 height80px p-invalid p-d-block" />
                                           </div>
                                           <div><ErrorMessage name={"experiencia"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                       </div>
@@ -106,7 +104,7 @@ const FormPrepador=(props)=> {
                                               <div className="p-field p-col p-md-6 p-col-12">
                                                   <label htmlFor={"imagenperfil"} className="text textMarca">Imagen de perfil</label>
                                                   <div>
-                                                      <InputText id="imagenperfil" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                                      <Field id="imagenperfil" name="imagenperfil" type="text" className="with100"/>                                            
                                                   </div>
                                                   <div><ErrorMessage name={"imagenperfil"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                               </div>
@@ -115,7 +113,7 @@ const FormPrepador=(props)=> {
                                               <div className="p-field p-col p-md-6 p-col-12">
                                                   <label htmlFor={"sectores"} className="text textMarca">Sectores</label>
                                                   <div>
-                                                      <InputText id="sectores" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                                      <Field id="sectores" name="sectores" type="text" className="with100"/>                                            
                                                   </div>
                                                   <div><ErrorMessage name={"sectores"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                               </div>
@@ -124,7 +122,7 @@ const FormPrepador=(props)=> {
                                               <div className="p-field p-col p-md-6 p-col-12">
                                                   <label htmlFor={"perfiles"} className="text textMarca">Perfiles</label>
                                                   <div>
-                                                      <InputText id="perfiles" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                                      <Field id="perfiles" name="perfiles" type="text" className="with100"/>                                            
                                                   </div>
                                                   <div><ErrorMessage name={"perfiles"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                               </div>
@@ -133,7 +131,7 @@ const FormPrepador=(props)=> {
                                               <div className="p-field p-col p-md-6 p-col-12">
                                                   <label htmlFor={"idiomas"} className="text textMarca">Idiomas</label>
                                                   <div>
-                                                      <InputText id="idiomas" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                                      <Field id="idiomas" name="idiomas" type="text" className="with100"/>                                            
                                                   </div>
                                                   <div><ErrorMessage name={"idiomas"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                               </div>
