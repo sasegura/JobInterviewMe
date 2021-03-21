@@ -27,7 +27,7 @@ const useStyles = makeStyles(styles);
 
 export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  setTimeout(function() {
+  setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
@@ -35,16 +35,17 @@ export default function LoginPage(props) {
   return (
     <div>
       <Header
-        absolute
-        color="transparent"
+        fixed
+        color="white"
         brand="Material Kit React"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
+
       <div
         className={classes.pageHeader}
         style={{
-          backgroundImage: "url(" + image + ")",
+          backgroundColor: "white",
           backgroundSize: "cover",
           backgroundPosition: "top center"
         }}
