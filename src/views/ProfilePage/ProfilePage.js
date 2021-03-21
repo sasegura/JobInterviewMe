@@ -32,6 +32,8 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './ProfilePage.styles.scss'
+import { Link } from "react-router-dom";
+import Flags from 'country-flag-icons/react/3x2';
 
 const useStyles = makeStyles(styles);
 
@@ -44,6 +46,41 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+
+  const lenguajes = [
+    {
+      id: 1,
+      lenguaje: "ES",
+    },
+    {
+      id: 2,
+      lenguaje: "GB",
+    },
+    {
+      id: 3,
+      lenguaje: "FR",
+    },
+
+  ];
+
+  const bandera = (lenguaje, id) => {
+    console.log(lenguaje)
+    switch (lenguaje.lenguaje) {
+      case "GB":
+        return (
+          <Flags.GB id={id} className="bandera" />
+        );
+      case "ES":
+        return (
+          <Flags.ES id={id} className="bandera" />
+        );
+      case "FR":
+        return (
+          <Flags.FR id={id} className="bandera" />
+        )
+    }
+  }
+
   return (
     <div>
       <Header
@@ -68,7 +105,6 @@ export default function ProfilePage(props) {
             </GridItem>
 
             <GridItem xs={12} sm={12} md={2}>
-              <h3 className={classes.title + " nameTitle"}>Sergio</h3>
             </GridItem>
 
           </GridContainer>
@@ -86,17 +122,24 @@ export default function ProfilePage(props) {
                     <img src={profile} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>Sergio Antonio</h3>
+                    <h3 className={classes.title}></h3>
                     <h6></h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button>
+
+                    <div id="banderasList">
+
+                      {lenguajes.map((lenguaje, index) => {
+                        return (bandera(lenguaje, index)
+                        )
+                      })}
+
+                    </div>
+
+                    <div className="precio">
+                      <spam className="precioText">45€ / 40’ entrevista</spam>
+                    </div>
+
+
+
                   </div>
                 </div>
               </GridItem>

@@ -107,8 +107,23 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>O inscripción vía email</p>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
+                      labelText="Nombre..."
                       id="first"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <People className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Apellidos..."
+                      id="last"
                       formControlProps={{
                         fullWidth: true
                       }}
