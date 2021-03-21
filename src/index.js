@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 
 import "assets/scss/material-kit-react.scss?v=1.9.0";
-import "assets/fonts/GillSansNovaCnBold/style.css"
+//import "./assets/fonts/GillSansNovaCnBold/style.css"
 import "./App.scss"
 
 // pages for this product
@@ -12,7 +12,7 @@ import Components from "views/Components/Components.js";
 import LandingPage from "views/LandingPage/LandingPage.js";
 import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
-
+import FormPrepador from "views/FormPreparador/FormPreparador.js"
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -22,6 +22,7 @@ ReactDOM.render(
       <Route exact path="/1" component={ProfilePage} />
       <Route exact path="/login-page" component={LoginPage} />
       <Route exact path="/component" component={Components} />
+      <Route exact path="/formpreparador" component={FormPrepador} />
     </Switch>
   </Router>,
   document.getElementById("root")
