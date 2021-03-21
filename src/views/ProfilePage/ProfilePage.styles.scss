@@ -1,13 +1,28 @@
 .headerGreen {
   background-color: #63b7af;
   height: 250px !important;
+  
 }
 
 .makeStyles-filter-86::before {
   height: 0 !important;
 }
-
-.nombreProf {
-  align-items: flex-end;
-  color: white;
+.nameTitle{
+  color: white !important;
+  text-align: center !important;
+  width: inherit;
 }
+
+.headerNameTitle div{
+  margin: 0 !important;
+}
+
+
+@media only screen and (max-width: 720px) {
+
+  .headerGreen {
+    
+    margin: 50px 0 !important;
+  }
+  
+  }

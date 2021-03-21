@@ -14,4 +14,16 @@ body h1 {
 .logo,
 .logo span {
   background-image: url("./assets/img/logo.png");
+  width: 50%;
 }
+
+
+
+@media only screen and (max-width: 720px) {
+
+  body h1 {
+    
+    font-size: 200%;
+  }
+  
+  }

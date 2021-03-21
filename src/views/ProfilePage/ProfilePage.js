@@ -57,13 +57,28 @@ export default function ProfilePage(props) {
         }}
         {...rest}
       />
-      
-      <Parallax small filter color="headerGreen" ><h3 className={classes.title + "nombreProf"}>Sergio Antonio</h3></Parallax>
-      
+
+      <Parallax small filter color="headerGreen" >
+
+        <div className={classes.container + " headerNameTitle"}>
+          <GridContainer justify="flex-end">
+
+            <GridItem xs={12} sm={12} md={6}>
+              <h3 className={classes.title + " nameTitle"}>Sergio Antonio Segura Fernández</h3>
+            </GridItem>
+
+            <GridItem xs={12} sm={12} md={2}>
+              <h3 className={classes.title + " nameTitle"}>Sergio</h3>
+            </GridItem>
+
+          </GridContainer>
+        </div>
+      </Parallax>
+
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
-            
+
             <GridContainer justify="left">
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
@@ -89,13 +104,13 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
                 <h3>Sergio Antonio</h3>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
+                <p>
+                  An artist of considerable range, Chet Faker — the name taken by
+                  Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                  and records all of his own music, giving it a warm, intimate
                 feel with a solid groove structure.{" "}
-              </p>
-            </div></GridItem>
+                </p>
+              </div></GridItem>
 
             </GridContainer>
             <div className={classes.description}>
