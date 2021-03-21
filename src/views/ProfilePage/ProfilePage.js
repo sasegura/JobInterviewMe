@@ -58,7 +58,7 @@ export default function ProfilePage(props) {
         {...rest}
       />
 
-      <Parallax small filter color="headerGreen" >
+      <Parallax id="sombra" small filter color="headerGreen" >
 
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">

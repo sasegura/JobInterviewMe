@@ -35,7 +35,7 @@ export default function Parallax(props) {
     var windowScrollTop = window.pageYOffset / 3;
     setTransform("translate3d(0," + windowScrollTop + "px,0)");
   };
-  const { filter, className, children, style, image, small, color } = props;
+  const { filter, className, children, style, image, small, id, color } = props;
   const classes = useStyles();
   const parallaxClasses = classNames({
     [classes.parallax]: true,
@@ -45,6 +45,7 @@ export default function Parallax(props) {
   });
   return (
     <div
+      id={id}
       className={parallaxClasses + " " + color}
       style={{
         ...style,

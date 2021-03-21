@@ -20,6 +20,8 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import './LoginPage.style.scss';
 
 import image from "assets/img/bg7.jpg";
 
@@ -37,7 +39,7 @@ export default function LoginPage(props) {
       <Header
         fixed
         color="white"
-        brand="Material Kit React"
+        brand=""
         rightLinks={<HeaderLinks />}
         {...rest}
       />
@@ -52,11 +54,26 @@ export default function LoginPage(props) {
       >
         <div className={classes.container}>
           <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={5}>
+              <h3>¿Quieres ayudar a triunfar?</h3>
+
+
+              <h4>Prepara a tu manera</h4>
+
+              <ul><ArrowForwardIcon className="arrow" />Tú defines el precio</ul>
+
+              <ul><ArrowForwardIcon className="arrow" />Cuando quieres trabajar</ul>
+
+              <ul><ArrowForwardIcon className="arrow" />Y el formato de tu preparación</ul>
+
+
+            </GridItem>
+
+            <GridItem xs={12} sm={12} md={5}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
+                    <h4>Crea tu perfil</h4>
                     <div className={classes.socialLine}>
                       <Button
                         justIcon
@@ -87,7 +104,7 @@ export default function LoginPage(props) {
                       </Button>
                     </div>
                   </CardHeader>
-                  <p className={classes.divider}>Or Be Classical</p>
+                  <p className={classes.divider}>O inscripción vía email</p>
                   <CardBody>
                     <CustomInput
                       labelText="First Name..."
@@ -140,7 +157,7 @@ export default function LoginPage(props) {
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" size="lg">
-                      Get started
+                      Inscríbete
                     </Button>
                   </CardFooter>
                 </form>
@@ -148,7 +165,7 @@ export default function LoginPage(props) {
             </GridItem>
           </GridContainer>
         </div>
-        <Footer whiteFont />
+        <Footer />
       </div>
     </div>
   );

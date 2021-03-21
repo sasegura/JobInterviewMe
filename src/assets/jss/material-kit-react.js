@@ -64,7 +64,7 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: '"Gill Sans Nova, Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: "300",
   lineHeight: "1.5em"
 };
@@ -76,10 +76,14 @@ const successColor = "#4caf50";
 const infoColor = "#00acc1";
 const roseColor = "#e91e63";
 const grayColor = "#999999";
+const greenColor = "#63b7af";
+const orangeColor = "#ee8572";
+const greenColorBlack = "#d4f3ef";
+const orangeColorBlack = "#fcccc3";
+const greenLigth = "#d4f3ef";
 
 const primaryBoxShadow = {
-  boxShadow:
-    "0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2)"
+  boxShadow: "0 12px 20px -10px rgba(25, 113, 64, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(39, 176, 131, 0.2)"
 };
 const infoBoxShadow = {
   boxShadow:
@@ -124,7 +128,7 @@ const infoCardHeader = {
 };
 const primaryCardHeader = {
   color: "#fff",
-  background: "linear-gradient(60deg, #ab47bc, #8e24aa)",
+  background: "linear-gradient(60deg, #7db8b2, #4baea5)",
   ...primaryBoxShadow
 };
 const roseCardHeader = {
@@ -160,7 +164,7 @@ const title = {
   margin: "1.75rem 0 0.875rem",
   textDecoration: "none",
   fontWeight: "700",
-  fontFamily: `"Roboto Slab", "Times New Roman", serif`
+  fontFamily: `"Gill Sans Nova", "Roboto Slab", "Times New Roman", serif`
 };
 
 const cardTitle = {
@@ -213,5 +217,10 @@ export {
   title,
   cardTitle,
   cardLink,
-  cardSubtitle
+  cardSubtitle,
+  greenColor,
+  orangeColor,
+  greenColorBlack,
+  orangeColorBlack,
+  greenLigth
 };
