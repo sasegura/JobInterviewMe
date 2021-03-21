@@ -6,7 +6,7 @@ const signupPageStyle = {
     zIndex: "2",
     position: "relative",
     paddingTop: "20vh",
-    color: "#FFFFFF",
+    color: "#999",
     paddingBottom: "200px"
   },
   cardHidden: {
@@ -33,8 +33,11 @@ const signupPageStyle = {
       top: "0",
       content: '""'
     },
-    "& footer li a,& footer li a:hover,& footer li a:active": {
-      color: "#FFFFFF"
+    "& footer li a": {
+      color: "#999"
+    },
+    "& footer li a:hover,& footer li a:active": {
+      color: "#63b7af"
     },
     "& footer": {
       position: "absolute",
