@@ -14,6 +14,7 @@
     "moment": "2.26.0",
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
+    "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primereact": "^6.2.1",
     "prop-types": "15.7.2",
@@ -23,6 +24,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "^4.0.3",
     "react-slick": "0.26.1",
+    "react-step-wizard": "^5.3.5",
     "react-swipeable-views": "0.13.9",
     "yup": "^0.32.9"
   },
