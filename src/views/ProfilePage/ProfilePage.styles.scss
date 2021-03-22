@@ -18,6 +18,30 @@
   margin: 0 !important;
 }
 
+.bandera{
+  height: 20px;
+  margin: 8px;
+}
+
+#banderasList{
+  margin-top: -80px !important;
+}
+
+.precio{
+  margin-top: 30px;
+  background-color: #d4f3ef;
+  border-radius: 30px;
+  width: 180px;
+  height: 40px;
+  text-align: center;
+  display: inline-block;
+}
+.precioText{
+  display: inline-block;
+  margin-top: 8px;
+}
+
+
 
 @media only screen and (max-width: 720px) {
 
