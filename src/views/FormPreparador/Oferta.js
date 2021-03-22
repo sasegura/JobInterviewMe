@@ -113,7 +113,7 @@ Selecciona el horario disponible para que puedan contratar tus servicios. No te 
                                     <GridItem xs={12} sm={12} md={2}>
                                         <div className="p-field p-col p-md-6 p-col-12" >
                                             <div className={"center"} >
-                                                <Button label="1" onClick={(e)=> {props.goToStep(1)}} icon="pi pi-check" />
+                                                <Button label="Anterior" onClick={(e)=> {props.goToStep(1)}} icon="pi pi-check" />
                                             </div>                                    
                                         </div>
                                     </GridItem>

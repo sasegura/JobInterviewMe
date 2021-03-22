@@ -108,7 +108,7 @@ const Presentacion=(props)=>{
                                     <GridItem xs={12} sm={12} md={2}>
                                         <div className="p-field p-col p-md-6 p-col-12" >
                                             <div className={"center"} >
-                                                <Button label="2" onClick={(e)=> {props.goToStep(2)}} icon="pi pi-check" />
+                                                <Button label="Siguiente" onClick={(e)=> {props.goToStep(2)}} icon="pi pi-check" />
                                             </div>                                    
                                         </div>
                                     </GridItem>
