@@ -41,6 +41,26 @@
   margin-top: 8px;
 }
 
+p .sectores{
+  display: inline-flex;
+  font-size: 17px;
+}
+
+p .hashtags{
+  display: inline-flex;
+  font-size: 16px;
+  color:#ee8572;
+}
+
+p.sectores, p{
+  margin-top: 30px;
+  font-size: 17px;
+  padding: 0 40px 0 30px;
+}
+
+.margen{
+  margin: 300px;
+}
 
 
 @media only screen and (max-width: 720px) {

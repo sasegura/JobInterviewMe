@@ -32,8 +32,10 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './ProfilePage.styles.scss'
-import { Link } from "react-router-dom";
 import Flags from 'country-flag-icons/react/3x2';
+import { Icon} from '@iconify/react';
+import skypeIcon from '@iconify-icons/mdi/skype';
+
 
 const useStyles = makeStyles(styles);
 
@@ -59,12 +61,40 @@ export default function ProfilePage(props) {
     {
       id: 3,
       lenguaje: "FR",
-    },
+    }
+  ];
 
+  const sectores = [
+    {
+      id: 1,
+      sector: "RRHH",
+    },
+    {
+      id: 2,
+      sector: "Agricultura",
+    },
+    {
+      id: 3,
+      sector: "Informática",
+    }
+  ];
+
+  const hashtag = [
+    {
+      id: 1,
+      hashtag: "#ingeniería",
+    },
+    {
+      id: 2,
+      hashtag: "#navales",
+    },
+    {
+      id: 3,
+      hashtag: "#projectManager",
+    }
   ];
 
   const bandera = (lenguaje, id) => {
-    console.log(lenguaje)
     switch (lenguaje.lenguaje) {
       case "GB":
         return (
@@ -81,11 +111,17 @@ export default function ProfilePage(props) {
     }
   }
 
+  const sectoresA = (atributo, index, clase) => {
+    return (
+      (index === 0) ? <div className={clase} key={index}>{atributo}</div> : <div className={clase} key={index}>{", " + atributo}</div>
+    )
+  }
+
   return (
     <div>
       <Header
         color="white"
-        brand="Material Kit React"
+        brand=""
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -146,17 +182,45 @@ export default function ProfilePage(props) {
 
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
-                <h3>Sergio Antonio</h3>
-                <p>
-                  An artist of considerable range, Chet Faker — the name taken by
-                  Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                  and records all of his own music, giving it a warm, intimate
+
+                <p className="sectores">
+                  13 años de experiencia en el(los) sector(es): <br />
+                  {sectores.map((sector, index) => {
+                    return (
+                      sectoresA(sector.sector, index, "sectores")
+                    )
+                  })}
+                </p>
+              </div><div className={classes.description}>
+                  <p>
+                    Experiencia en empresas como Adecco. Especializada en cargos de Project Manager.Experiencia en empresas como Adecco. Especializada en cargos de Project Manager
+                
+                    An artist of considerable range, Chet Faker — the name taken by
+                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                and records all of his own music, giving it a warm, intimate
                 feel with a solid groove structure.{" "}
                 </p>
-              </div></GridItem>
+            </div>
+            <div className={classes.description}>
+                
+                <p className="hashtags">                  
+                  {hashtag.map((hashtag, index) => {
+                    return (
+                      sectoresA(hashtag.hashtag, index, "hashtags")
+                    )
+                  })}
+                </p>
+
+                <Icon icon={skypeIcon} />
+                </div>
+                
+                
+                
+                </GridItem>
 
             </GridContainer>
-            <div className={classes.description}>
+            <div className="margen"></div>
+           {/* <div className={classes.description}>
               <p>
                 An artist of considerable range, Chet Faker — the name taken by
                 Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
@@ -279,7 +343,7 @@ export default function ProfilePage(props) {
                   ]}
                 />
               </GridItem>
-            </GridContainer>
+                </GridContainer>*/}
           </div>
         </div>
       </div>
