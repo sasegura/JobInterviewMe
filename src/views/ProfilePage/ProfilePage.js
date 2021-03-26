@@ -4,9 +4,6 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
-import Favorite from "@material-ui/icons/Favorite";
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -19,22 +16,14 @@ import Parallax from "components/Parallax/Parallax.js";
 
 import profile from "assets/img/faces/christian.jpg";
 
-import studio1 from "assets/img/examples/studio-1.jpg";
-import studio2 from "assets/img/examples/studio-2.jpg";
-import studio3 from "assets/img/examples/studio-3.jpg";
-import studio4 from "assets/img/examples/studio-4.jpg";
-import studio5 from "assets/img/examples/studio-5.jpg";
-import work1 from "assets/img/examples/olu-eletu.jpg";
-import work2 from "assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "assets/img/examples/mariya-georgieva.jpg";
-import work5 from "assets/img/examples/clem-onojegaw.jpg";
-
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './ProfilePage.styles.scss'
 import Flags from 'country-flag-icons/react/3x2';
-import { Icon} from '@iconify/react';
+import { Icon } from '@iconify/react';
 import skypeIcon from '@iconify-icons/mdi/skype';
+import Icono from '../Components/Icono/Icono.component';
+import idiomas from '../../assets/json/idiomas.json'
+import canales from '../../assets/json/canales.json'
 
 
 const useStyles = makeStyles(styles);
@@ -49,20 +38,8 @@ export default function ProfilePage(props) {
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
-  const lenguajes = [
-    {
-      id: 1,
-      lenguaje: "ES",
-    },
-    {
-      id: 2,
-      lenguaje: "GB",
-    },
-    {
-      id: 3,
-      lenguaje: "FR",
-    }
-  ];
+  const idiomasArray = idiomas.idiomas;
+  const canalesArray = canales.canales;
 
   const sectores = [
     {
@@ -94,22 +71,6 @@ export default function ProfilePage(props) {
     }
   ];
 
-  const bandera = (lenguaje, id) => {
-    switch (lenguaje.lenguaje) {
-      case "GB":
-        return (
-          <Flags.GB id={id} className="bandera" />
-        );
-      case "ES":
-        return (
-          <Flags.ES id={id} className="bandera" />
-        );
-      case "FR":
-        return (
-          <Flags.FR id={id} className="bandera" />
-        )
-    }
-  }
 
   const sectoresA = (atributo, index, clase) => {
     return (
@@ -162,12 +123,13 @@ export default function ProfilePage(props) {
                     <h6></h6>
 
                     <div id="banderasList">
-
-                      {lenguajes.map((lenguaje, index) => {
-                        return (bandera(lenguaje, index)
-                        )
-                      })}
-
+                      {
+                        idiomasArray.map((idioma, index) => {
+                          return (
+                            <Icono codigo={idioma.codigo} tipo="bandera" key={index} nombre={idioma.nombre} id={index} />
+                          )
+                        })
+                      }
                     </div>
 
                     <div className="precio">
@@ -194,33 +156,41 @@ export default function ProfilePage(props) {
               </div><div className={classes.description}>
                   <p>
                     Experiencia en empresas como Adecco. Especializada en cargos de Project Manager.Experiencia en empresas como Adecco. Especializada en cargos de Project Manager
-                
-                    An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-                </p>
-            </div>
-            <div className={classes.description}>
-                
-                <p className="hashtags">                  
-                  {hashtag.map((hashtag, index) => {
-                    return (
-                      sectoresA(hashtag.hashtag, index, "hashtags")
-                    )
-                  })}
-                </p>
 
-                <Icon icon={skypeIcon} />
+                    An artist of considerable range, Chet Faker — the name taken by
+                    Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                    and records all of his own music, giving it a warm, intimate
+                feel with a solid groove structure.{" "}
+                  </p>
                 </div>
-                
-                
-                
-                </GridItem>
+                <div className={classes.description}>
+
+                  <p className="hashtags">
+                    {hashtag.map((hashtag, index) => {
+                      return (
+                        sectoresA(hashtag.hashtag, index, "hashtags")
+                      )
+                    })}
+                  </p>
+
+                </div>
+                <div className="contenedor">
+                  <div className="canalesSection">
+                    <span>Canales: </span>
+                    {
+                      canalesArray.map((canal, index) => {
+                        return (
+                          <Icono codigo={canal.codigo} tipo="canal" key={index} nombre={canal.nombre} id={index} />
+                        )
+                      })
+                    }
+                  </div></div>
+                <div className="margen"></div>
+              </GridItem>
 
             </GridContainer>
-            <div className="margen"></div>
-           {/* <div className={classes.description}>
+
+            {/* <div className={classes.description}>
               <p>
                 An artist of considerable range, Chet Faker — the name taken by
                 Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
@@ -348,6 +318,6 @@ export default function ProfilePage(props) {
         </div>
       </div>
       <Footer />
-    </div>
+    </div >
   );
 }
