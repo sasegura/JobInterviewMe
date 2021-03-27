@@ -30,8 +30,12 @@ const classes = useStyles();
         >
 
         Preparación {nombre}<br/>
-        <button><Check/></button>
-        <button><Close/></button>
+
+        {tipo!=="deshabilitado"?
+            (<><button><Check/></button>
+            <button><Close/></button></>)
+        :(<></>)}
+        
 
         </Button>
         </Tooltip>
