@@ -81,18 +81,18 @@ export default function AreaPersonal(props) {
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.container + " contenedorGris"}>
                    <h4>Próximas citas</h4>
-                   <CardCitas nombre="Isa" color="rgb(152, 51, 51)" toolTipsText="Cita próxima sin confirmar"></CardCitas>
-                   <CardCitas nombre="Isa" color="#63b7af" toolTipsText="Cita confirmada"></CardCitas>
-                   <CardCitas nombre="Isa" color="#ee8572" toolTipsText="Confirmar Cita"></CardCitas>
+                   <CardCitas tipo="warning" nombre="Isa" toolTipsText="Cita próxima sin confirmar"></CardCitas>
+                   <CardCitas tipo="pendiente" nombre="Isa" toolTipsText="Cita confirmada"></CardCitas>
+                   <CardCitas tipo="aceptado" nombre="Isa" toolTipsText="Confirmar Cita"></CardCitas>
                 </div>               
               </GridItem>
 
               <GridItem xs={12} sm={12} md={4}>  
               <div className={classes.container + " contenedorGris"}>
                    <h4>Historial</h4> 
-                   <CardCitas nombre="Isa" color="#bfb9b9" toolTipsText=""></CardCitas>
-                   <CardCitas nombre="Isa" color="rgb(152, 51, 51)" toolTipsText="Cita próxima sin confirmar"></CardCitas>
-                   <CardCitas nombre="Isa" color="#ee8572" toolTipsText="Confirmar Cita"></CardCitas>
+                   <CardCitas tipo="deshabilitado" nombre="Isa"  toolTipsText=""></CardCitas>
+                   <CardCitas tipo="deshabilitado" nombre="Isa" toolTipsText=""></CardCitas>
+                   <CardCitas tipo="deshabilitado" nombre="Isa" toolTipsText=""></CardCitas>
                 </div>              
                 
               </GridItem>

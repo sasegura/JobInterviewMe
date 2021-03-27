@@ -1,15 +1,16 @@
 import React from 'react';
 
-import {Tooltip, makeStyles} from '@material-ui/core';
+import {Tooltip, makeStyles, Icon} from '@material-ui/core';
 import styles from "../../../assets/jss/material-kit-react/tooltipsStyle.js";
 import './CardCitas.style.scss';
 import Button from "components/CustomButtons/Button.js";
+import { Check, Close } from '@material-ui/icons';
 
 const useStyles = makeStyles(styles);
 
 const CardCitas = (props) => {
 
-const {nombre,color, toolTipsText,tipo}= props;
+const {nombre, toolTipsText,tipo}= props;
 const classes = useStyles();
 
     return (
@@ -24,13 +25,15 @@ const classes = useStyles();
         >
         <Button 
             onClick={e => e.preventDefault()}
-            id="cardCitas"
-            style={{
-                color: `${color}`,
-                border: `1px solid ${color}`        
-            }}
+            id={tipo}
+            className="cardCitas"            
         >
-        Preparación {nombre}</Button>
+
+        Preparación {nombre}<br/>
+        <button><Check/></button>
+        <button><Close/></button>
+
+        </Button>
         </Tooltip>
         </>
     );
