@@ -26,6 +26,8 @@ import idiomas from '../../assets/json/idiomas.json'
 import canales from '../../assets/json/canales.json'
 
 import './AreaPersonal.style.scss'
+import { Card } from "@material-ui/core";
+import CardCitas from "views/Components/CardCitas/CardCitas.component";
 
 
 const useStyles = makeStyles(styles);
@@ -78,21 +80,26 @@ export default function AreaPersonal(props) {
             <GridContainer justify="left">
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.container + " contenedorGris"}>
-                   <h4>Próximas citas</h4> 
-                </div>
-                
+                   <h4>Próximas citas</h4>
+                   <CardCitas nombre="Isa" color="rgb(152, 51, 51)" toolTipsText="Cita próxima sin confirmar"></CardCitas>
+                   <CardCitas nombre="Isa" color="#63b7af" toolTipsText="Cita confirmada"></CardCitas>
+                   <CardCitas nombre="Isa" color="#ee8572" toolTipsText="Confirmar Cita"></CardCitas>
+                </div>               
               </GridItem>
 
               <GridItem xs={12} sm={12} md={4}>  
               <div className={classes.container + " contenedorGris"}>
-                   <h4>Próximas citas</h4> 
+                   <h4>Historial</h4> 
+                   <CardCitas nombre="Isa" color="#bfb9b9" toolTipsText=""></CardCitas>
+                   <CardCitas nombre="Isa" color="rgb(152, 51, 51)" toolTipsText="Cita próxima sin confirmar"></CardCitas>
+                   <CardCitas nombre="Isa" color="#ee8572" toolTipsText="Confirmar Cita"></CardCitas>
                 </div>              
                 
               </GridItem>
 
               <GridItem xs={12} sm={12} md={4}>   
                 <div className={classes.container + " contenedorGris"}>
-                   <h4>Próximas citas</h4> 
+                   <h4>Información de contacto</h4> 
                 </div>             
                 
               </GridItem>
