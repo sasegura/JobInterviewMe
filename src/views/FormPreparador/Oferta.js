@@ -88,7 +88,8 @@ const Oferta=(props)=>{
                                       <GridContainer>
                                           <GridItem xs={12} sm={12} md={12}>
                                           Agenda<br/>
-Selecciona el horario disponible para que puedan contratar tus servicios. No te preocupes si te surgen planes, lo podrás modificar en cualquier momento. 
+                                                Selecciona el horario disponible para que puedan contratar tus servicios. 
+                                                No te preocupes si te surgen planes, lo podrás modificar en cualquier momento. 
 
                                           </GridItem>
                                           <GridItem xs={12} sm={12} md={12}>
