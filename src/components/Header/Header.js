@@ -24,7 +24,9 @@ const useStyles = makeStyles(styles);
 
 export default function Header(props) {
   const classes = useStyles();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
   React.useEffect(() => {
     if (props.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);
@@ -65,7 +67,7 @@ export default function Header(props) {
     [classes.fixed]: fixed
   });
   const brandComponent = <Button className={classes.title + " logo"}>{brand}</Button>;
-  
+
   return (
     <AppBar className={appBarClasses} id="divHeader">
       <Toolbar className={classes.container}>
@@ -77,7 +79,7 @@ export default function Header(props) {
             </Hidden>
           ) : (
             <Link to='/'>
-              <img className={"image logo-container " + classes.title} src = {Logo} />
+              <img className={"image logo-container " + classes.title} src={Logo} />
             </Link>
           )}
         </div>

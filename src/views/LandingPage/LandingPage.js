@@ -80,7 +80,6 @@ export default function LandingPage(props) {
           }
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
