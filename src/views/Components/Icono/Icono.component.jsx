@@ -67,7 +67,7 @@ const Icono = (props) => {
           )
         default:
           return (
-            <Fragment />
+            <div class="canales">{props.codigo}</div>
           );   
       }
   }
@@ -79,37 +79,35 @@ const Icono = (props) => {
         return (   
           <div className="canales">       
             <img src={SK} id={props.id}  />
-          </div>            
-        );
+          </div>);
       case "ZO":
         return (            
-<div className="canales">       
+          <div className="canales">       
             <img src={ZO} id={props.id}  />
-          </div>         );      
+          </div>);      
       case "TE":
         return (   
-<div className="canales">       
+          <div className="canales">       
             <img src={TE} id={props.id}  />
-          </div>         )
+          </div>)
       case "GM":
         return (
-<div className="canales">       
+          <div className="canales">       
             <img src={GM} id={props.id}  />
-          </div>         );
+          </div>);
       case "HG":
         return (
-<div className="canales">       
+          <div className="canales">       
             <img src={HG} id={props.id}  />
-          </div>         );      
+          </div>);      
       case "JI":
         return (
-<div className="canales">       
+          <div className="canales">       
             <img src={JI} id={props.id}  />
-          </div>         )
-      
+          </div>)      
       default:
         return (
-          <Fragment />
+          <div className="canales">{props.codigo} </div>
         );   
     }
 }

@@ -75,7 +75,7 @@ export default function AreaPersonal(props) {
         <div>
           <div className={classes.container}>
 
-            <GridContainer justify="left">
+            <GridContainer>
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.container + " contenedorGris"}>
                    <h4>Próximas citas</h4>

@@ -53,7 +53,7 @@ const ProfesionalesPreview = (props) => {
       const url = urlProfesional;      
       try {
           const respuesta = await AxiosConexionConfig.get(url);
-          console.log(respuesta.data)
+          //console.log(respuesta.data)
           setProfesionales(respuesta.data)
       } catch (e) {
           console.log(e);
@@ -162,7 +162,7 @@ const ProfesionalesPreview = (props) => {
         .filter((profesional, index) => index < 3)
         .map((profesional, index) => (
 
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={4} key={index}>
               <Card id="cardProf" className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader id="cardheader" color="primary" className={classes.cardHeader}>                                     
@@ -192,7 +192,7 @@ const ProfesionalesPreview = (props) => {
                   
                   <CardFooter className={classes.cardFooter}>
                     <Button className="precio" simple color="primary" onClick={()=>goToPerfil(profesional.idusuario)} size="lg">
-                      <spam className="precioText">{profesional.tarifa}€ / {profesional.duracion}’ entrevista</spam>
+                      <span className="precioText">{profesional.tarifa}€ / {profesional.duracion}’ entrevista</span>
                     </Button>                    
                   </CardFooter>
                 </form>

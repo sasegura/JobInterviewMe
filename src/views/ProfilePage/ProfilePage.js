@@ -132,7 +132,7 @@ export default function ProfilePage(props) {
         const url = urlProfesional+"/"+id;      
         try {
             const respuesta = await AxiosConexionConfig.get(url);
-            console.log(respuesta.data)
+            //console.log(respuesta.data)
             setUsuario(respuesta.data)
         } catch (e) {
             console.log(e);
@@ -216,7 +216,7 @@ export default function ProfilePage(props) {
         <div>
           <div className={classes.container}>
 
-            <GridContainer justify="left">
+            <GridContainer>
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
                   <div>
@@ -237,7 +237,7 @@ export default function ProfilePage(props) {
                     </div>
 
                     <div className="precio">
-                      <spam className="precioText">{usuario.tarifa +  "€ / "+ usuario.duracion+'’ entrevista'}</spam>
+                      <span className="precioText">{usuario.tarifa +  "€ / "+ usuario.duracion+'’ entrevista'}</span>
                     </div>
                   </div>
                 </div>
@@ -276,7 +276,7 @@ export default function ProfilePage(props) {
                   <div className="canalesSection">
                     <span>Canales: </span>
                     {usuario.canales!==null?
-                      usuario.canales.split(", ").map((canal, index) => {
+                      usuario.canales.split(",").map((canal, index) => {
                         return (
                           <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
                         )

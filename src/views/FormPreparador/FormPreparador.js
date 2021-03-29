@@ -44,6 +44,7 @@ const FormPrepador=(props)=> {
     const [tpreparación, settpreparación]=useState("")
     const [duracion, setduracion]=useState(0)
     const [canales, setcanales]=useState("")
+    const [hashtags, setHashtags]=useState("")
     const [tarifa, settarifa]=useState(0)
     const [idusuario, setidUsuario]=useState("")
     const valoresIniciales={
@@ -74,6 +75,7 @@ const FormPrepador=(props)=> {
         settpreparación(valores.tpreparación)
         setcanales(valores.canales)
         setduracion(valores.duracion)
+        setHashtags(valores.hashtags)
         UploadUsuario()
         /*if(idusuario!==""){
           uploadData()
@@ -111,7 +113,8 @@ const FormPrepador=(props)=> {
             idiomas: idiomas,
             tipopreparacion: tpreparación,
             duracion: duracion,
-            hashtags: canales,
+            hashtags: hashtags,
+            canales:canales,
             tarifa: tarifa
         }
         console.log(dataValue)
