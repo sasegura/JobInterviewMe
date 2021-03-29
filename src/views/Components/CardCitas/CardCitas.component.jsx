@@ -32,9 +32,13 @@ const classes = useStyles();
         Preparación {nombre}<br/>
 
         {tipo!=="deshabilitado"?
-            (<><button><Check/></button>
-            <button><Close/></button></>)
-        :(<></>)}
+            tipo==="warning"?(<span id="alerta">¡Cita próxima sin confirmación!</span>)
+        :(<></>):(<></>)}
+
+        {/*tipo!=="deshabilitado"?
+            (<div className="check"><button><Check/></button>
+            <button><Close/></button></div>)
+    :(<></>)*/}
         
 
         </Button>

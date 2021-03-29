@@ -22,6 +22,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import './LoginPage.style.scss';
+import { Link } from "react-router-dom";
 
 //import image from "assets/img/bg7.jpg";
 
@@ -172,9 +173,10 @@ export default function LoginPage(props) {
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple color="primary" size="lg">
-                      Inscríbete
-                    </Button>
+                    <Link to="/formpreparador" >
+                      <Button simple color="primary" size="lg">
+                        Inscríbete
+                    </Button></Link>
                   </CardFooter>
                 </form>
               </Card>
