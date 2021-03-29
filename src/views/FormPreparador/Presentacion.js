@@ -49,6 +49,7 @@ const Presentacion = (props) => {
     }
     const handleSubmit = (values, { setFieldError, setSubmitting }) => {
 
+
         if (imgPefil === null) {
             setFieldError("imagenperfil", "Imagen de perfil requerida.")
             setSubmitting(false);
