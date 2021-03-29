@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -13,6 +13,8 @@ import GridItem from "components/Grid/GridItem.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import NavPills from "components/NavPills/NavPills.js";
 import Parallax from "components/Parallax/Parallax.js";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 import profile from "assets/img/faces/christian.jpg";
 
@@ -24,11 +26,86 @@ import skypeIcon from '@iconify-icons/mdi/skype';
 import Icono from '../Components/Icono/Icono.component';
 import idiomas from '../../assets/json/idiomas.json'
 import canales from '../../assets/json/canales.json'
-
+import { Calendar } from "primereact/calendar";
+import Horas from '../../assets/json/horas.json'
+import { InputText } from "primereact/inputtext";
 
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
+
+  const prod1 = {
+    "data": [
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      },
+      {
+        "id": "1000",
+        "code": "f230fh0g3",
+        "name": "Bamboo Watch",
+      }]
+  }
+
+  const [products1, setProducts1] = useState(prod1);
+
+  const dataTableFuncMap = {
+    'products1': setProducts1
+  };
+
+  const columns = [
+    { field: 'code', header: 'Code' },
+    { field: 'name', header: 'Name' },
+  ];
+
+  useEffect(() => {
+    setProducts1(Horas.data);
+  }, []);
+
+  const onEditorValueChange = (productKey, props, value) => {
+    let updatedProducts = [...props.value];
+    updatedProducts[props.rowIndex][props.field] = value;
+    dataTableFuncMap[`${productKey}`](updatedProducts);
+  }
+
+  const inputTextEditor = (productKey, props, field) => {
+    return <InputText type="text" value={props.rowData[field]} onChange={(e) => onEditorValueChange(productKey, props, e.target.value)} />;
+  }
+
+  const codeEditor = (productKey, props) => {
+    return inputTextEditor(productKey, props, 'code');
+  }
+
+  const nameEditor = (productKey, props) => {
+    return inputTextEditor(productKey, props, 'name');
+  }
+
   const classes = useStyles();
   const { ...rest } = props;
   const imageClasses = classNames(
@@ -185,9 +262,24 @@ export default function ProfilePage(props) {
                       })
                     }
                   </div></div>
-                <div className="margen"></div>
-              </GridItem>
 
+              </GridItem>
+            </GridContainer>
+
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+                <div className="card">
+                  <h5>Basic Cell Editing</h5>
+                  <DataTable value={products1} editMode="cell" className="editable-cells-table">
+                    <Column field="code" header="Code" editor={(props) => codeEditor('products1', props)}></Column>
+                    <Column field="name" header="Name" editor={(props) => nameEditor('products1', props)}></Column>
+                  </DataTable>
+                </div>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={8}>
+                <Calendar selectionMode="multiple" inline numberOfMonths={2} minDate={new Date()} disabledDays={[1, 2]} readOnlyInput onChange={(e) => setDate(e.value)}></Calendar>
+              </GridItem>
+              <div className="margen"></div>
             </GridContainer>
 
             {/* <div className={classes.description}>

@@ -39,9 +39,7 @@ export default function AreaPersonal(props) {
     classes.imgRaised,
     classes.imgRoundedCircle,
     classes.imgFluid
-  );
-
-  
+  );  
 
   return (
     <div>
