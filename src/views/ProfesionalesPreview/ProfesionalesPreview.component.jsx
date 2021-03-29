@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
@@ -17,13 +17,18 @@ import Button from "components/CustomButtons/Button.js";
 import idiomas from '../../assets/json/idiomas.json'
 import Icono from 'views/Components/Icono/Icono.component';
 import Canales from '../../assets/json/canales.json';
+import { useHistory } from 'react-router';
+import { linkperfilpor } from 'configuracion/constantes';
+import { urlProfesional } from 'configuracion/constantes';
+import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
 
 const useStyles = makeStyles(styles);
 
 
 const ProfesionalesPreview = (props) => {
     const classes = useStyles();
-    
+    const history=useHistory()
+    const [profesionales, setProfesionales]=useState(null)
 
     const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
         setTimeout(function () {
@@ -35,7 +40,25 @@ const ProfesionalesPreview = (props) => {
     const idiomasArray = idiomas.idiomas;
 
     const ArrayProfesionales = Canales.canales;
+    
+    const goToPerfil=(id)=>{
+        history.push(linkperfilpor+"?"+id)
+    }
 
+    useEffect(() => {
+      RefreshUsuario()
+    }, []);
+
+    async function RefreshUsuario(){
+      const url = urlProfesional;      
+      try {
+          const respuesta = await AxiosConexionConfig.get(url);
+          console.log(respuesta.data)
+          setProfesionales(respuesta.data)
+      } catch (e) {
+          console.log(e);
+      }
+  }
     return (
         <>
           <Header
@@ -134,8 +157,8 @@ const ProfesionalesPreview = (props) => {
           <GridContainer justify="center">           
 
 
-          {ArrayProfesionales !== null ?
-        ArrayProfesionales
+          {profesionales !== null ?
+        profesionales
         .filter((profesional, index) => index < 3)
         .map((profesional, index) => (
 
@@ -148,17 +171,16 @@ const ProfesionalesPreview = (props) => {
                   <CardBody>
                   <div className={classes.profile}>
                   <div className="divImg">
-                    <img src={profile} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
+                    <img src={"data:image/png;base64,"+profesional.imagen} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
                     <div id="letras">
-                        <h3 className={classes.title}>{("Jose Raul").toUpperCase()}</h3>                         
-                        <p>{profesional.codigo} años de experiencia</p>
-                        <span className="span">#Deloitte #Consultoria #Derecho #Junior</span> 
+                        <h3 className={classes.title}>{(profesional.nombreperfil).toUpperCase()}</h3>                         
+                        <p>{profesional.annosexperiencia} años de experiencia</p>
+                        <span className="span">{profesional.hashtags}</span> 
                         <div>
-                        {idiomasArray !== null ?
-                        idiomasArray
-                          .filter((idioma, index) => index < 3)
+                        {profesional.idiomas !== null ?
+                        profesional.idiomas.split(",")
                           .map((idioma, index) => (
-                              <Icono codigo={idioma.codigo} tipo="bandera" key={index} nombre={idioma.nombre} id={index} />
+                              <Icono codigo={idioma} tipo="bandera" key={index} nombre={idioma} id={index} />
                           )) : <Fragment />}                     
                       </div> 
                     </div>                
@@ -169,8 +191,8 @@ const ProfesionalesPreview = (props) => {
                   </CardBody>
                   
                   <CardFooter className={classes.cardFooter}>
-                    <Button className="precio" simple color="primary" size="lg">
-                      <spam className="precioText">45€ / 40’ entrevista</spam>
+                    <Button className="precio" simple color="primary" onClick={()=>goToPerfil(profesional.idusuario)} size="lg">
+                      <spam className="precioText">{profesional.tarifa}€ / {profesional.duracion}’ entrevista</spam>
                     </Button>                    
                   </CardFooter>
                 </form>

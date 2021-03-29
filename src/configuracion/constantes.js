@@ -4,6 +4,7 @@ export const urlUsuarios="/usuarios";
 export const linkperfilpor="/perfilpro"
 export const linkpreparador="/formpreparador"
 export const linkloginPage="/login-page"
+export const linkSearchPage="/search-page"
 export const pisos = [
     {
       id:1,

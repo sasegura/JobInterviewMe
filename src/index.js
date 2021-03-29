@@ -23,6 +23,7 @@ import Footer from "components/Footer/Footer";
 import { linkloginPage } from "configuracion/constantes";
 import { linkpreparador } from "configuracion/constantes";
 import { linkperfilpor } from "configuracion/constantes";
+import { linkSearchPage } from "configuracion/constantes";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -33,7 +34,7 @@ ReactDOM.render(
       <Route exact path={linkloginPage} component={LoginPage} />
       <Route exact path="/component" component={Components} />
       <Route exact path={linkpreparador} component={FormPrepador} />
-      <Route exact path="/2" component={ProfesionalesPreview} />
+      <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
     </Switch>
     <Footer></Footer>

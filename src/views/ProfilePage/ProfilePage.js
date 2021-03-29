@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -29,11 +29,15 @@ import canales from '../../assets/json/canales.json'
 import { Calendar } from "primereact/calendar";
 import Horas from '../../assets/json/horas.json'
 import { InputText } from "primereact/inputtext";
+import { urlProfesional } from "configuracion/constantes";
+import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
 
+  
+  const id=props.location.search.split("?")[1]
   const prod1 = {
     "data": [
       {
