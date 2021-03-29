@@ -12,23 +12,22 @@ import { Link } from "react-router-dom";
 
 const Oferta = (props) => {
     const valoresIniciales = {
-        nombrePerfil: "",
-        annosExperiencia: "",
-        experiencia: "",
-        imagenperfil: "",
-        sectores: "",
-        perfiles: "",
-        idiomas: "",
+        tpreparación: "",
+        duracion: 0,
+        canales: "",
+        tarifa: 0
     }
     const [date15, setDate15] = useState(null);
     const handleSubmit = (values) => {
         console.log(values)
-        props.goToStep(1);
+        //props.goToStep(1);
+        props.segundosValores(values)
     }
+
     const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
     const conteiner = (dia, index) => {
-        console.log(dia)
+        //console.log(dia)
         return (
             <GridContainer key={index} className="marginbottom0px">
                 <GridItem xs={12} sm={12} md={4}>
@@ -66,7 +65,7 @@ const Oferta = (props) => {
                                         <div className="p-col-12">
                                             <label htmlFor={"duracion"} className="text textMarca">Duración </label>
                                             <div>
-                                                <Field id="duracion" name="duracion" type="text" className="with100" />
+                                                <Field id="duracion" name="duracion" type="number" className="with100" />
                                             </div>
                                             <div><ErrorMessage name={"duracion"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                         </div>
@@ -80,7 +79,7 @@ const Oferta = (props) => {
                                         <div className="p-col-12">
                                             <label htmlFor={"tarifa"} className="text textMarca">Tarifa</label>
                                             <div>
-                                                <Field type="text" id="tarifa" name="tarifa" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                                <Field type="number" id="tarifa" name="tarifa" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
                                             </div>
                                             <div><ErrorMessage name={"tarifa"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                         </div>
@@ -108,9 +107,7 @@ const Oferta = (props) => {
                                     <GridItem xs={12} sm={12} md={2}>
                                         <div className="p-field p-col p-md-6 p-col-12" >
                                             <div className={"center"} >
-                                                <Link to="/1">
-                                                    <Button label="Submit" icon="pi pi-check" />
-                                                </Link>
+                                                <Button label="Submit" icon="pi pi-check" />
                                             </div>
                                         </div>
                                     </GridItem>
@@ -135,10 +132,7 @@ export default Oferta;
 
 const validationSchema = yup.object().shape({
     tarifa: yup.string().required("Tarifa requerido."),
-    preparación: yup.string().required("Tipo de preparación requerido."),
+    tpreparación: yup.string().required("Tipo de preparación requerido."),
     duracion: yup.string().required("Duración requerido."),
-    canales: yup.string().required("Canales requerido."),
-    sectores: yup.string().required("Sectores requerido."),
-    perfiles: yup.string().required("Perfiles requerido."),
-    idiomas: yup.string().required("Idiomas requerido.")
+    canales: yup.string().required("Canales requerido.")
 });

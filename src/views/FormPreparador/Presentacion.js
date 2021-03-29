@@ -12,7 +12,7 @@ const Presentacion=(props)=>{
     const [imgPefil, setImgPerfil]=useState(null)
     const valoresIniciales={
         nombrePerfil:"",
-        annosExperiencia:"",
+        annosExperiencia:0,
         experiencia:"",
         imagenperfil: "",
         sectores:"",
@@ -25,13 +25,15 @@ const Presentacion=(props)=>{
             setFieldError("imagenperfil","Imagen de perfil requerida.")
             setSubmitting(false);
         }else{
-            console.log(imgPefil)
+            values.imagenperfil=imgPefil
+            props.primerosValores(values)
+            //console.log(imgPefil)
             props.goToStep(2);
         }
     }
     const onChangeImg=(e)=>{
-        console.log(e.target.files[0])   
-        console.log(e.target.files[0])  
+        //console.log(e.target.files[0])   
+        //console.log(e.target.files[0])  
         let file=e.target.files[0]
         if(file){
             const reader=new FileReader()
@@ -73,7 +75,7 @@ const Presentacion=(props)=>{
                                     <div className=" p-col-12">
                                         <label htmlFor={"annosExperiencia"} className="text textMarca">Años de experiencia en RRHH</label>
                                         <div>
-                                            <Field id="annosExperiencia" name="annosExperiencia" type="text" className="with100"/>                                            
+                                            <Field id="annosExperiencia" name="annosExperiencia" type="number" className="with100"/>                                            
                                         </div>
                                         <div><ErrorMessage name={"annosExperiencia"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                     </div>
