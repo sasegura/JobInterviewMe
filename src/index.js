@@ -16,16 +16,19 @@ import FormPrepador from "views/FormPreparador/FormPreparador.js"
 import ProfesionalesPreview from "views/ProfesionalesPreview/ProfesionalesPreview.component";
 import AreaPersonal from "views/AreaPersonal/AreaPersonal.component";
 import Footer from "components/Footer/Footer";
+import { linkloginPage } from "configuracion/constantes";
+import { linkpreparador } from "configuracion/constantes";
+import { linkperfilpor } from "configuracion/constantes";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
       <Route exact path="/" component={LandingPage} />
-      <Route exact path="/1" component={ProfilePage} />
-      <Route exact path="/login-page" component={LoginPage} />
+      <Route exact path={linkperfilpor} component={ProfilePage} />
+      <Route exact path={linkloginPage} component={LoginPage} />
       <Route exact path="/component" component={Components} />
-      <Route exact path="/formpreparador" component={FormPrepador} />
+      <Route exact path={linkpreparador} component={FormPrepador} />
       <Route exact path="/2" component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
     </Switch>

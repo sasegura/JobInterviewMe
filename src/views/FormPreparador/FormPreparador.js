@@ -22,7 +22,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './FormPreparador.styles.scss'
 import CustomInput from "components/CustomInput/CustomInput";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment, Link } from "@material-ui/core";
 import { Email, People } from "@material-ui/icons";
 import Oferta from "./Oferta";
 import Presentacion from "./Presentacion";
@@ -92,7 +92,7 @@ const FormPrepador=(props)=> {
           const respuesta = await AxiosConexionConfig.post(url,JSON.stringify({}));
           console.log(respuesta)
           if(respuesta.status===200){
-            setidUsuario(respuesta.data.idusuario)            
+            setidUsuario(respuesta.data.idusuario)
           }
       } catch (e) {
           console.log(e);
@@ -122,6 +122,9 @@ const FormPrepador=(props)=> {
         try {
             const respuesta = await AxiosConexionConfig.post(url,JSON.stringify(dataValue));          
             console.log(respuesta)
+            if(respuesta.status===200){
+                return(<Link to="/perfilpro"/>)
+            }
         } catch (e) {
             console.log(e);
         }
