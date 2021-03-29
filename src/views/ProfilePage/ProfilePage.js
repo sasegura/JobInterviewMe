@@ -212,9 +212,6 @@ export default function ProfilePage(props) {
                     <div className="precio">
                       <spam className="precioText">45€ / 40’ entrevista</spam>
                     </div>
-
-
-
                   </div>
                 </div>
               </GridItem>
@@ -271,8 +268,9 @@ export default function ProfilePage(props) {
                 <div className="card">
                   <h5>Basic Cell Editing</h5>
                   <DataTable value={products1} editMode="cell" className="editable-cells-table">
-                    <Column field="code" header="Code" editor={(props) => codeEditor('products1', props)}></Column>
-                    <Column field="name" header="Name" editor={(props) => nameEditor('products1', props)}></Column>
+                    <Column field="dia" header="Día" /*editor={(props) => codeEditor('products1', props)}*/></Column>
+                    <Column field="horainicio" header="Hora inicio" /*editor={(props) => nameEditor('products1', props)}*/></Column>
+                    <Column field="horafin" header="Hora fin" /*editor={(props) => nameEditor('products1', props)}*/></Column>
                   </DataTable>
                 </div>
               </GridItem>
