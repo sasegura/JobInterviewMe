@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 
 import "assets/scss/material-kit-react.scss?v=1.9.0";
 //import "./assets/fonts/GillSansNovaCnBold/style.css"
