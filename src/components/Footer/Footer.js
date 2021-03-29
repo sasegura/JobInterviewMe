@@ -33,14 +33,17 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <h5 className={classes.block}>CONTACTO</h5>
+              <h5 className={classes.block}>CONTACTO:</h5>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
               <Link
                 to="/"
                 className={classes.block + " email"}
-                
-              component="a">
+                component="a">
                 jobinterviewme@gmail.com
               </Link>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
               <p className={classes.block + " email"}>+34 619 86 29 79</p>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -49,11 +52,12 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                Buzón de sugerencias 
+                Buzón de sugerencias
               </a>
-            
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
               <a
-                href="http://blog.creative-tim.com/?ref=mkr-footer"
+                href=""
                 className={classes.block}
                 target="_blank"
               >
@@ -63,29 +67,30 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/license?ref=mkr-footer"
+                href=""
                 className={classes.block}
                 target="_blank"
               >
                 Política de privacidad
 
               </a>
-            
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/license?ref=mkr-footer"
+                href=""
                 className={classes.block}
                 target="_blank"
               > Política de cookies </a>
             </ListItem>
           </List>
         </div>
-        
-        
-        
+
+
+
         <div className={classes.right}>
-          
+
         </div>
-      
+
       </div>
     </footer>
   );

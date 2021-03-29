@@ -27,9 +27,7 @@ export default function HeaderLinks(props) {
 
   const classes = useStyles();
 
-  var id = props.id;
 
-  if (id !== "landing") { id = "menu" }
 
   return (
     <List id="header" className={classes.list}>
@@ -38,7 +36,7 @@ export default function HeaderLinks(props) {
       <ListItem className={classes.listItem}>
         <Link to="/login-page">
           <Button
-            id={id}
+
             color="transparent"
             className={classes.navLink}>
             Ser Preparador
@@ -52,7 +50,6 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_self"
           className={classes.navLink}
-          id={id}
         >
           Inscribirse
         </Button>
@@ -65,7 +62,6 @@ export default function HeaderLinks(props) {
             color="transparent"
             target="_self"
             className={classes.navLink}
-            id={id}
           >
             Área personal
         </Button>
@@ -78,7 +74,6 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_self"
           className={classes.navLink}
-          id={id}
         >
           Ayuda
         </Button>

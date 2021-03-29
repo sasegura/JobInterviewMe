@@ -183,7 +183,6 @@ export default function LoginPage(props) {
             </GridItem>
           </GridContainer>
         </div>
-        <Footer />
       </div>
     </div>
   );

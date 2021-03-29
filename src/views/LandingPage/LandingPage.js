@@ -38,7 +38,7 @@ export default function LandingPage(props) {
         color="transparent"
         routes={dashboardRoutes}
         brand="Material Kit React"
-        rightLinks={<HeaderLinks id="landing" />}
+        rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
           height: 400,
@@ -80,7 +80,6 @@ export default function LandingPage(props) {
           }
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

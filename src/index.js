@@ -15,6 +15,7 @@ import LoginPage from "views/LoginPage/LoginPage.js";
 import FormPrepador from "views/FormPreparador/FormPreparador.js"
 import ProfesionalesPreview from "views/ProfesionalesPreview/ProfesionalesPreview.component";
 import AreaPersonal from "views/AreaPersonal/AreaPersonal.component";
+import Footer from "components/Footer/Footer";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -28,6 +29,7 @@ ReactDOM.render(
       <Route exact path="/2" component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
     </Switch>
+    <Footer></Footer>
   </Router>,
   document.getElementById("root")
 );

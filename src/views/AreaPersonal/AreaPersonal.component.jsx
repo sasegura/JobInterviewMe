@@ -110,7 +110,6 @@ export default function AreaPersonal(props) {
           </div>
         </div>
       </div>
-      <Footer />
     </div >
   );
 }
