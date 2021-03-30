@@ -32,11 +32,9 @@ export default function HeaderLinks(props) {
   return (
     <List id="header" className={classes.list}>
 
-
       <ListItem className={classes.listItem}>
         <Link to="/login-page">
           <Button
-
             color="transparent"
             className={classes.navLink}>
             Ser Preparador
@@ -58,7 +56,6 @@ export default function HeaderLinks(props) {
       <ListItem className={classes.listItem}>
         <Link to='/3'>
           <Button
-
             color="transparent"
             target="_self"
             className={classes.navLink}

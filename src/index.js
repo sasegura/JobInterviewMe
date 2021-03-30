@@ -20,6 +20,7 @@ import FormPrepador from "views/FormPreparador/FormPreparador.js"
 import ProfesionalesPreview from "views/ProfesionalesPreview/ProfesionalesPreview.component";
 import AreaPersonal from "views/AreaPersonal/AreaPersonal.component";
 import Footer from "components/Footer/Footer";
+import LogUpPage from "views/LogUpPage/LogUpPage.component";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -32,6 +33,7 @@ ReactDOM.render(
       <Route exact path="/formpreparador" component={FormPrepador} />
       <Route exact path="/2" component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
+      <Route exact path="/logup-page" component={LogUpPage} />
     </Switch>
     <Footer></Footer>
   </Router>,

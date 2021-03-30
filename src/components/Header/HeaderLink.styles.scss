@@ -7,16 +7,18 @@
 .buttonN {
   font-size: 1.9rem !important;
 }
-.makeStyles-white-21 button.makeStyles-transparent-64 span.MuiButton-label{
+.makeStyles-white-21 button.MuiButtonBase-root span.MuiButton-label, .makeStyles-white-34 button.MuiButtonBase-root span.MuiButton-label{
   color: #555 !important;
 }
 
-.makeStyles-transparent-19 button.makeStyles-transparent-64 span.MuiButton-label{
+.makeStyles-transparent-19 button.MuiButtonBase-root span.MuiButton-label, .makeStyles-transparent-32 button.MuiButtonBase-root span.MuiButton-label{
   color: #FFFFFF !important;
 }
 
-.MuiPaper-root button span{
+.MuiPaper-root span{
   color: #555 !important;
 }
+
+
 
 
