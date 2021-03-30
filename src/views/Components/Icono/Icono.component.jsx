@@ -67,7 +67,7 @@ const Icono = (props) => {
           )
         default:
           return (
-            <div class="canales">{props.codigo}</div>
+            <div className="canales">{props.codigo}</div>
           );   
       }
   }

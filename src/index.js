@@ -24,6 +24,7 @@ import { linkloginPage } from "configuracion/constantes";
 import { linkpreparador } from "configuracion/constantes";
 import { linkperfilpor } from "configuracion/constantes";
 import { linkSearchPage } from "configuracion/constantes";
+import LogUpPage from "views/LogUpPage/LogUpPage.component";
 var hist = createBrowserHistory();
 
 ReactDOM.render(

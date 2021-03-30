@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import classNames from "classnames";
 import { ErrorMessage, Formik, Field } from "formik";
 import { FileUpload } from 'primereact/fileupload';
 import * as yup from "yup";
@@ -10,11 +9,12 @@ import { Button } from 'primereact/button';
 import { AutoComplete } from 'primereact/autocomplete';
 import sectorJSON from '../../assets/json/sectores.json';
 import idiomasJSON from '../../assets/json/idiomas.json';
+import { InputText } from "primereact/inputtext";
 
 const Presentacion = (props) => {
 
     const [sectores, setSectores] = useState([]);
-    const [idiomas, setIdiomas]=useState(null)
+    const [idiomas, setIdiomas] = useState(null)
     const [selectedSectores, setSelectedSectores] = useState(null);
     const [filteredSectores, setFilteredSectores] = useState(null);
     const [selectedIdiomas, setSelectedIdiomas] = useState(null);
@@ -67,46 +67,46 @@ const Presentacion = (props) => {
         idiomas: "",
     }
     const handleSubmit = (values, { setFieldError, setSubmitting }) => {
-        let bandera=true
+        let bandera = true
         //console.log(selectedSectores)
         if (imgPefil === null) {
             setFieldError("imagenperfil", "Imagen de perfil requerida.")
-            bandera=false
+            bandera = false
         }
-        if (selectedSectores === null || selectedSectores===[]) {
+        if (selectedSectores === null || selectedSectores === []) {
             setFieldError("sectores", "Sectores requeridos.")
-            bandera=false
+            bandera = false
         }
-        if (selectedIdiomas === null || selectedIdiomas===[]) {
+        if (selectedIdiomas === null || selectedIdiomas === []) {
             setFieldError("idiomas", "Idiomas requeridos.")
-            bandera=false
+            bandera = false
         }
-        if(bandera) {
+        if (bandera) {
             values.imagenperfil = imgPefil
             values.sectores = listaSectores()
-            values.idiomas=listaIdiomas()
+            values.idiomas = listaIdiomas()
             props.primerosValores(values)
             props.goToStep(2);
-        }else{
+        } else {
             setSubmitting(false);
-        }        
+        }
     }
 
-    const listaSectores=()=>{
-        let respuesta=selectedSectores[0].name
+    const listaSectores = () => {
+        let respuesta = selectedSectores[0].name
         selectedSectores.map((sector, index) => {
-            if(index>0){
-                respuesta=respuesta+","+sector.name
-            }            
+            if (index > 0) {
+                respuesta = respuesta + "," + sector.name
+            }
         })
         return respuesta
     }
-    const listaIdiomas=()=>{
-        let respuesta=selectedIdiomas[0].codigo
+    const listaIdiomas = () => {
+        let respuesta = selectedIdiomas[0].codigo
         selectedIdiomas.map((idioma, index) => {
-            if(index>0){
-                respuesta=respuesta+","+idioma.codigo
-            }            
+            if (index > 0) {
+                respuesta = respuesta + "," + idioma.codigo
+            }
         })
         return respuesta
     }
@@ -138,16 +138,17 @@ const Presentacion = (props) => {
         <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
                 <div xs={12} sm={12} md={10} className={"left40px margintop50px"}>
-                    <Formik initialValues={valoresIniciales} onSubmit={handleSubmit}
-                        validationSchema={validationSchema}>
+                    <Formik initialValues={valoresIniciales} onSubmit={handleSubmit} validationSchema={validationSchema}>
                         {({ values, errors, handleSubmit }) => (
                             <form onSubmit={handleSubmit} className="register-form">
                                 <GridContainer >
                                     <GridItem xs={12} sm={12} md={5}>
                                         <div className=" p-col-12">
-                                            <label htmlFor={"nombrePerfil"} className="text textMarca">Nombre de tu perfil</label>
                                             <div>
-                                                <Field id="nombrePerfil" name="nombrePerfil" type="text" className="with100" />
+                                                <span className="p-float-label">
+                                                    <InputText id="in" className="p-invalid" />
+                                                    <label htmlFor="in">Nombre de tu perfil</label>
+                                                </span>
                                             </div>
                                             <div><ErrorMessage name={"nombrePerfil"} className="invalid-feedback">{message => <div><small className="p-error p-d-block">{message}</small></div>}</ErrorMessage></div>
                                         </div>
@@ -229,8 +230,8 @@ const Presentacion = (props) => {
 export default Presentacion;
 
 const validationSchema = yup.object().shape({
-    nombrePerfil: yup.string().required("Nombre de perfil requerido."),
-    annosExperiencia: yup.string().required("Años de experiencia requerido."),
-    experiencia: yup.string().required("Experiencia requerido."),
-    perfiles: yup.string().required("Perfiles requerido.")
+    // nombrePerfil: yup.string().required("Nombre de perfil requerido."),
+    //annosExperiencia: yup.string().required("Años de experiencia requerido."),
+    //experiencia: yup.string().required("Experiencia requerido."),
+    //perfiles: yup.string().required("Perfiles requerido.")
 });

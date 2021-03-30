@@ -26,3 +26,21 @@
   }
   
   }
+
+  tr.p-highlight{
+    background-color: white !important;
+  }
+
+  .p-checkbox .p-checkbox-box.p-highlight{
+    border-color: #63b7af !important;
+background: #63b7af !important;
+  }
+
+  .p-checkbox-box.p-focus {
+    border-color: #63b7af !important;
+    box-shadow: 0 0 0 0.2rem #abf0e9 !important;
+  }
+
+  .p-checkbox-box:hover{
+    border-color: #63b7af !important;
+  }

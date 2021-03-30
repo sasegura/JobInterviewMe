@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -9,16 +9,29 @@ import { ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
 import { Button } from 'primereact/button';
 import { Link } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import Horas from '../../assets/json/horas.json';
 
 const Oferta = (props) => {
     const valoresIniciales = {
         tpreparación: "",
         duracion: 0,
         canales: "",
-        hashtags:"",
+        hashtags: "",
         tarifa: 0
     }
-    const [date15, setDate15] = useState(null);
+
+    const [selectedProducts3, setSelectedProducts3] = useState(null);
+    const [horas, setHoras] = useState(null);
+    const [deshabilitado, setDeshabilitado] = useState(true);
+    const [hora, setHora] = useState(null);
+
+    useEffect(() => {
+        setHoras(Horas.data);
+    }, []);
+
+
     const handleSubmit = (values) => {
         console.log(values)
         //props.goToStep(1);
@@ -107,6 +120,21 @@ const Oferta = (props) => {
                                                 })}
                                                 <div><ErrorMessage name={"sectores"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                             </GridItem>
+
+                                            <div className="card">
+                                                <h5>Checkbox</h5>
+
+                                                <DataTable value={horas} selection={selectedProducts3} onSelectionChange={e => setSelectedProducts3(e.value)} dataKey="id">
+                                                    <Column selectionMode="multiple" disabled headerStyle={{ width: '3em' }}></Column>
+                                                    <Column field="dia" header="Día"></Column>
+                                                    <Column field="horainicio" header="Hora Inicio"></Column>
+                                                    <Column field="horafin" header="Hora Fin" disabled >
+                                                    </Column>
+                                                </DataTable>
+
+                                                <Calendar id="time24" value={hora} onChange={(e) => setHora(e.value)} timeOnly hourFormat="24" />
+
+                                            </div>
 
                                         </GridContainer>
                                     </GridItem>
