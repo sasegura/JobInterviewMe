@@ -22,7 +22,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './FormPreparador.styles.scss'
 import CustomInput from "components/CustomInput/CustomInput";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment, Link } from "@material-ui/core";
 import { Email, People } from "@material-ui/icons";
 import Oferta from "./Oferta";
 import Presentacion from "./Presentacion";
@@ -44,6 +44,7 @@ const FormPrepador=(props)=> {
     const [tpreparación, settpreparación]=useState("")
     const [duracion, setduracion]=useState(0)
     const [canales, setcanales]=useState("")
+    const [hashtags, setHashtags]=useState("")
     const [tarifa, settarifa]=useState(0)
     const [idusuario, setidUsuario]=useState("")
     const valoresIniciales={
@@ -74,6 +75,7 @@ const FormPrepador=(props)=> {
         settpreparación(valores.tpreparación)
         setcanales(valores.canales)
         setduracion(valores.duracion)
+        setHashtags(valores.hashtags)
         UploadUsuario()
         /*if(idusuario!==""){
           uploadData()
@@ -92,7 +94,7 @@ const FormPrepador=(props)=> {
           const respuesta = await AxiosConexionConfig.post(url,JSON.stringify({}));
           console.log(respuesta)
           if(respuesta.status===200){
-            setidUsuario(respuesta.data.idusuario)            
+            setidUsuario(respuesta.data.idusuario)
           }
       } catch (e) {
           console.log(e);
@@ -111,7 +113,8 @@ const FormPrepador=(props)=> {
             idiomas: idiomas,
             tipopreparacion: tpreparación,
             duracion: duracion,
-            hashtags: canales,
+            hashtags: hashtags,
+            canales:canales,
             tarifa: tarifa
         }
         console.log(dataValue)
@@ -122,6 +125,9 @@ const FormPrepador=(props)=> {
         try {
             const respuesta = await AxiosConexionConfig.post(url,JSON.stringify(dataValue));          
             console.log(respuesta)
+            if(respuesta.status===200){
+                return(<Link to="/perfilpro"/>)
+            }
         } catch (e) {
             console.log(e);
         }

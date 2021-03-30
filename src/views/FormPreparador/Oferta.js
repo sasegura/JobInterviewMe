@@ -15,6 +15,7 @@ const Oferta = (props) => {
         tpreparación: "",
         duracion: 0,
         canales: "",
+        hashtags:"",
         tarifa: 0
     }
     const [date15, setDate15] = useState(null);
@@ -82,6 +83,13 @@ const Oferta = (props) => {
                                                 <Field type="number" id="tarifa" name="tarifa" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
                                             </div>
                                             <div><ErrorMessage name={"tarifa"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
+                                        </div>
+                                        <div className="p-col-12">
+                                            <label htmlFor={"hashtags"} className="text textMarca">Hashtags</label>
+                                            <div>
+                                                <Field type="text" id="hashtags" name="hashtags" aria-describedby="username2-help" className="with100 p-invalid p-d-block" />
+                                            </div>
+                                            <div><ErrorMessage name={"hashtags"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                         </div>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={5}>

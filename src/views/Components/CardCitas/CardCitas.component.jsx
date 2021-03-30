@@ -20,7 +20,7 @@ const classes = useStyles();
             title={toolTipsText}
             interactive={true}
             
-            placement={window.innerWidth > 959 ? "center" : "left"} 
+            placement={window.innerWidth > 959 ? "top" : "left"} 
             classes={{ tooltip: classes.tooltip }} 
         >
         <Button 

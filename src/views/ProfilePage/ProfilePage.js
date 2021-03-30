@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -29,11 +29,15 @@ import canales from '../../assets/json/canales.json'
 import { Calendar } from "primereact/calendar";
 import Horas from '../../assets/json/horas.json'
 import { InputText } from "primereact/inputtext";
+import { urlProfesional } from "configuracion/constantes";
+import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
 
+  
+  const id=props.location.search.split("?")[1]
   const prod1 = {
     "data": [
       {
@@ -108,6 +112,8 @@ export default function ProfilePage(props) {
 
   const classes = useStyles();
   const { ...rest } = props;
+    const [usuario, setUsuario]=useState(null)
+
   const imageClasses = classNames(
     classes.imgRaised,
     classes.imgRoundedCircle,
@@ -118,6 +124,20 @@ export default function ProfilePage(props) {
   const idiomasArray = idiomas.idiomas;
   const canalesArray = canales.canales;
 
+    useEffect(() => {
+        RefreshUsuario()
+    }, []);
+
+    async function RefreshUsuario(){
+        const url = urlProfesional+"/"+id;      
+        try {
+            const respuesta = await AxiosConexionConfig.get(url);
+            //console.log(respuesta.data)
+            setUsuario(respuesta.data)
+        } catch (e) {
+            console.log(e);
+        }
+    }
   const sectores = [
     {
       id: 1,
@@ -155,27 +175,30 @@ export default function ProfilePage(props) {
     )
   }
 
-  return (
-    <div>
+  const header=()=>{
+    return (
       <Header
-        color="white"
-        brand=""
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "white"
-        }}
-        {...rest}
-      />
-
+          color="white"
+          brand=""
+          rightLinks={<HeaderLinks />}
+          fixed
+          changeColorOnScroll={{
+            height: 200,
+            color: "white"
+          }}
+          {...rest}
+        />
+    )
+  }
+  const parallax=()=>{
+    return (
       <Parallax id="sombra" small filter color="headerGreen" >
 
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">
 
             <GridItem xs={12} sm={12} md={6}>
-              <h3 className={classes.title + " nameTitle"}>Sergio Antonio Segura Fernández</h3>
+              <h3 className={classes.title + " nameTitle"}>{usuario!==null?usuario.nombreperfil:""}</h3>
             </GridItem>
 
             <GridItem xs={12} sm={12} md={2}>
@@ -184,16 +207,20 @@ export default function ProfilePage(props) {
           </GridContainer>
         </div>
       </Parallax>
+    )
+  }
 
+  const body=()=>{
+    return (
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
 
-            <GridContainer justify="left">
+            <GridContainer>
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={profile} alt="..." className={imageClasses} />
+                    <img src={"data:image/png;base64,"+usuario.imagen} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}></h3>
@@ -201,16 +228,16 @@ export default function ProfilePage(props) {
 
                     <div id="banderasList">
                       {
-                        idiomasArray.map((idioma, index) => {
+                        usuario.idiomas.split(",").map((idioma, index) => {
                           return (
-                            <Icono codigo={idioma.codigo} tipo="bandera" key={index} nombre={idioma.nombre} id={index} />
+                            <Icono codigo={idioma} tipo="bandera" key={index} nombre={idioma} id={index} />
                           )
                         })
                       }
                     </div>
 
                     <div className="precio">
-                      <spam className="precioText">45€ / 40’ entrevista</spam>
+                      <span className="precioText">{usuario.tarifa +  "€ / "+ usuario.duracion+'’ entrevista'}</span>
                     </div>
                   </div>
                 </div>
@@ -219,44 +246,41 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
 
-                <p className="sectores">
-                  13 años de experiencia en el(los) sector(es): <br />
-                  {sectores.map((sector, index) => {
-                    return (
-                      sectoresA(sector.sector, index, "sectores")
-                    )
-                  })}
-                </p>
+                <div >
+                  {usuario.annosexperiencia} años de experiencia en el(los) sector(es): <br />
+                      <div className="sectores">
+                          {usuario.sectores.split(",").map((sector, index) => {
+                              return (
+                                  sectoresA(sector, index, "sectores")
+                              )
+                          })}
+                      </div>
+                </div>
               </div><div className={classes.description}>
                   <p>
-                    Experiencia en empresas como Adecco. Especializada en cargos de Project Manager.Experiencia en empresas como Adecco. Especializada en cargos de Project Manager
-
-                    An artist of considerable range, Chet Faker — the name taken by
-                    Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                    and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+                    {usuario.experiencia}
                   </p>
                 </div>
                 <div className={classes.description}>
 
-                  <p className="hashtags">
-                    {hashtag.map((hashtag, index) => {
+                  <div className="hashtags">
+                    {usuario.hashtags.split(",").map((hashtag, index) => {
                       return (
-                        sectoresA(hashtag.hashtag, index, "hashtags")
+                        sectoresA(hashtag, index, "hashtags")
                       )
                     })}
-                  </p>
+                  </div>
 
                 </div>
                 <div className="contenedor">
                   <div className="canalesSection">
                     <span>Canales: </span>
-                    {
-                      canalesArray.map((canal, index) => {
+                    {usuario.canales!==null?
+                      usuario.canales.split(",").map((canal, index) => {
                         return (
-                          <Icono codigo={canal.codigo} tipo="canal" key={index} nombre={canal.nombre} id={index} />
+                          <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
                         )
-                      })
+                      }):<Fragment></Fragment>
                     }
                   </div></div>
 
@@ -407,6 +431,19 @@ export default function ProfilePage(props) {
           </div>
         </div>
       </div>
+    )
+  }
+  return (
+    <div>
+      
+        {header()}
+        {parallax()}
+        
+        {usuario!==null?body():<Fragment><div className={classNames(classes.main, classes.mainRaised)}>
+        <div>
+          <div className={classes.container}>
+            Seleccione un preparador antes de poder ver su perfil.</div></div></div></Fragment>}
+      
     </div >
   );
 }

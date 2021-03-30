@@ -23,15 +23,23 @@ import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
 import image from '../../assets/img/landing-bg.jpg';
+import { Link } from "@material-ui/core";
+import { Redirect, useHistory } from "react-router";
+import { linkSearchPage } from "configuracion/constantes";
 
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
 export default function LandingPage(props) {
+  const history=useHistory()
   const classes = useStyles();
   const { ...rest } = props;
 
+  const goToBusqueda=()=>{
+    history.push(linkSearchPage)
+    
+  }
   return (
     <div>
       <Header
@@ -61,7 +69,8 @@ export default function LandingPage(props) {
                 href=""
                 target="_self"
                 className="buttonN"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer" 
+                onClick={()=>goToBusqueda()}
               >Buscar mi preparador
               </Button>
             </GridItem>
