@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Horas from '../../assets/json/horas.json';
+import { InputText } from "primereact/inputtext";
 
 const Oferta = (props) => {
     const valoresIniciales = {
@@ -27,10 +28,34 @@ const Oferta = (props) => {
     const [deshabilitado, setDeshabilitado] = useState(true);
     const [hora, setHora] = useState(null);
 
+    const horaInicioEditor = (productKey, props) => {
+        console.log(productKey);
+        return inputTextEditor(productKey, props, 'horainicio');
+
+    }
+
+    const inputTextEditor = (productKey, props, field) => {
+        return <Calendar type="text" value={props.rowData[field]} onChange={(e) => onEditorValueChange(productKey, props, e.target.value)} />;
+    }
+
+    const onEditorValueChange = (productKey, props, value) => {
+        let updatedProducts = [...props.value];
+        updatedProducts[props.rowIndex][props.field] = value;
+        dataTableFuncMap[`${productKey}`](updatedProducts);
+    }
+
+    const dataTableFuncMap = {
+        'horas': setHoras
+    };
+
     useEffect(() => {
         setHoras(Horas.data);
     }, []);
 
+    const setSelectedProducts33 = (value) => {
+        console.log(value);
+        setSelectedProducts3(value)
+    }
 
     const handleSubmit = (values) => {
         console.log(values)
@@ -124,12 +149,11 @@ const Oferta = (props) => {
                                             <div className="card">
                                                 <h5>Checkbox</h5>
 
-                                                <DataTable value={horas} selection={selectedProducts3} onSelectionChange={e => setSelectedProducts3(e.value)} dataKey="id">
-                                                    <Column selectionMode="multiple" disabled headerStyle={{ width: '3em' }}></Column>
+                                                <DataTable value={horas} selection={selectedProducts3} onSelectionChange={e => setSelectedProducts33(e.value)} dataKey="id">
+                                                    <Column selectionMode="multiple" headerStyle={{ width: '3em' }}></Column>
                                                     <Column field="dia" header="Día"></Column>
-                                                    <Column field="horainicio" header="Hora Inicio"></Column>
-                                                    <Column field="horafin" header="Hora Fin" disabled >
-                                                    </Column>
+                                                    <Column editor={(props) => horaInicioEditor('horas', props)} field="horainicio" header="Hora Inicio"></Column>
+                                                    <Column field="horafin" header="Hora Fin" ></Column>
                                                 </DataTable>
 
                                                 <Calendar id="time24" value={hora} onChange={(e) => setHora(e.value)} timeOnly hourFormat="24" />

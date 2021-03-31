@@ -36,8 +36,8 @@ const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
 
-  
-  const id=props.location.search.split("?")[1]
+
+  const id = props.location.search.split("?")[1]
   const prod1 = {
     "data": [
       {
@@ -112,7 +112,7 @@ export default function ProfilePage(props) {
 
   const classes = useStyles();
   const { ...rest } = props;
-    const [usuario, setUsuario]=useState(null)
+  const [usuario, setUsuario] = useState(null)
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -124,20 +124,20 @@ export default function ProfilePage(props) {
   const idiomasArray = idiomas.idiomas;
   const canalesArray = canales.canales;
 
-    useEffect(() => {
-        RefreshUsuario()
-    }, []);
+  useEffect(() => {
+    RefreshUsuario()
+  }, []);
 
-    async function RefreshUsuario(){
-        const url = urlProfesional+"/"+id;      
-        try {
-            const respuesta = await AxiosConexionConfig.get(url);
-            //console.log(respuesta.data)
-            setUsuario(respuesta.data)
-        } catch (e) {
-            console.log(e);
-        }
+  async function RefreshUsuario() {
+    const url = urlProfesional + "/" + id;
+    try {
+      const respuesta = await AxiosConexionConfig.get(url);
+      //console.log(respuesta.data)
+      setUsuario(respuesta.data)
+    } catch (e) {
+      console.log(e);
     }
+  }
   const sectores = [
     {
       id: 1,
@@ -175,22 +175,22 @@ export default function ProfilePage(props) {
     )
   }
 
-  const header=()=>{
+  const header = () => {
     return (
       <Header
-          color="white"
-          brand=""
-          rightLinks={<HeaderLinks />}
-          fixed
-          changeColorOnScroll={{
-            height: 200,
-            color: "white"
-          }}
-          {...rest}
-        />
+        color="white"
+        brand=""
+        rightLinks={<HeaderLinks />}
+        fixed
+        changeColorOnScroll={{
+          height: 200,
+          color: "white"
+        }}
+        {...rest}
+      />
     )
   }
-  const parallax=()=>{
+  const parallax = () => {
     return (
       <Parallax id="sombra" small filter color="headerGreen" >
 
@@ -198,7 +198,7 @@ export default function ProfilePage(props) {
           <GridContainer justify="flex-end">
 
             <GridItem xs={12} sm={12} md={6}>
-              <h3 className={classes.title + " nameTitle"}>{usuario!==null?usuario.nombreperfil:""}</h3>
+              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombreperfil : ""}</h3>
             </GridItem>
 
             <GridItem xs={12} sm={12} md={2}>
@@ -210,7 +210,7 @@ export default function ProfilePage(props) {
     )
   }
 
-  const body=()=>{
+  const body = () => {
     return (
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -220,7 +220,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={"data:image/png;base64,"+usuario.imagen} alt="..." className={imageClasses} />
+                    <img src={"data:image/png;base64," + usuario.imagen} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}></h3>
@@ -237,7 +237,7 @@ export default function ProfilePage(props) {
                     </div>
 
                     <div className="precio">
-                      <span className="precioText">{usuario.tarifa +  "€ / "+ usuario.duracion+'’ entrevista'}</span>
+                      <span className="precioText">{usuario.tarifa + "€ / " + usuario.duracion + '’ entrevista'}</span>
                     </div>
                   </div>
                 </div>
@@ -248,13 +248,13 @@ export default function ProfilePage(props) {
 
                 <div >
                   {usuario.annosexperiencia} años de experiencia en el(los) sector(es): <br />
-                      <div className="sectores">
-                          {usuario.sectores.split(",").map((sector, index) => {
-                              return (
-                                  sectoresA(sector, index, "sectores")
-                              )
-                          })}
-                      </div>
+                  <div className="sectores">
+                    {usuario.sectores.split(",").map((sector, index) => {
+                      return (
+                        sectoresA(sector, index, "sectores")
+                      )
+                    })}
+                  </div>
                 </div>
               </div><div className={classes.description}>
                   <p>
@@ -275,12 +275,12 @@ export default function ProfilePage(props) {
                 <div className="contenedor">
                   <div className="canalesSection">
                     <span>Canales: </span>
-                    {usuario.canales!==null?
+                    {usuario.canales !== null ?
                       usuario.canales.split(",").map((canal, index) => {
                         return (
                           <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
                         )
-                      }):<Fragment></Fragment>
+                      }) : <Fragment></Fragment>
                     }
                   </div></div>
 
@@ -435,15 +435,15 @@ export default function ProfilePage(props) {
   }
   return (
     <div>
-      
-        {header()}
-        {parallax()}
-        
-        {usuario!==null?body():<Fragment><div className={classNames(classes.main, classes.mainRaised)}>
+
+      {header()}
+      {parallax()}
+
+      {usuario !== null ? body() : <Fragment><div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
             Seleccione un preparador antes de poder ver su perfil.</div></div></div></Fragment>}
-      
+
     </div >
   );
 }

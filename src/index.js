@@ -25,6 +25,7 @@ import { linkpreparador } from "configuracion/constantes";
 import { linkperfilpor } from "configuracion/constantes";
 import { linkSearchPage } from "configuracion/constantes";
 import LogUpPage from "views/LogUpPage/LogUpPage.component";
+import Oferta1 from "views/FormPreparador/Oferta1";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -38,6 +39,8 @@ ReactDOM.render(
       <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
       <Route exact path="/logup-page" component={LogUpPage} />
+      <Route exact path="/4" component={Oferta1} />
+
     </Switch>
     <Footer></Footer>
   </Router>,
