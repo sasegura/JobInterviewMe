@@ -31,6 +31,7 @@ import { AutoComplete } from 'primereact/autocomplete';
 
 import sectorJSON from '../../assets/json/sectores.json';
 import idiomasJSON from '../../assets/json/idiomas.json';
+import Loading from 'components/Loading/Loading';
 
 const useStyles = makeStyles(styles);
 
@@ -38,17 +39,21 @@ const useStyles = makeStyles(styles);
 const ProfesionalesPreview = (props) => {
     const classes = useStyles();
     const history=useHistory()
+    const [loading, setLoading]=useState(true)
     const [profesionales, setProfesionales]=useState(null)
     const [contentFirst, setContentFirst] = useState(0);
     const [contentRows, setContentRows] = useState(9);
     const [cantidadProfesionales, setCantidadProfesionales]=useState()
     const [getTarifa, setTarifa] = useState("");
+    const [gethashtag, sethashtag] = useState("");
     const [profesionalesList, setProfesionalesList]=useState([])
     const [reload, setReload] = useState(false);
     const [sectores, setSectores] = useState([]);
     const [idiomas, setIdiomas] = useState(null)
     const [selectedIdiomas, setSelectedIdiomas] = useState(null);
     const [filteredIdiomas, setFilteredIdiomas] = useState(null);
+    const [selectedSector, setSelectedSector] = useState(null);
+    const [filteredSector, setFilteredSector] = useState(null);
 
     const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
         setTimeout(function () {
@@ -80,17 +85,25 @@ const ProfesionalesPreview = (props) => {
       setContentFirst(0)
     }
     async function RefreshUsuario(){
+      setLoading(true)
       const url = urlProfesional+"?filter=";  
       //console.log(selectedIdiomas)
       //let urlplus="?filter=%7B%0A%20%20%22offset%22%3A%20"+contentFirst+"%2C%0A%20%20%22limit%22%3A%20"+contentRows+"%0A%7D"
-      let idiomas=idiomasJSON.idiomas[0].codigo
+      
       const requestOptions = JSON.stringify({
         offset:contentFirst,
         limit:contentRows,
         where: {and:[
           {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}},
-          (selectedIdiomas!==null&&selectedIdiomas!=="")?{idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
-          {idiomas:{like:'%'+idiomas+'%'}}          
+          (selectedIdiomas!==null&&selectedIdiomas!=="")?
+              {idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
+              {idiomas:{like:'%'+""+'%'}},
+          (selectedSector!==null&&selectedSector!=="")?
+              {sectores:{like:'%'+selectedSector.name+'%'}}:
+              {sectores:{like:'%'+""+'%'}},
+          (gethashtag!==null&&gethashtag!=="")?
+              {hashtags:{like:'%'+gethashtag+'%'}}:
+              {hashtags:{like:'%'+""+'%'}}           
         ]
                 
           }
@@ -100,18 +113,28 @@ const ProfesionalesPreview = (props) => {
           const respuesta = await AxiosConexionConfig.get(url+urlencode );
           //console.log(respuesta.data)
           setProfesionales(respuesta.data)
+          setLoading(false)
       } catch (e) {
           console.log(e);
       }
     }
     async function cantidadProf(){
       const url = "/profesionals/count?where=";  
-      let idiomas=idiomasJSON.idiomas[0].codigo
+      /*let asd=sectorJSON.map((sector)=>{
+        return (sector.name)
+      })*/
       const requestOptions = JSON.stringify({ 
          and:[
             {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}} ,
-            (selectedIdiomas!==null&&selectedIdiomas!=="")?{idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
-            {idiomas:{like:'%'+idiomas+'%'}}
+            (selectedIdiomas!==null&&selectedIdiomas!=="")?
+                {idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
+                {idiomas:{like:'%'+""+'%'}},
+            (selectedSector!==null&&selectedSector!=="")?
+                {sectores:{like:'%'+selectedSector.name+'%'}}:
+                {sectores:{like:'%'+""+'%'}},
+            (gethashtag!==null&&gethashtag!=="")?
+                {hashtags:{like:'%'+gethashtag+'%'}}:
+                {hashtags:{like:'%'+""+'%'}}
          ]
       }); 
       let urlencode=encodeURIComponent(requestOptions);
@@ -138,7 +161,20 @@ const ProfesionalesPreview = (props) => {
             setFilteredIdiomas(_filteredIdioma);
         }, 250);
     }
-    
+    const searchSector = (event) => {
+      setTimeout(() => {
+          let _filteredSector;
+          if (!event.query.trim().length) {
+            _filteredSector = [...sectores];
+          }
+          else {
+            _filteredSector = sectores.filter((sector) => {
+                  return sector.name.toLowerCase().startsWith(event.query.toLowerCase());
+              });
+          }
+          setFilteredSector(_filteredSector);
+      }, 250);
+  }
     const ProfesionalCard=(profesional)=>{
       return(
         <Card id="cardProf" className={classes[cardAnimaton]}>
@@ -255,17 +291,22 @@ const ProfesionalesPreview = (props) => {
                 <label id="color">Filtrar por:</label>
                   <div className="filtrar">
                   
-                    <CustomInput
-                        labelText="Sector"
-                        id="sector"
-                        formControlProps={{
-                            fullWidth: false
-                        }}
-                        inputProps={{
-                            type: "text",                        
-                            autoComplete: "on"
-                        }}
-                    />
+                  <div className="MuiFormControl-root makeStyles-formControl-87">
+                      <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">
+                        <AutoComplete 
+                          value={selectedSector} 
+                          suggestions={filteredSector} 
+                          completeMethod={searchSector} 
+                          field="name" 
+                          inputClassName={"inputAutocomplate MuiInputBase-input MuiInput-input makeStyles-input-88" }
+                          forceSelection
+                          onChange={(e) => {if(e.value!==null){setSelectedSector(e.value);setReload(!reload);}}} 
+                          onClear={()=>{setSelectedSector(null),setReload(!reload)}}
+                          //onSelect={(e) => {setSelectedIdiomas(e.value),setReload(!reload)}} 
+                        />
+                        <label htmlFor="autocomplete">Sector</label>
+                      </span>
+                    </div>
                     <div className="MuiFormControl-root makeStyles-formControl-87">
                         <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">
                             <InputText id="precio" 
@@ -303,24 +344,24 @@ const ProfesionalesPreview = (props) => {
                         }}
                     />
 
-                    <CustomInput
-                        labelText="Hashtag"
-                        id="hashtag"
-                        formControlProps={{
-                            fullWidth: false
-                        }}
-                        inputProps={{
-                            type: "text",                        
-                            autoComplete: "on"
-                        }}
-                    />                    
+                    <div className="MuiFormControl-root makeStyles-formControl-87">
+                        <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">
+                            <InputText id="hashtag" 
+                                value={gethashtag} 
+                                className="MuiInputBase-input MuiInput-input makeStyles-input-88" 
+                                onChange={(e) => {sethashtag(e.target.value),setReload(!reload)}} />
+                            <label htmlFor="hashtag">Hashtag</label>
+                        </span>
+                    </div>
+                                       
                   </div>
                 </GridItem>
                 </GridContainer>
             </div>
-            {Profesionales()}
-            {Paginador()}
-            {contentFirst}
+            {loading?<Loading/>:
+            Profesionales()}
+            {loading?<Fragment/>:
+            Paginador()}
         </div>
 
     </> )
