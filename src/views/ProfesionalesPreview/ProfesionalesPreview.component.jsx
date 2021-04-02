@@ -27,6 +27,10 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
+import { AutoComplete } from 'primereact/autocomplete';
+
+import sectorJSON from '../../assets/json/sectores.json';
+import idiomasJSON from '../../assets/json/idiomas.json';
 
 const useStyles = makeStyles(styles);
 
@@ -39,6 +43,12 @@ const ProfesionalesPreview = (props) => {
     const [contentRows, setContentRows] = useState(9);
     const [cantidadProfesionales, setCantidadProfesionales]=useState()
     const [getTarifa, setTarifa] = useState("");
+    const [profesionalesList, setProfesionalesList]=useState([])
+    const [reload, setReload] = useState(false);
+    const [sectores, setSectores] = useState([]);
+    const [idiomas, setIdiomas] = useState(null)
+    const [selectedIdiomas, setSelectedIdiomas] = useState(null);
+    const [filteredIdiomas, setFilteredIdiomas] = useState(null);
 
     const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
         setTimeout(function () {
@@ -47,7 +57,7 @@ const ProfesionalesPreview = (props) => {
 
     const { ...rest } = props;
 
-    const idiomasArray = idiomas.idiomas;
+    //const idiomasArray = idiomas.idiomas;
 
     const ArrayProfesionales = Canales.canales;
     
@@ -56,26 +66,33 @@ const ProfesionalesPreview = (props) => {
     }
 
     useEffect(() => {
-      
+        setSectores(sectorJSON.sectores);
+        setIdiomas(idiomasJSON.idiomas)
     }, []);
+
 
     useEffect(() => {
       RefreshUsuario()
       cantidadProf()
-    }, [contentFirst,getTarifa]);
+    }, [contentFirst,getTarifa, reload]);
 
     const restaurar=()=>{
       setContentFirst(0)
     }
     async function RefreshUsuario(){
       const url = urlProfesional+"?filter=";  
-      //console.log(getTarifa)
+      //console.log(selectedIdiomas)
       //let urlplus="?filter=%7B%0A%20%20%22offset%22%3A%20"+contentFirst+"%2C%0A%20%20%22limit%22%3A%20"+contentRows+"%0A%7D"
+      let idiomas=idiomasJSON.idiomas[0].codigo
       const requestOptions = JSON.stringify({
         offset:contentFirst,
         limit:contentRows,
-        where: {
-                tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}
+        where: {and:[
+          {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}},
+          (selectedIdiomas!==null&&selectedIdiomas!=="")?{idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
+          {idiomas:{like:'%'+idiomas+'%'}}          
+        ]
+                
           }
       }); 
       let urlencode=encodeURIComponent(requestOptions);
@@ -89,10 +106,13 @@ const ProfesionalesPreview = (props) => {
     }
     async function cantidadProf(){
       const url = "/profesionals/count?where=";  
-      const requestOptions = JSON.stringify({
-         
-            tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa} 
-          
+      let idiomas=idiomasJSON.idiomas[0].codigo
+      const requestOptions = JSON.stringify({ 
+         and:[
+            {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}} ,
+            (selectedIdiomas!==null&&selectedIdiomas!=="")?{idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
+            {idiomas:{like:'%'+idiomas+'%'}}
+         ]
       }); 
       let urlencode=encodeURIComponent(requestOptions);
       try {
@@ -104,7 +124,21 @@ const ProfesionalesPreview = (props) => {
           console.log(e);
       }
     }
-    const [profesionalesList, setProfesionalesList]=useState([])
+    const searchIdioma = (event) => {
+        setTimeout(() => {
+            let _filteredIdioma;
+            if (!event.query.trim().length) {
+                _filteredIdioma = [...idiomas];
+            }
+            else {
+                _filteredIdioma = idiomas.filter((idiom) => {
+                    return idiom.nombre.toLowerCase().startsWith(event.query.toLowerCase());
+                });
+            }
+            setFilteredIdiomas(_filteredIdioma);
+        }, 250);
+    }
+    
     const ProfesionalCard=(profesional)=>{
       return(
         <Card id="cardProf" className={classes[cardAnimaton]}>
@@ -162,7 +196,7 @@ const ProfesionalesPreview = (props) => {
     
     
     const onContentPageChange = (event) => {
-      console.log(event)
+      //console.log(event)
         setContentFirst(event.first);
         //setContentRows(event.rows);
     }
@@ -219,7 +253,8 @@ const ProfesionalesPreview = (props) => {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={9}>
                 <label id="color">Filtrar por:</label>
-                  <div className="filtrar">               
+                  <div className="filtrar">
+                  
                     <CustomInput
                         labelText="Sector"
                         id="sector"
@@ -240,20 +275,22 @@ const ProfesionalesPreview = (props) => {
                             <label htmlFor="precio">Precio</label>
                         </span>
                     </div>
-                    
-
-                    <CustomInput
-                        labelText="Idioma"
-                        id="idioma"
-                        formControlProps={{
-                            fullWidth: false
-                        }}
-                        inputProps={{
-                            type: "text",                        
-                            autoComplete: "on"
-                        }}
-                    />
-
+                    <div className="MuiFormControl-root makeStyles-formControl-87">
+                      <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">
+                        <AutoComplete 
+                          value={selectedIdiomas} 
+                          suggestions={filteredIdiomas} 
+                          completeMethod={searchIdioma} 
+                          field="nombre" 
+                          inputClassName={"inputAutocomplate MuiInputBase-input MuiInput-input makeStyles-input-88" }
+                          forceSelection
+                          onChange={(e) => {if(e.value!==null){setSelectedIdiomas(e.value);setReload(!reload);}}} 
+                          onClear={()=>{setSelectedIdiomas(null),setReload(!reload)}}
+                          //onSelect={(e) => {setSelectedIdiomas(e.value),setReload(!reload)}} 
+                        />
+                        <label htmlFor="autocomplete">Idioma</label>
+                      </span>
+                    </div>
                     <CustomInput
                         labelText="Tipo"
                         id="tipo"
