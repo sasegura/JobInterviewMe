@@ -19,7 +19,7 @@ import Icono from 'views/Components/Icono/Icono.component';
 import Canales from '../../assets/json/canales.json';
 import { useHistory } from 'react-router';
 import { linkperfilpor } from 'configuracion/constantes';
-import { urlProfesional } from 'configuracion/constantes';
+import { urlProfesional,urlCount } from 'configuracion/constantes';
 import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
 import { Paginator } from 'primereact/paginator';
 import { InputText } from 'primereact/inputtext';
@@ -84,12 +84,7 @@ const ProfesionalesPreview = (props) => {
     const restaurar=()=>{
       setContentFirst(0)
     }
-    async function RefreshUsuario(){
-      setLoading(true)
-      const url = urlProfesional+"?filter=";  
-      //console.log(selectedIdiomas)
-      //let urlplus="?filter=%7B%0A%20%20%22offset%22%3A%20"+contentFirst+"%2C%0A%20%20%22limit%22%3A%20"+contentRows+"%0A%7D"
-      
+    const filtros=(profesional)=>{
       const requestOptions = JSON.stringify({
         offset:contentFirst,
         limit:contentRows,
@@ -107,46 +102,47 @@ const ProfesionalesPreview = (props) => {
         ]
                 
           }
-      }); 
-      let urlencode=encodeURIComponent(requestOptions);
+      });
+      const requestOptions2 = JSON.stringify({ 
+        and:[
+           {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}} ,
+           (selectedIdiomas!==null&&selectedIdiomas!=="")?
+               {idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
+               {idiomas:{like:'%'+""+'%'}},
+           (selectedSector!==null&&selectedSector!=="")?
+               {sectores:{like:'%'+selectedSector.name+'%'}}:
+               {sectores:{like:'%'+""+'%'}},
+           (gethashtag!==null&&gethashtag!=="")?
+               {hashtags:{like:'%'+gethashtag+'%'}}:
+               {hashtags:{like:'%'+""+'%'}}
+        ]
+     }); 
+      return(profesional?requestOptions:requestOptions2)
+    }
+    async function RefreshUsuario(){
+      setLoading(true)
+      const url = urlProfesional+"?filter=";
+      let urlencode=encodeURIComponent(filtros(true));
       try {
           const respuesta = await AxiosConexionConfig.get(url+urlencode );
-          //console.log(respuesta.data)
           setProfesionales(respuesta.data)
           setLoading(false)
       } catch (e) {
           console.log(e);
       }
     }
+
     async function cantidadProf(){
-      const url = "/profesionals/count?where=";  
-      /*let asd=sectorJSON.map((sector)=>{
-        return (sector.name)
-      })*/
-      const requestOptions = JSON.stringify({ 
-         and:[
-            {tarifa:{lte: (getTarifa===0||getTarifa==="")?1000000:getTarifa}} ,
-            (selectedIdiomas!==null&&selectedIdiomas!=="")?
-                {idiomas:{like:'%'+selectedIdiomas.codigo+'%'}}:
-                {idiomas:{like:'%'+""+'%'}},
-            (selectedSector!==null&&selectedSector!=="")?
-                {sectores:{like:'%'+selectedSector.name+'%'}}:
-                {sectores:{like:'%'+""+'%'}},
-            (gethashtag!==null&&gethashtag!=="")?
-                {hashtags:{like:'%'+gethashtag+'%'}}:
-                {hashtags:{like:'%'+""+'%'}}
-         ]
-      }); 
-      let urlencode=encodeURIComponent(requestOptions);
+      const url = "/profesionals"+urlCount+"?where=";
+      let urlencode=encodeURIComponent(filtros(false));
       try {
           const respuesta = await AxiosConexionConfig.get(url+urlencode);
-          //console.log(respuesta.data)
           setCantidadProfesionales(respuesta.data.count)
-          //setProfesionales(respuesta.data)
       } catch (e) {
           console.log(e);
       }
     }
+
     const searchIdioma = (event) => {
         setTimeout(() => {
             let _filteredIdioma;

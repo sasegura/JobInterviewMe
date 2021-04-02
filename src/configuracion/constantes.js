@@ -1,5 +1,6 @@
 export const baseURL="http://localhost:3010";
 export const urlProfesional="/profesionals";
+export const urlCount="/count";
 export const urlUsuarios="/usuarios";
 export const linkperfilpor="/perfilpro"
 export const linkpreparador="/formpreparador"
