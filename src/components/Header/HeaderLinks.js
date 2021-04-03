@@ -20,6 +20,7 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 import './HeaderLink.styles.scss';
+import { linkpreparador } from "configuracion/constantes";
 
 const useStyles = makeStyles(styles);
 
@@ -33,7 +34,7 @@ export default function HeaderLinks(props) {
     <List id="header" className={classes.list}>
 
       <ListItem className={classes.listItem}>
-        <Link to="/login-page">
+        <Link to={linkpreparador}>
           <Button
             color="transparent"
             className={classes.navLink}>

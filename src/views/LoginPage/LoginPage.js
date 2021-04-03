@@ -35,17 +35,18 @@ export default function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
-
+  const usuario={
+    nombre:props.usuario.nombre,
+    apellido:props.usuario.apellido,
+    email:props.usuario.email,
+    password:props.usuario.password
+  }
+  const goToStep2=()=>{
+    props.setUsuario(props.usuario)
+    props.goToStep(2);
+  }
   return (
     <div>
-      <Header
-        fixed
-        color="white"
-        brand=""
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
-
       <div
         className={classes.pageHeader}
         style={{
@@ -173,10 +174,10 @@ export default function LoginPage(props) {
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Link to="/formpreparador" >
-                      <Button simple color="primary" size="lg">
+                    
+                      <Button simple color="primary" onClick={()=>{goToStep2()}}size="lg">
                         Inscríbete
-                    </Button></Link>
+                    </Button>
                   </CardFooter>
                 </form>
               </Card>
