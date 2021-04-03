@@ -60,6 +60,10 @@ class Calendario extends React.Component {
           <Calendar value={this.state.calendar}
             onChange={(a) => this.setCalendar(a)}
             multiple
+            format="DD/MM/YYYY"
+            minDate={new Date()}
+            months={["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]}
+            weekDays={["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sab"]} 
             plugins={[
                 <DatePanel sort="date" />
             ]} />          
