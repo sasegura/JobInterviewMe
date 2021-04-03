@@ -29,16 +29,17 @@ import Presentacion from "./Presentacion";
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 import { urlProfesional, urlUsuarios } from "configuracion/constantes";
 import LoginPage from "views/LoginPage/LoginPage";
+import Oferta1 from "./Oferta1";
 
 const useStyles = makeStyles(styles);
 
 const FormPrepador = (props) => {
   const classes = useStyles();
   const { ...rest } = props;
-  const [nombre, setNombre]=useState("")
-  const [apellido, setApellido]=useState("")
-  const [email, setEmail]=useState("")
-  const [password, setPassword]=useState("")
+  const [nombre, setNombre] = useState("")
+  const [apellido, setApellido] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [nombrePerfil, setNombrePerfil] = useState("")
   const [annosExperiencia, setannosExperiencia] = useState(0)
   const [experiencia, setexperiencia] = useState("")
@@ -52,12 +53,12 @@ const FormPrepador = (props) => {
   const [hashtags, setHashtags] = useState("")
   const [tarifa, settarifa] = useState(0)
   const [idusuario, setidUsuario] = useState("")
-  const [load, setLoad]=useState(false)
-  const usuario={
-    nombrePerfil:nombrePerfil,
-    apellido:apellido,
-    email:email,
-    password:password
+  const [load, setLoad] = useState(false)
+  const usuario = {
+    nombrePerfil: nombrePerfil,
+    apellido: apellido,
+    email: email,
+    password: password
   }
   const valoresIniciales = {
     nombrePerfil: nombrePerfil,
@@ -68,23 +69,23 @@ const FormPrepador = (props) => {
     perfiles: perfiles,
     idiomas: idiomas,
   }
-  const valoresSecundarios={
-    tarifa:tarifa,
-    tpreparación:tpreparación,
+  const valoresSecundarios = {
+    tarifa: tarifa,
+    tpreparación: tpreparación,
     canales: canales,
-    duracion:duracion,
-    hashtags:hashtags
+    duracion: duracion,
+    hashtags: hashtags
   }
   const handleSubmit = (values) => {
     console.log(values)
   }
-  
-  const setValoresUsuarios=(valores)=>{
+
+  const setValoresUsuarios = (valores) => {
     setNombre(valores.nombre)
     setApellido(valores.apelido)
     setEmail(valores.email)
     setPassword(valores.password)
-    
+
   }
   const primerosValores = (valores) => {
     setNombrePerfil(valores.nombrePerfil)
@@ -94,7 +95,7 @@ const FormPrepador = (props) => {
     setsectores(valores.sectores)
     setperfiles(valores.perfiles)
     setidiomas(valores.idiomas)
-    
+
   }
   const segundosValores = (valores) => {
     console.log(valores)
@@ -188,9 +189,9 @@ const FormPrepador = (props) => {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <StepWizard isLazyMount={true}>
-          <LoginPage usuario={usuario} setUsuario={(valores)=>{setValoresUsuarios(valores)}}/>
+          <LoginPage usuario={usuario} setUsuario={(valores) => { setValoresUsuarios(valores) }} />
           <Presentacion valores={valoresIniciales} primerosValores={(valores) => { primerosValores(valores) }} />
-          <Oferta valores={valoresSecundarios} segundosValores={(valores) => { segundosValores(valores) }} />
+          <Oferta1 valores={valoresSecundarios} segundosValores={(valores) => { segundosValores(valores) }} />
         </StepWizard>
       </div>
       <Footer />
