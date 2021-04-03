@@ -39,7 +39,7 @@ ReactDOM.render(
       <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
       <Route exact path="/3" component={AreaPersonal} />
       <Route exact path="/logup-page" component={LogUpPage} />
-      <Route exact path="/4" component={Oferta1} />
+
 
     </Switch>
     <Footer></Footer>

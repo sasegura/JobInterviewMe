@@ -4,11 +4,9 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import { Calendar } from 'primereact/calendar';
 import 'primeflex/primeflex.css';
-import classNames from "classnames";
-import { ErrorMessage, Formik, Field } from "formik";
+import { ErrorMessage, Formik, Field, FieldArray } from "formik";
 import * as yup from "yup";
 import { Button } from 'primereact/button';
-import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Horas from '../../assets/json/horas.json';
@@ -19,6 +17,8 @@ import canalesJSON from "../../assets/json/canales.json"
 import { MultiSelect } from "primereact/multiselect";
 import WeekDayTime from "views/Components/WeekDaysTime/WeekDaysTime.component";
 import { addLocale } from 'primereact/api';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Oferta = (props) => {
     const valoresIniciales = {
@@ -42,7 +42,6 @@ const Oferta = (props) => {
 
     const [selectedProducts3, setSelectedProducts3] = useState(null);
     const [horas, setHoras] = useState(null);
-    const [deshabilitado, setDeshabilitado] = useState(true);
     const [hora, setHora] = useState(null);
     const [tipoPreparacion, setTipoPreparacion] = useState('');
     const [duracion, setDuracion] = useState('');
@@ -78,6 +77,7 @@ const Oferta = (props) => {
         today: 'Hoy',
         clear: 'Claro'
     });
+
     let minDate = new Date();
 
     const onWeekDaysChange = (e) => {
@@ -101,15 +101,10 @@ const Oferta = (props) => {
                     selected.splice(index, 1);
                 }
             })
-
         }
 
         else
             selected.push(e);
-
-        console.log(selected);
-
-
 
         setCalendar(selected);
     }
@@ -143,13 +138,56 @@ const Oferta = (props) => {
         setSelectedProducts3(value)
     }
 
-    const handleSubmit = (values) => {
+    const handleSubmit1 = (values) => {
         console.log(values)
         //props.goToStep(1);
         props.segundosValores(values)
     }
 
     const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
+    const validationSchema = yup.object().shape({
+        tipoPreparacion: yup.string()
+            .required('Tipo de preparación no puede ser vacío'),
+        duracion: yup.string()
+            .required('La duración no puede ser vacío'),
+        canales: yup.string()
+            .required('Tipo de preparación no puede ser vacío'),
+        tarifa: yup.string()
+            .required('Tarifa no puede ser vacío')
+
+        /*firstName: yup.string()
+            .required('First Name is required'),
+        lastName: yup.string()
+            .required('Last name is required'),
+        dob: yup.string()
+            .required('Date of Birth is required')
+            .matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'Date of Birth must be a valid date in the format YYYY-MM-DD'),
+        email: yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+        password: yup.string()
+            .min(6, 'Password must be at least 6 characters')
+            .required('Password is required'),
+        confirmPassword: yup.string()
+            .oneOf([yup.ref('password'), null], 'Passwords must match')
+            .required('Confirm Password is required'),
+        acceptTerms: yup.bool()
+            .oneOf([true], 'Accept Ts & Cs is required')*/
+    });
+
+    const { register, handleSubmit, reset, errors } = useForm({
+        resolver: yupResolver(validationSchema)
+    });
+
+    function onSubmit(data) {
+        // display form data on success
+        alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4));
+    }
+
+    useEffect(() => {
+        register("canales");
+    }, [register]);
 
     const conteiner = (dia, index) => {
         //console.log(dia)
@@ -171,68 +209,94 @@ const Oferta = (props) => {
     return (
 
         <div>
-
             <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                    <div className="card">
-                        <div className="p-fluid p-grid">
+                <form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+                    <GridItem xs={12} sm={12} md={6}>
+                        <div className="card">
+                            <div className="p-fluid p-grid">
 
+                                <div className="p-field p-col-12 p-md-12">
+                                    <h4>Oferta</h4>
+                                    <span>Definición del servicio</span>
+                                    <span className="p-float-label">
+                                        <InputText name="tipoPreparacion" ref={register} id="inputtext" value={tipoPreparacion} onChange={(e) => setTipoPreparacion(e.target.value)} />
+                                        <label htmlFor="inputtext">Tipo de preparación</label>
+                                        <div className="invalid-feedback">{errors.tipoPreparacion?.message}</div>
+                                    </span>
+                                </div>
 
-                            <div className="p-field p-col-12 p-md-12">
-                                <h4>Oferta</h4>
-                                <span>Definición del servicio</span>
-                                <span className="p-float-label">
-                                    <InputText id="inputtext" value={tipoPreparacion} onChange={(e) => setTipoPreparacion(e.target.value)} />
-                                    <label htmlFor="inputtext">Tipo de preparación</label>
-                                </span>
+                                <div className="p-field p-col-12 p-md-12">
+                                    <span className="p-float-label">
+                                        <Dropdown name="duracion" ref={register} value={duracion} options={duracionSelect} onChange={(e) => setDuracion(e.value)} placeholder="Duración" />
+                                        <label htmlFor="inputnumber">Duración</label>
+                                        <div className="invalid-feedback">{errors.duracion?.message}</div>
+                                    </span>
+                                </div>
+
+                                <div className="p-field p-col-12 p-md-12">
+                                    <span className="p-float-label">
+                                        <MultiSelect name="canales" id="multiselect" value={canales} options={canalesJSON.canales} onChange={(e) => setCanales(e.value)} optionLabel="nombre" />
+                                        <label htmlFor="multiselect">Canales</label>
+                                        <div className="invalid-feedback">{errors.canales?.message}</div>
+
+                                    </span>
+                                </div>
+
+                                <div className="p-field p-col-12 p-md-12">
+                                    <span className="p-float-label">
+                                        <InputText name="tarifa" ref={register} value={tarifa} onValueChange={(e) => setTarifa(e.value)} showButtons suffix={" / " + duracion} mode="currency" currency="EUR" />
+                                        <label htmlFor="multiselect">Tarifa</label>
+                                        <div className="invalid-feedback">{errors.tarifa?.message}</div>
+
+                                    </span>
+                                </div>
                             </div>
+                        </div >
+                    </GridItem>
 
-                            <div className="p-field p-col-12 p-md-12">
-                                <span className="p-float-label">
-                                    <Dropdown value={duracion} options={duracionSelect} onChange={(e) => setDuracion(e.value)} placeholder="Duración" />
-                                    <label htmlFor="inputnumber">Duración</label>
-                                </span>
+                    <GridItem xs={12} sm={12} md={6}>
+                        <WeekDayTime dia="Lunes" array={weekDays} onArrayChange={onWeekDaysChange} value1={lunes1} setValue1={setLunes1} value2={lunes2} setValue2={setLunes2} />
+                        <WeekDayTime dia="Martes" array={weekDays} onArrayChange={onWeekDaysChange} value1={martes1} setValue1={setMartes1} value2={martes2} setValue2={setMartes2} />
+                        <WeekDayTime dia="Miércoles" array={weekDays} onArrayChange={onWeekDaysChange} value1={miercoles1} setValue1={setMiercoles1} value2={miercoles2} setValue2={setMiercoles2} />
+                        <WeekDayTime dia="Jueves" array={weekDays} onArrayChange={onWeekDaysChange} value1={jueves1} setValue1={setJueves1} value2={jueves2} setValue2={setJueves2} />
+                        <WeekDayTime dia="Viernes" array={weekDays} onArrayChange={onWeekDaysChange} value1={viernes1} setValue1={setViernes1} value2={viernes2} setValue2={setViernes2} />
+                        <WeekDayTime dia="Sábado" array={weekDays} onArrayChange={onWeekDaysChange} value1={sabado1} setValue1={setSabado1} value2={sabado2} setValue2={setSabado2} />
+                        <WeekDayTime dia="Domingo" array={weekDays} onArrayChange={onWeekDaysChange} value1={domingo1} setValue1={setDomingo1} value2={domingo2} setValue2={setDomingo2} />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={6}>
+                        <Calendar value={calendar} onChange={(e) => OnSetCalendar(e.value)} inline numberOfMonths={2} disabledDays={[0, 6]} readOnlyInput minDate={minDate} locale="es" />
+                    </GridItem>
+
+
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <div className="p-field p-col p-md-6 p-col-12" >
+                                <div className={"center"} >
+                                    <Button type="submit" label="Submit" icon="pi pi-check" />
+                                </div>
                             </div>
-
-                            <div className="p-field p-col-12 p-md-12">
-                                <span className="p-float-label">
-                                    <MultiSelect id="multiselect" value={canales} options={canalesJSON.canales} onChange={(e) => setCanales(e.value)} optionLabel="nombre" />
-                                    <label htmlFor="multiselect">Canales</label>
-                                </span>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <div className="p-field p-col p-md-6 p-col-12" >
+                                <div className={"center"} >
+                                    <Button label="Anterior" onClick={(e) => { props.goToStep(1) }} icon="pi pi-check" />
+                                </div>
                             </div>
+                        </GridItem>
+                    </GridContainer>
 
-                            <div className="p-field p-col-12 p-md-12">
-                                <span className="p-float-label">
-                                    <InputNumber value={tarifa} onValueChange={(e) => setTarifa(e.value)} showButtons suffix={" / " + duracion} mode="currency" currency="EUR" />
-                                    <label htmlFor="multiselect">Tarifa</label>
-                                </span>
-                            </div>
-                        </div>
-                    </div >
-                </GridItem>
+                </form>
 
-                <GridItem xs={12} sm={12} md={6}>
-                    <WeekDayTime dia="Lunes" array={weekDays} onArrayChange={onWeekDaysChange} value1={lunes1} setValue1={setLunes1} value2={lunes2} setValue2={setLunes2} />
-                    <WeekDayTime dia="Martes" array={weekDays} onArrayChange={onWeekDaysChange} value1={martes1} setValue1={setMartes1} value2={martes2} setValue2={setMartes2} />
-                    <WeekDayTime dia="Miércoles" array={weekDays} onArrayChange={onWeekDaysChange} value1={miercoles1} setValue1={setMiercoles1} value2={miercoles2} setValue2={setMiercoles2} />
-                    <WeekDayTime dia="Jueves" array={weekDays} onArrayChange={onWeekDaysChange} value1={jueves1} setValue1={setJueves1} value2={jueves2} setValue2={setJueves2} />
-                    <WeekDayTime dia="Viernes" array={weekDays} onArrayChange={onWeekDaysChange} value1={viernes1} setValue1={setViernes1} value2={viernes2} setValue2={setViernes2} />
-                    <WeekDayTime dia="Sábado" array={weekDays} onArrayChange={onWeekDaysChange} value1={sabado1} setValue1={setSabado1} value2={sabado2} setValue2={setSabado2} />
-                    <WeekDayTime dia="Domingo" array={weekDays} onArrayChange={onWeekDaysChange} value1={domingo1} setValue1={setDomingo1} value2={domingo2} setValue2={setDomingo2} />
-                </GridItem>
-
-                <GridItem xs={12} sm={12} md={6}>
-                    <Calendar value={calendar} onChange={(e) => OnSetCalendar(e.value)} inline numberOfMonths={2} disabledDays={[0, 6]} readOnlyInput minDate={minDate} locale="es" />
-                </GridItem>
             </GridContainer>
 
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <div xs={12} sm={12} md={10} className={"left40px margintop50px"}>
-                        <Formik initialValues={valoresIniciales} onSubmit={handleSubmit}
+                        <Formik initialValues={valoresIniciales} onSubmit={handleSubmit1}
                             validationSchema={validationSchema}>
-                            {({ handleSubmit }) => (
-                                <form onSubmit={handleSubmit} className="register-form">
+                            {({ handleSubmit1 }) => (
+                                <form onSubmit={handleSubmit1} className="register-form">
                                     <GridContainer className="marginbottom10px">
                                         <GridItem xs={12} sm={12} md={5}>
                                             <h3>Definición del servicio </h3>
@@ -305,22 +369,7 @@ const Oferta = (props) => {
                                             </GridContainer>
                                         </GridItem>
                                     </GridContainer>
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={12} md={2}>
-                                            <div className="p-field p-col p-md-6 p-col-12" >
-                                                <div className={"center"} >
-                                                    <Button label="Submit" icon="pi pi-check" />
-                                                </div>
-                                            </div>
-                                        </GridItem>
-                                        <GridItem xs={12} sm={12} md={2}>
-                                            <div className="p-field p-col p-md-6 p-col-12" >
-                                                <div className={"center"} >
-                                                    <Button label="Anterior" onClick={(e) => { props.goToStep(1) }} icon="pi pi-check" />
-                                                </div>
-                                            </div>
-                                        </GridItem>
-                                    </GridContainer>
+
                                 </form>
                             )}
                         </Formik>
