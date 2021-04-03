@@ -27,7 +27,7 @@ const Oferta1 = () => {
     })
 
     function handleChange(value) {
-    console.log(`selected ${value}`);
+        console.log(`selected ${value}`);
     }
 
     function onChangeDuracion(value) {
