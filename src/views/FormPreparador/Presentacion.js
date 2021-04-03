@@ -12,18 +12,25 @@ import idiomasJSON from '../../assets/json/idiomas.json';
 import { InputText } from "primereact/inputtext";
 
 const Presentacion = (props) => {
-
     const [sectores, setSectores] = useState([]);
     const [idiomas, setIdiomas] = useState(null)
-    const [selectedSectores, setSelectedSectores] = useState(null);
+    const [nombreImagen, setNombreImagen] = useState("")
+    const [nombrePerfil, setNombrePerfil]=useState(props.valores.nombrePerfil)
+    const [imgPefil, setImgPerfil]=useState(props.valores.imgPefil!==""?props.valores.imgPefil:null)
+    const [selectedSectores, setSelectedSectores] = useState(props.valores.sectores!==""?props.valores.sectores:null);
     const [filteredSectores, setFilteredSectores] = useState(null);
-    const [selectedIdiomas, setSelectedIdiomas] = useState(null);
+    const [selectedIdiomas, setSelectedIdiomas] = useState(props.valores.idiomas!==""?props.valores.idiomas:null);
     const [filteredIdiomas, setFilteredIdiomas] = useState(null);
 
     useEffect(() => {
         setSectores(sectorJSON.sectores);
         setIdiomas(idiomasJSON.idiomas)
     }, []);
+
+    useEffect(() => {
+
+        setValoresInicioales(props.valores)
+    }, [props.valores]);
 
     const searchSector = (event) => {
         setTimeout(() => {
@@ -56,19 +63,9 @@ const Presentacion = (props) => {
     }
 
 
-    const [imgPefil, setImgPerfil] = useState(null)
-    const valoresIniciales = {
-        nombrePerfil: "",
-        annosExperiencia: 0,
-        experiencia: "",
-        imagenperfil: "",
-        sectores: "",
-        perfiles: "",
-        idiomas: "",
-    }
+    const [valoresIniciales, setValoresInicioales] = useState(props.valores)
     const handleSubmit = (values, { setFieldError, setSubmitting }) => {
         let bandera = true
-        //console.log(selectedSectores)
         if (imgPefil === null) {
             setFieldError("imagenperfil", "Imagen de perfil requerida.")
             bandera = false
@@ -82,11 +79,12 @@ const Presentacion = (props) => {
             bandera = false
         }
         if (bandera) {
+            values.nombrePerfil=nombrePerfil
             values.imagenperfil = imgPefil
-            values.sectores = listaSectores()
-            values.idiomas = listaIdiomas()
+            values.sectores = selectedSectores
+            values.idiomas = selectedIdiomas
             props.primerosValores(values)
-            props.goToStep(2);
+            props.goToStep(3);
         } else {
             setSubmitting(false);
         }
@@ -110,19 +108,17 @@ const Presentacion = (props) => {
         })
         return respuesta
     }
-    const onChangeImg = (e) => {
-        //console.log(e.target.files[0])   
-        //console.log(e.target.files[0])  
+    const onChangeImg = (e) => { 
         let file = e.target.files[0]
         if (file) {
             const reader = new FileReader()
             reader.readAsDataURL(file)
             reader.onload = function () {
                 var base64 = reader.result
-                //console.log(base64)
                 var s = base64.split(",")
                 //valoresIniciales.imagenperfil=e.target
                 setImgPerfil(s[1])
+                //setNombrePerfil(e.name)
                 //setImagen(s[1])
                 //setImagenX(s[1])
             }
@@ -132,7 +128,15 @@ const Presentacion = (props) => {
         //props.goToStep(2)
         console.log(valoresIniciales)
     }
-
+    const invoiceUploadHandler = (e) => {
+        console.log(e)
+        /*const [file] = files;
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            uploadInvoice(e.target.result);
+        };
+        fileReader.readAsDataURL(file);*/
+    };
     return (
 
         <GridContainer>
@@ -146,7 +150,7 @@ const Presentacion = (props) => {
                                         <div className=" p-col-12">
                                             <div>
                                                 <span className="p-float-label">
-                                                    <InputText id="in" className="p-invalid" />
+                                                    <InputText id="in" value={nombrePerfil} onChange={(e)=>{setNombrePerfil(e.target.value)}} name="nombrePerfil" className="p-invalid" />
                                                     <label htmlFor="in">Nombre de tu perfil</label>
                                                 </span>
                                             </div>
@@ -174,7 +178,7 @@ const Presentacion = (props) => {
                                                 <div className=" p-col-12">
                                                     <label htmlFor={"imagenperfil"} className="text textMarca">Imagen de perfil</label>
                                                     <div>
-                                                        <Field id="imagenperfilt" name="imagenperfilt" onChange={(e) => { onChangeImg(e) }} type="file" className="with100" />
+                                                        <Field id="imagenperfilt"  name="imagenperfilt" onChange={(e) => { onChangeImg(e) }} type="file" className="with100" />
                                                     </div>
                                                     <div><ErrorMessage name={"imagenperfil"} className="invalid-feedback">{message => <div><small className="p-error">{message}</small></div>}</ErrorMessage></div>
                                                 </div>
@@ -211,6 +215,13 @@ const Presentacion = (props) => {
                                     </GridItem>
                                 </GridContainer>
                                 <GridContainer>
+                                    <GridItem xs={12} sm={12} md={2}>
+                                        <div className="p-field p-col p-md-6 p-col-12" >
+                                            <div className={"center"} >
+                                                <Button label="Anterior" type="button" onClick={()=>{props.goToStep(1)}}icon="pi pi-times" />
+                                            </div>
+                                        </div>
+                                    </GridItem>
                                     <GridItem xs={12} sm={12} md={2}>
                                         <div className="p-field p-col p-md-6 p-col-12" >
                                             <div className={"center"} >
