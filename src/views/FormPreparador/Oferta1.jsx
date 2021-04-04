@@ -38,6 +38,7 @@ const Oferta1 = () => {
     return (
         
             <Form  layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+                
             <Row className= "OfertaFrom">
                 <Col span={12} className= "OfertaCol1">
                     <h4>Definición del servicio</h4>
