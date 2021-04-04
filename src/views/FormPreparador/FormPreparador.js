@@ -47,12 +47,13 @@ const FormPrepador = (props) => {
   const [sectores, setsectores] = useState("")
   const [perfiles, setperfiles] = useState("")
   const [idiomas, setidiomas] = useState("")
-  const [tpreparación, settpreparación] = useState("")
+  const [tipoPreparación, settipoPreparación] = useState("")
   const [duracion, setduracion] = useState(0)
-  const [canales, setcanales] = useState("")
+  const [canales, setcanales] = useState([])
   const [hashtags, setHashtags] = useState("")
   const [tarifa, settarifa] = useState(0)
   const [idusuario, setidUsuario] = useState("")
+  const [agenda,setAgenda]=useState(null)
   const [load, setLoad] = useState(false)
   const usuario = {
     nombrePerfil: nombrePerfil,
@@ -68,13 +69,14 @@ const FormPrepador = (props) => {
     sectores: sectores,
     perfiles: perfiles,
     idiomas: idiomas,
+    hashtags: hashtags
   }
   const valoresSecundarios = {
     tarifa: tarifa,
-    tpreparación: tpreparación,
+    tipoPreparación: tipoPreparación,
     canales: canales,
     duracion: duracion,
-    hashtags: hashtags
+    agenda:agenda
   }
   const handleSubmit = (values) => {
     console.log(values)
@@ -85,7 +87,7 @@ const FormPrepador = (props) => {
     setApellido(valores.apelido)
     setEmail(valores.email)
     setPassword(valores.password)
-
+    setAgenda(valores.agenda)
   }
   const primerosValores = (valores) => {
     setNombrePerfil(valores.nombrePerfil)
@@ -100,11 +102,11 @@ const FormPrepador = (props) => {
   const segundosValores = (valores) => {
     console.log(valores)
     settarifa(valores.tarifa)
-    settpreparación(valores.tpreparación)
+    settipoPreparación(valores.tipoPreparación)
     setcanales(valores.canales)
     setduracion(valores.duracion)
-    setHashtags(valores.hashtags)
-    UploadUsuario()
+    //setHashtags(valores.hashtags)
+    //UploadUsuario()
     /*if(idusuario!==""){
       uploadData()
     }*/
@@ -142,7 +144,7 @@ const FormPrepador = (props) => {
       sectores: sectores,
       perfiles: perfiles,
       idiomas: idiomas,
-      tipopreparacion: tpreparación,
+      tipoPreparación: tipoPreparación,
       duracion: duracion,
       hashtags: hashtags,
       canales: canales,
@@ -191,7 +193,7 @@ const FormPrepador = (props) => {
         <StepWizard isLazyMount={true}>
           <LoginPage usuario={usuario} setUsuario={(valores) => { setValoresUsuarios(valores) }} />
           <Presentacion valores={valoresIniciales} primerosValores={(valores) => { primerosValores(valores) }} />
-          <Oferta1 valores={valoresSecundarios} segundosValores={(valores) => { segundosValores(valores) }} />
+          <Oferta1 valores={valoresSecundarios} UploadUsuario={()=>UploadUsuario()} segundosValores={(valores) => { segundosValores(valores) }} />
         </StepWizard>
       </div>
       <Footer />
