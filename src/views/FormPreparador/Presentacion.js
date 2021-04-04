@@ -292,13 +292,13 @@ const Presentacion = (props) => {
             </Row>
 
             <GridContainer>
-                <GridItem xs={12} sm={12} md={2}>
+                {/*<GridItem xs={12} sm={12} md={2}>
                     <div className="p-field p-col p-md-6 p-col-12" >
                         <div className={"center"} >
                             <Button label="Anterior" type="button" onClick={() => { props.goToStep(1) }} icon="pi pi-times" />
                         </div>
                     </div>
-                </GridItem>
+                    </GridItem>*/}
                 <GridItem xs={12} sm={12} md={2}>
                     <div className="p-field p-col p-md-6 p-col-12" >
                         <div className={"center"} >

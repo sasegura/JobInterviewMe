@@ -6,6 +6,7 @@ const initState= {
     nombre:"",
     apellidos:"",
     email:"",
+    loginGoogle:"",
     idleTimeOut:(1000 * 20 * 60),
     cookies: false,
 };
@@ -25,7 +26,7 @@ const authReducer=(state = initState, action)=>{
         case 'setIdle':
             return {...state, idleTimeOut: action.data};
         case 'setUsuarioValues':
-            return {...state, nombre: action.data.nombre, email: action.data.email, apellidos:action.data.apellidos};
+            return {...state, nombre: action.data.nombre, email: action.data.email, apellidos:action.data.apellidos, loginGoogle:action.data.loginGoogle};
         case 'data':
             return {...state,
                 data:action.dataT,

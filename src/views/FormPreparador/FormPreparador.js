@@ -30,6 +30,8 @@ import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 import { urlProfesional, urlUsuarios } from "configuracion/constantes";
 import LoginPage from "views/LoginPage/LoginPage";
 import Oferta1 from "./Oferta1";
+import { useHistory } from "react-router";
+import {linkperfilpor} from "../../configuracion/constantes"
 
 const useStyles = makeStyles(styles);
 
@@ -54,6 +56,7 @@ const FormPrepador = (props) => {
   const [tarifa, settarifa] = useState(0)
   const [idusuario, setidUsuario] = useState("")
   const [agenda,setAgenda]=useState(null)
+  const [existe,setExiste]=useState(false)
   const [load, setLoad] = useState(false)
   const usuario = {
     nombre: nombre,
@@ -62,7 +65,7 @@ const FormPrepador = (props) => {
     password: password
   }
   const valoresIniciales = {
-    nombrePerfil: nombrePerfil,
+    nombrePerfil: nombre,
     annosExperiencia: annosExperiencia,
     experiencia: experiencia,
     imagenperfil: imagenperfil,
@@ -88,8 +91,8 @@ const FormPrepador = (props) => {
     setEmail(valores.email)
     setPassword(valores.password)
     setAgenda(valores.agenda)
-    console.log(valores)
-    BuscarUsuarioPorEmail()
+    //console.log(valores)
+    BuscarUsuarioPorEmail(valores.email)
   }
   const primerosValores = (valores) => {
     setNombrePerfil(valores.nombrePerfil)
@@ -119,10 +122,17 @@ const FormPrepador = (props) => {
   }, [load]);
 */
   useEffect(() => {
-    if (idusuario !== "") {
+    if (idusuario !== "" && !existe) {
       uploadData()
     }
   }, [idusuario]);
+
+  const history=useHistory()
+  useEffect(() => {
+    if (existe) {
+      history.push(linkperfilpor+"?"+idusuario)
+    }
+  }, [existe]);
 
   async function UploadUsuario() {
     const url = urlUsuarios;
@@ -137,15 +147,17 @@ const FormPrepador = (props) => {
     }
   }
 
-  async function BuscarUsuarioPorEmail() {
-    const condisiones=JSON.stringify({ where: {correo:{like:'%'+email+'%'}}})
+  async function BuscarUsuarioPorEmail(usuarioEmail) {
+    const condisiones=JSON.stringify({ where: {correo:{like:'%'+usuarioEmail+'%'}}})
     const url = urlUsuarios+"?filter="+encodeURIComponent(condisiones);
     try {
       const respuesta = await AxiosConexionConfig.get(url);
-      console.log(respuesta.data.length)
-      /*if (respuesta.status === 200) {
-        setidUsuario(respuesta.data.idusuario)
-      }*/
+      console.log(respuesta.data[0].idusuario)
+      if (respuesta.data.length>0) {
+        setidUsuario(respuesta.data[0].idusuario)
+        setExiste(true)
+        
+      }
     } catch (e) {
       console.log(e);
     }

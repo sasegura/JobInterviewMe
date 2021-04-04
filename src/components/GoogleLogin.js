@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 
 import * as authAction from "../store/actions/authAction"
@@ -10,15 +9,16 @@ import { Button } from 'antd';
 
 
 const GoogleLoginComponent = (props) => {
-  console.log(props)
+  //console.log(props)
   const responseGoogle = (response) => {
-    console.log(response.profileObj);
+    //console.log(response.profileObj);
     let usuario = {
       nombre: response.profileObj.givenName,
       apellidos: response.profileObj.familyName,
-      email: response.profileObj.email
+      email: response.profileObj.email,
+      loginGoogle:true
     }
-    props.setUsuario(usuario)
+    props.setUsuarioValues(usuario)
   }
   return (
     <GoogleLogin

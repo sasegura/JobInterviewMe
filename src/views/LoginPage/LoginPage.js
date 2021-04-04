@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -34,27 +34,38 @@ const useStyles = makeStyles(styles);
 
 
 function LoginPage(props) {
-  console.log(props)
+  //console.log(props)
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  const [requerido, setRequerido]=useState(true)
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
   const usuario = {
-    nombre: props.usuario.nombre,
-    apellido: props.usuario.apellido,
-    email: props.usuario.email,
-    password: props.usuario.password
+    nombre: props.global.nombre,
+    apellido: props.global.apellido,
+    email: props.global.email,
+    password: props.global.password
   }
   const goToStep2 = () => {
     props.setUsuario(props.usuario)
-    props.goToStep(3);
+    props.goToStep(2);
   }
+
+  useEffect(() => {
+    if (props.global.loginGoogle === true) {
+      setRequerido(false)
+      props.setUsuario(usuario)
+      props.goToStep(2);
+      
+    }
+  }, [props.global.loginGoogle]);  
 
   const onFinish = values => {
     goToStep2();
   };
+
   return (
     <div>
       <div
@@ -109,7 +120,7 @@ function LoginPage(props) {
                       label="Tipo de preparación"
                       name="nombre"
                       rules={[{
-                        required: true,
+                        required: requerido,
                         message: 'Please input your Tipo de preparación!',
                       },]}
                     >
@@ -120,7 +131,7 @@ function LoginPage(props) {
                       label="Tipo de preparación"
                       name="apellido"
                       rules={[{
-                        required: true,
+                        required: requerido,
                         message: 'Please input your Tipo de preparación!',
                       },]}
                     >
@@ -138,12 +149,12 @@ function LoginPage(props) {
                           message: 'The input is not valid E-mail!',
                         },
                         {
-                          required: true,
+                          required: requerido,
                           message: 'Please input your E-mail!',
                         },
                       ]}
                     >
-                      <Input />
+                      <Input  defaultValue={props.global.email}/>
                     </Form.Item>
 
                     <Form.Item
@@ -151,7 +162,7 @@ function LoginPage(props) {
                       label="Password"
                       rules={[
                         {
-                          required: true,
+                          required: requerido,
                           message: 'Please input your password!',
                         },
                       ]}
@@ -167,7 +178,7 @@ function LoginPage(props) {
                       hasFeedback
                       rules={[
                         {
-                          required: true,
+                          required: requerido,
                           message: 'Please confirm your password!',
                         },
                         ({ getFieldValue }) => ({
