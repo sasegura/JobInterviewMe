@@ -62,7 +62,8 @@ const Oferta1 = (props) => {
   
     return (
         
-            <Form  layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+            <Form  layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off"
+            initialValue={initialValue}>
                 
             <Row className= "OfertaFrom">
                 <Col span={12} className= "OfertaCol1">
