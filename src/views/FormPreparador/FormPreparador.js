@@ -56,7 +56,7 @@ const FormPrepador = (props) => {
   const [agenda,setAgenda]=useState(null)
   const [load, setLoad] = useState(false)
   const usuario = {
-    nombrePerfil: nombrePerfil,
+    nombre: nombre,
     apellido: apellido,
     email: email,
     password: password
@@ -88,6 +88,8 @@ const FormPrepador = (props) => {
     setEmail(valores.email)
     setPassword(valores.password)
     setAgenda(valores.agenda)
+    console.log(valores)
+    BuscarUsuarioPorEmail()
   }
   const primerosValores = (valores) => {
     setNombrePerfil(valores.nombrePerfil)
@@ -100,11 +102,12 @@ const FormPrepador = (props) => {
 
   }
   const segundosValores = (valores) => {
-    console.log(valores)
+    //console.log(valores)
     settarifa(valores.tarifa)
     settipoPreparación(valores.tipoPreparación)
     setcanales(valores.canales)
     setduracion(valores.duracion)
+    setAgenda(valores.agenda)
     //setHashtags(valores.hashtags)
     //UploadUsuario()
     /*if(idusuario!==""){
@@ -129,6 +132,20 @@ const FormPrepador = (props) => {
       if (respuesta.status === 200) {
         setidUsuario(respuesta.data.idusuario)
       }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function BuscarUsuarioPorEmail() {
+    const condisiones=JSON.stringify({ where: {correo:{like:'%'+email+'%'}}})
+    const url = urlUsuarios+"?filter="+encodeURIComponent(condisiones);
+    try {
+      const respuesta = await AxiosConexionConfig.get(url);
+      console.log(respuesta.data.length)
+      /*if (respuesta.status === 200) {
+        setidUsuario(respuesta.data.idusuario)
+      }*/
     } catch (e) {
       console.log(e);
     }

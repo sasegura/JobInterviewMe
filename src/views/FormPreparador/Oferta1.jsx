@@ -10,7 +10,7 @@ import Calendario from './Calendario.component';
 
 
 const Oferta1 = (props) => {
-    console.log(props.valores)
+    //console.log(props.valores)
 
     const [duracion, setDuracion]=useState("");
     const [tipoPreparación, settipoPreparación]=useState(props.valores.tipoPreparación)
@@ -30,17 +30,18 @@ const Oferta1 = (props) => {
         canales:canales,
         agenda:agenda
     }
-    const onAbort=(valores)=>{
-        console.log(valores)
+    const onAbort=()=>{
+        //console.log(agenda)
         let values={}
         values.tipoPreparación=tipoPreparación
         values.duracion=duracion
         values.canales=canales
         values.tarifa=tarifa
         values.agenda=agenda
-        props.segundosValores(values)
         console.log(values)
-        props.goToStep(1)
+        /*props.segundosValores(values)
+        
+        props.goToStep(1)*/
     }
     const format = 'HH:mm';
 
@@ -63,7 +64,7 @@ const Oferta1 = (props) => {
     return (
         
             <Form  layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off"
-            initialValue={initialValue}>
+            initialvalue={initialValue}>
                 
             <Row className= "OfertaFrom">
                 <Col span={12} className= "OfertaCol1">
@@ -153,7 +154,7 @@ const Oferta1 = (props) => {
                     </label>
                 </div>
 
-                    <Form.List name="agenda">
+                    <Form.List name="agenda" >
                     {(fields, { add, remove }) => (
                         <>
                         {fields.map(({ key, name, fieldKey, ...restField }) => (

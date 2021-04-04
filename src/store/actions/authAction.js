@@ -43,9 +43,9 @@ export const setIdleTimerOut=(value)=> async (dispatch )=>{
         data: value,
     });
 };
-export const setUsuario=(value)=> async (dispatch )=>{
+export const setUsuarioValues=(value)=> async (dispatch )=>{
     dispatch({
-        type:'setUsuario',
+        type:'setUsuarioValues',
         data: value,
     });
 };

@@ -24,7 +24,7 @@ const authReducer=(state = initState, action)=>{
             return {...state, cookies: false};
         case 'setIdle':
             return {...state, idleTimeOut: action.data};
-        case 'setUsuario':
+        case 'setUsuarioValues':
             return {...state, nombre: action.data.nombre, email: action.data.email, apellidos:action.data.apellidos};
         case 'data':
             return {...state,
