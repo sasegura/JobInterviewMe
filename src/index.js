@@ -26,23 +26,27 @@ import { linkperfilpor } from "configuracion/constantes";
 import { linkSearchPage } from "configuracion/constantes";
 import LogUpPage from "views/LogUpPage/LogUpPage.component";
 import Oferta1 from "views/FormPreparador/Oferta1";
+import store from "./store/reducers/rootReducer";
+import { Provider } from 'react-redux';
 var hist = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route exact path="/" component={LandingPage} />
-      <Route exact path={linkperfilpor} component={ProfilePage} />
-      <Route exact path={linkloginPage} component={LoginPage} />
-      <Route exact path="/component" component={Components} />
-      <Route exact path={linkpreparador} component={FormPrepador} />
-      <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
-      <Route exact path="/3" component={AreaPersonal} />
-      <Route exact path="/logup-page" component={LogUpPage} />
+  <Provider store={store}>
+    <Router history={hist}>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path={linkperfilpor} component={ProfilePage} />
+        <Route exact path={linkloginPage} component={LoginPage} />
+        <Route exact path="/component" component={Components} />
+        <Route exact path={linkpreparador} component={FormPrepador} />
+        <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
+        <Route exact path="/3" component={AreaPersonal} />
+        <Route exact path="/logup-page" component={LogUpPage} />
 
 
-    </Switch>
-    <Footer></Footer>
-  </Router>,
+      </Switch>
+      <Footer></Footer>
+    </Router> 
+  </Provider>,
   document.getElementById("root")
 );

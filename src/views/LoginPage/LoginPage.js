@@ -18,17 +18,19 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
+import GoogleLogin from "components/GoogleLogin"
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import './LoginPage.style.scss';
 import { Link } from "react-router-dom";
-
+import * as authAction from "../../store/actions/authAction"
+import {connect} from "react-redux";
 //import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function LoginPage(props) {
+function LoginPage(props) {
+  console.log(props)
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
@@ -43,7 +45,7 @@ export default function LoginPage(props) {
   }
   const goToStep2=()=>{
     props.setUsuario(props.usuario)
-    props.goToStep(2);
+    props.goToStep(3);
   }
   return (
     <div>
@@ -87,6 +89,7 @@ export default function LoginPage(props) {
                       >
                         <i className={"fab fa-twitter"} />
                       </Button>
+
                       <Button
                         justIcon
                         href="#pablo"
@@ -105,6 +108,7 @@ export default function LoginPage(props) {
                       >
                         <i className={"fab fa-google-plus-g"} />
                       </Button>
+                      <GoogleLogin/>
                     </div>
                   </CardHeader>
                   <p className={classes.divider}>O inscripción vía email</p>
@@ -112,10 +116,12 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Nombre..."
                       id="first"
+                      
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
+                        value:props.global.nombre,
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
@@ -131,6 +137,7 @@ export default function LoginPage(props) {
                         fullWidth: true
                       }}
                       inputProps={{
+                        value:props.global.apellidos,
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
@@ -146,6 +153,7 @@ export default function LoginPage(props) {
                         fullWidth: true
                       }}
                       inputProps={{
+                        value:props.global.email,
                         type: "email",
                         endAdornment: (
                           <InputAdornment position="end">
@@ -188,3 +196,8 @@ export default function LoginPage(props) {
     </div>
   );
 }
+const mapStateToProps = (rootReducer) => {
+  return {global: rootReducer.auth};
+};
+
+export default connect(mapStateToProps, authAction)(LoginPage);
