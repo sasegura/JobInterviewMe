@@ -24,10 +24,14 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import './LoginPage.style.scss';
 import { Link } from "react-router-dom";
 import * as authAction from "../../store/actions/authAction"
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import { Form, Input, Space, Select, TimePicker, Row, Col, Tag, InputNumber } from 'antd';
+
 //import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
+
+
 
 function LoginPage(props) {
   console.log(props)
@@ -37,16 +41,20 @@ function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
-  const usuario={
-    nombre:props.usuario.nombre,
-    apellido:props.usuario.apellido,
-    email:props.usuario.email,
-    password:props.usuario.password
+  const usuario = {
+    nombre: props.usuario.nombre,
+    apellido: props.usuario.apellido,
+    email: props.usuario.email,
+    password: props.usuario.password
   }
-  const goToStep2=()=>{
+  const goToStep2 = () => {
     props.setUsuario(props.usuario)
     props.goToStep(3);
   }
+
+  const onFinish = values => {
+    goToStep2();
+  };
   return (
     <div>
       <div
@@ -57,137 +65,136 @@ function LoginPage(props) {
           backgroundPosition: "top center"
         }}
       >
-        <div className={classes.container}>
+        <div className={classes.container + " contenedorLogin"}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={5}>
-              <h3>¿Quieres ayudar a triunfar?</h3>
+              <h3 id="question">¿Quieres ayudar a triunfar?</h3>
+              <div id="margen"></div>
 
 
-              <h4>Prepara a tu manera</h4>
+              <h4 >Prepara a tu manera</h4>
+              <div id="margen"></div>
+
 
               <ul><ArrowForwardIcon className="arrow" />Tú defines el precio</ul>
 
               <ul><ArrowForwardIcon className="arrow" />Cuando quieres trabajar</ul>
 
-              <ul><ArrowForwardIcon className="arrow" />Y el formato de tu preparación</ul>
+              <ul><ArrowForwardIcon className="arrow" />El formato de tu preparación</ul>
+
+              <ul><ArrowForwardIcon className="arrow" />Cuéntanos un poco de tu experiencia</ul>
+
+              <ul><ArrowForwardIcon className="arrow" />En 3 minutos tu perfil estará listo</ul>
+
+
 
 
             </GridItem>
 
             <GridItem xs={12} sm={12} md={5}>
               <Card className={classes[cardAnimaton]}>
-                <form className={classes.form}>
-                  <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Crea tu perfil</h4>
-                    <div className={classes.socialLine}>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-twitter"} />
-                      </Button>
 
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-facebook"} />
-                      </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-google-plus-g"} />
-                      </Button>
-                      <GoogleLogin/>
-                    </div>
+                <Form layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish}>
+                  <CardHeader color="primary" className={classes.cardHeader}>
+                    <h4 className="blanco">Crea tu perfil</h4>
+
                   </CardHeader>
-                  <p className={classes.divider}>O inscripción vía email</p>
+
+                  <div className={classes.socialLine}>
+                    <GoogleLogin />
+                  </div>
+
                   <CardBody>
-                    <CustomInput
-                      labelText="Nombre..."
-                      id="first"
-                      
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        value:props.global.nombre,
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Apellidos..."
-                      id="last"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        value:props.global.apellidos,
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Email..."
-                      id="email"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        value:props.global.email,
-                        type: "email",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Password"
-                      id="pass"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "password",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off"
-                      }}
-                    />
+                    <Form.Item
+                      label="Tipo de preparación"
+                      name="nombre"
+                      rules={[{
+                        required: true,
+                        message: 'Please input your Tipo de preparación!',
+                      },]}
+                    >
+                      <Input defaultValue={props.global.nombre} placeholder="Tipo de preparación" />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Tipo de preparación"
+                      name="apellido"
+                      rules={[{
+                        required: true,
+                        message: 'Please input your Tipo de preparación!',
+                      },]}
+                    >
+                      <Input defaultValue={props.global.apellidos} placeholder="Tipo de preparación" />
+                    </Form.Item>
+
+
+                    <Form.Item
+                      defaultValue={props.global.email}
+                      name="email"
+                      label="E-mail"
+                      rules={[
+                        {
+                          type: 'email',
+                          message: 'The input is not valid E-mail!',
+                        },
+                        {
+                          required: true,
+                          message: 'Please input your E-mail!',
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                      name="password"
+                      label="Password"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your password!',
+                        },
+                      ]}
+                      hasFeedback
+                    >
+                      <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item
+                      name="confirm"
+                      label="Confirm Password"
+                      dependencies={['password']}
+                      hasFeedback
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please confirm your password!',
+                        },
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                              return Promise.resolve();
+                            }
+
+                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                          },
+                        }),
+                      ]}
+                    >
+                      <Input.Password />
+                    </Form.Item>
+
+
                   </CardBody>
+
                   <CardFooter className={classes.cardFooter}>
-                    
-                      <Button simple color="primary" onClick={()=>{goToStep2()}}size="lg">
-                        Inscríbete
+
+                    <Button simple type="submit" color="primary" size="lg">
+                      Inscríbete
                     </Button>
                   </CardFooter>
-                </form>
+                </Form>
+
               </Card>
             </GridItem>
           </GridContainer>
@@ -197,7 +204,7 @@ function LoginPage(props) {
   );
 }
 const mapStateToProps = (rootReducer) => {
-  return {global: rootReducer.auth};
+  return { global: rootReducer.auth };
 };
 
 export default connect(mapStateToProps, authAction)(LoginPage);
