@@ -16,7 +16,7 @@ const GoogleLoginComponent = (props) => {
       nombre: response.profileObj.givenName,
       apellidos: response.profileObj.familyName,
       email: response.profileObj.email,
-      loginGoogle:true
+      loginGoogle: true
     }
     props.setUsuarioValues(usuario)
   }
@@ -35,8 +35,8 @@ const GoogleLoginComponent = (props) => {
             className="login-form-button"
             onClick={renderProps.onClick}
           >
-            Inscripción con Google
-        </Button>
+            {props.texto}
+          </Button>
 
         </>
       )}
