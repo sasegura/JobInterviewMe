@@ -21,10 +21,13 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 import './HeaderLink.styles.scss';
 import { linkpreparador } from "configuracion/constantes";
+import { linklogout } from "configuracion/constantes";
+import * as authAction from "../../store/actions/authAction"
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
+ function HeaderLinks(props) {
 
   const classes = useStyles();
 
@@ -129,6 +132,25 @@ export default function HeaderLinks(props) {
           </Button>
         </Tooltip>
       </ListItem>
+      {props.global.loginGoogle?
+      <ListItem className={classes.listItem}>
+        <Link to={linklogout}>
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+          >
+            Cerrar Sesión
+          </Button>
+        </Link>
+      </ListItem>:null}
     </List>
   );
 }
+
+
+const mapStateToProps = (rootReducer) => {
+  return { global: rootReducer.auth };
+};
+
+export default connect(mapStateToProps, authAction)(HeaderLinks);

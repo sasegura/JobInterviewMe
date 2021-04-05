@@ -6,6 +6,7 @@ export const linkperfilpor="/perfilpro"
 export const linkpreparador="/formpreparador"
 export const linkloginPage="/login-page"
 export const linkSearchPage="/search-page"
+export const linklogout="/logout"
 export const pisos = [
     {
       id:1,

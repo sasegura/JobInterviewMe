@@ -28,6 +28,8 @@ import LogUpPage from "views/LogUpPage/LogUpPage.component";
 import Oferta1 from "views/FormPreparador/Oferta1";
 import store from "./store/reducers/rootReducer";
 import { Provider } from 'react-redux';
+import LogOut from "views/LogOut/LogOut";
+import { linklogout } from "configuracion/constantes";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -42,7 +44,7 @@ ReactDOM.render(
         <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
         <Route exact path="/3" component={AreaPersonal} />
         <Route exact path="/logup-page" component={LogUpPage} />
-
+        <Route exact path={linklogout} component={LogOut} />
 
       </Switch>
       <Footer></Footer>

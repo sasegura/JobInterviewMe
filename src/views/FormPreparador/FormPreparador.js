@@ -102,7 +102,7 @@ const FormPrepador = (props) => {
     setsectores(valores.sectores)
     setperfiles(valores.perfiles)
     setidiomas(valores.idiomas)
-
+    console.log(valores)
   }
   const segundosValores = (valores) => {
     //console.log(valores)
@@ -135,9 +135,13 @@ const FormPrepador = (props) => {
   }, [existe]);
 
   async function UploadUsuario() {
+    const dataValue = {
+      correo: email,
+      nombre: nombrePerfil
+    }
     const url = urlUsuarios;
     try {
-      const respuesta = await AxiosConexionConfig.post(url, JSON.stringify({}));
+      const respuesta = await AxiosConexionConfig.post(url, JSON.stringify(dataValue));
       console.log(respuesta)
       if (respuesta.status === 200) {
         setidUsuario(respuesta.data.idusuario)
@@ -169,26 +173,24 @@ const FormPrepador = (props) => {
       nombreperfil: nombrePerfil,
       annosexperiencia: annosExperiencia,
       experiencia: experiencia,
-      imagen: imagenperfil,
-      sectores: sectores,
-      perfiles: perfiles,
-      idiomas: idiomas,
-      tipoPreparación: tipoPreparación,
+      imagen: (imagenperfil!==undefined&&imagenperfil[0]!==undefined?imagenperfil[0].thumbUrl:null),
+      sectores: sectores.toString(),
+      perfiles: perfiles.toString(),
+      idiomas: idiomas.toString(),
+      tipopreparacion: tipoPreparación,
       duracion: duracion,
       hashtags: hashtags,
-      canales: canales,
+      canales: canales.toString(),
       tarifa: tarifa
     }
-    console.log(dataValue)
-
-
+    //console.log(dataValue)
     const url = urlProfesional;
-
     try {
       const respuesta = await AxiosConexionConfig.post(url, JSON.stringify(dataValue));
-      console.log(respuesta)
+      console.log(respuesta.status === 200)
       if (respuesta.status === 200) {
-        return (<Link to="/perfilpro" />)
+        history.push(linkperfilpor+"?"+idusuario)
+        //return (<Link to={linkperfilpor}/>)
       }
     } catch (e) {
       console.log(e);

@@ -21,7 +21,7 @@ const Oferta1 = (props) => {
     const onFinish = values => {
       console.log('Received values of form:', values);
       props.segundosValores(values)
-      //props.UploadUsuario()
+      props.UploadUsuario()
     };
     const initialValue={
         duracion:duracionX,
@@ -40,8 +40,8 @@ const Oferta1 = (props) => {
         values.agenda=agenda
         console.log(values)
         /*props.segundosValores(values)
-        
-        props.goToStep(1)*/
+        */
+        props.goToStep(1)
     }
     const format = 'HH:mm';
 

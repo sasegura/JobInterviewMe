@@ -67,12 +67,10 @@ const Presentacion = (props) => {
             setFilteredIdiomas(_filteredIdioma);
         }, 250);
     }
-
-
-    const [valoresIniciales, setValoresInicioales] = useState(props.valores)
-    const handleSubmit = (values, { setFieldError, setSubmitting }) => {
+    const handleSubmit = (values) => {
+        console.log(values)
         let bandera = true
-        if (imgPefil === null) {
+        /*if (imgPefil === null) {
             setFieldError("imagenperfil", "Imagen de perfil requerida.")
             bandera = false
         }
@@ -83,7 +81,39 @@ const Presentacion = (props) => {
         if (selectedIdiomas === null || selectedIdiomas === []) {
             setFieldError("idiomas", "Idiomas requeridos.")
             bandera = false
+        }*/
+        if (bandera) {
+            /*values.nombrePerfil = nombrePerfil
+            values.imagenperfil = imgPefil
+            values.sectores = selectedSectores
+            values.idiomas = selectedIdiomas*/
+            if(values.nombrePerfil===undefined){
+                values.nombrePerfil=nombrePerfil
+            }
+            values.imagenperfil=imgPefil
+            props.primerosValores(values)
+            props.goToStep(3);
+        } else {
+            setSubmitting(false);
         }
+    }
+
+    const [valoresIniciales, setValoresInicioales] = useState(props.valores)
+    const handleSubmit1 = (values, { setFieldError, setSubmitting }) => {
+        console.log(values)
+        let bandera = true
+        /*if (imgPefil === null) {
+            setFieldError("imagenperfil", "Imagen de perfil requerida.")
+            bandera = false
+        }
+        if (selectedSectores === null || selectedSectores === []) {
+            setFieldError("sectores", "Sectores requeridos.")
+            bandera = false
+        }
+        if (selectedIdiomas === null || selectedIdiomas === []) {
+            setFieldError("idiomas", "Idiomas requeridos.")
+            bandera = false
+        }*/
         if (bandera) {
             values.nombrePerfil = nombrePerfil
             values.imagenperfil = imgPefil
@@ -251,8 +281,8 @@ const Presentacion = (props) => {
                                 onChange={onChange}
                                 onPreview={onPreview}
                                 listType="picture-card"
-                                name="imagenperfilt"
-                                id="imagenperfilt"
+                                name="imagenperfil"
+                                id="imagenperfil"
 
                             >
                                 {fileList.length < 1 && '+ Adiciona tu imagen de perfil'}
@@ -263,6 +293,10 @@ const Presentacion = (props) => {
                     <Form.Item
                         label="Sectores"
                         name="sectores"
+                        rules={[{
+                            required: true,
+                            message: 'Por favor introduzca los sectores',
+                        },]}
                     >
                         <Select mode="tags" value={selectedSectores} style={{ width: '100%' }} placeholder="Sectores" onChange={(e) => setSelectedSectores(e.value)}>
                             {sectoresOptions}
@@ -272,6 +306,10 @@ const Presentacion = (props) => {
                     <Form.Item
                         label="Perfiles"
                         name="perfiles"
+                        rules={[{
+                            required: true,
+                            message: 'Por favor introduzca el perfil',
+                        },]}
                     >
                         <Select id="perfiles" mode="tags" style={{ width: '100%' }} placeholder="Perfiles" >
                             {perfilesOptions}
@@ -281,6 +319,10 @@ const Presentacion = (props) => {
                     <Form.Item
                         label="Idiomas"
                         name="idiomas"
+                        rules={[{
+                            required: true,
+                            message: 'Por favor introduzca los idiomas',
+                        },]}
                     >
                         <Select mode="tags" value={selectedIdiomas} style={{ width: '100%' }} placeholder="Idiomas" onChange={(e) => setSelectedIdiomas(e.value)}>
                             {idiomasOptions}
