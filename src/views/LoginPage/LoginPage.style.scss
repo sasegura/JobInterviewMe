@@ -36,3 +36,14 @@ ul{
 .blanco{
     color: white !important;
 }
+
+.flotar{
+    
+position:absolute; 
+z-index:3;
+top: 5px;}
+
+.abajo{
+    z-index: 10;
+    position: relative;
+}

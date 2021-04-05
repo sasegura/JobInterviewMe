@@ -31,7 +31,7 @@ import { urlProfesional, urlUsuarios } from "configuracion/constantes";
 import LoginPage from "views/LoginPage/LoginPage";
 import Oferta1 from "./Oferta1";
 import { useHistory } from "react-router";
-import {linkperfilpor} from "../../configuracion/constantes"
+import { linkperfilpor } from "../../configuracion/constantes"
 
 const useStyles = makeStyles(styles);
 
@@ -55,8 +55,8 @@ const FormPrepador = (props) => {
   const [hashtags, setHashtags] = useState("")
   const [tarifa, settarifa] = useState(0)
   const [idusuario, setidUsuario] = useState("")
-  const [agenda,setAgenda]=useState(null)
-  const [existe,setExiste]=useState(false)
+  const [agenda, setAgenda] = useState(null)
+  const [existe, setExiste] = useState(false)
   const [load, setLoad] = useState(false)
   const usuario = {
     nombre: nombre,
@@ -79,7 +79,7 @@ const FormPrepador = (props) => {
     tipoPreparación: tipoPreparación,
     canales: canales,
     duracion: duracion,
-    agenda:agenda
+    agenda: agenda
   }
   const handleSubmit = (values) => {
     console.log(values)
@@ -127,10 +127,10 @@ const FormPrepador = (props) => {
     }
   }, [idusuario]);
 
-  const history=useHistory()
+  const history = useHistory()
   useEffect(() => {
     if (existe) {
-      history.push(linkperfilpor+"?"+idusuario)
+      history.push(linkperfilpor + "?" + idusuario)
     }
   }, [existe]);
 
@@ -152,15 +152,15 @@ const FormPrepador = (props) => {
   }
 
   async function BuscarUsuarioPorEmail(usuarioEmail) {
-    const condisiones=JSON.stringify({ where: {correo:{like:'%'+usuarioEmail+'%'}}})
-    const url = urlUsuarios+"?filter="+encodeURIComponent(condisiones);
+    const condisiones = JSON.stringify({ where: { correo: { like: '%' + usuarioEmail + '%' } } })
+    const url = urlUsuarios + "?filter=" + encodeURIComponent(condisiones);
     try {
       const respuesta = await AxiosConexionConfig.get(url);
       console.log(respuesta.data[0].idusuario)
-      if (respuesta.data.length>0) {
+      if (respuesta.data.length > 0) {
         setidUsuario(respuesta.data[0].idusuario)
         setExiste(true)
-        
+
       }
     } catch (e) {
       console.log(e);
@@ -224,10 +224,9 @@ const FormPrepador = (props) => {
         <StepWizard isLazyMount={true}>
           <LoginPage usuario={usuario} setUsuario={(valores) => { setValoresUsuarios(valores) }} />
           <Presentacion valores={valoresIniciales} primerosValores={(valores) => { primerosValores(valores) }} />
-          <Oferta1 valores={valoresSecundarios} UploadUsuario={()=>UploadUsuario()} segundosValores={(valores) => { segundosValores(valores) }} />
+          <Oferta1 valores={valoresSecundarios} UploadUsuario={() => UploadUsuario()} segundosValores={(valores) => { segundosValores(valores) }} />
         </StepWizard>
       </div>
-      <Footer />
     </div>
   );
 }

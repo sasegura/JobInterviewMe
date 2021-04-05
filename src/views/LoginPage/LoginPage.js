@@ -20,12 +20,16 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import GoogleLogin from "components/GoogleLogin"
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import './LoginPage.style.scss';
 import { Link } from "react-router-dom";
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import { Form, Input, Space, Select, TimePicker, Row, Col, Tag, InputNumber } from 'antd';
+import Texto from './Texto.component';
+import LogInCard from './LoginCard.component';
+
+
+
 
 //import image from "assets/img/bg7.jpg";
 
@@ -36,10 +40,19 @@ const useStyles = makeStyles(styles);
 function LoginPage(props) {
   //console.log(props)
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  const [requerido, setRequerido]=useState(true)
+
+  const [requerido, setRequerido] = useState(true)
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
+
+  const [cardLoginApper, setCardLoginApper] = React.useState(false);
+
+  setTimeout(function () {
+    setCardLoginApper(true);
+  }, 4000);
+
   const classes = useStyles();
   const { ...rest } = props;
   const usuario = {
@@ -58,9 +71,9 @@ function LoginPage(props) {
       setRequerido(false)
       props.setUsuario(usuario)
       props.goToStep(2);
-      
+
     }
-  }, [props.global.loginGoogle]);  
+  }, [props.global.loginGoogle]);
 
   const onFinish = values => {
     goToStep2();
@@ -79,27 +92,8 @@ function LoginPage(props) {
         <div className={classes.container + " contenedorLogin"}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={5}>
-              <h3 id="question">¿Quieres ayudar a triunfar?</h3>
-              <div id="margen"></div>
-
-
-              <h4 >Prepara a tu manera</h4>
-              <div id="margen"></div>
-
-
-              <ul><ArrowForwardIcon className="arrow" />Tú defines el precio</ul>
-
-              <ul><ArrowForwardIcon className="arrow" />Cuando quieres trabajar</ul>
-
-              <ul><ArrowForwardIcon className="arrow" />El formato de tu preparación</ul>
-
-              <ul><ArrowForwardIcon className="arrow" />Cuéntanos un poco de tu experiencia</ul>
-
-              <ul><ArrowForwardIcon className="arrow" />En 3 minutos tu perfil estará listo</ul>
-
-
-
-
+              <LogInCard hidden={cardLoginApper} />
+              <Texto hidden={cardLoginApper} />
             </GridItem>
 
             <GridItem xs={12} sm={12} md={5}>
@@ -112,12 +106,12 @@ function LoginPage(props) {
                   </CardHeader>
 
                   <div className={classes.socialLine}>
-                    <GoogleLogin />
+                    <GoogleLogin texto="Inscripción con Google" />
                   </div>
 
                   <CardBody>
                     <Form.Item
-                      label="Tipo de preparación"
+                      label="Nombre(s)"
                       name="nombre"
                       rules={[{
                         required: requerido,
@@ -128,7 +122,7 @@ function LoginPage(props) {
                     </Form.Item>
 
                     <Form.Item
-                      label="Tipo de preparación"
+                      label="Apellido(s)"
                       name="apellido"
                       rules={[{
                         required: requerido,
@@ -154,7 +148,7 @@ function LoginPage(props) {
                         },
                       ]}
                     >
-                      <Input  defaultValue={props.global.email}/>
+                      <Input defaultValue={props.global.email} />
                     </Form.Item>
 
                     <Form.Item
@@ -208,6 +202,10 @@ function LoginPage(props) {
 
               </Card>
             </GridItem>
+          </GridContainer>
+
+          <GridContainer>
+            <LogInCard />
           </GridContainer>
         </div>
       </div>
