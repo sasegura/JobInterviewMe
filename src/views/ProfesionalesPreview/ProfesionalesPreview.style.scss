@@ -2,6 +2,7 @@
     background-color: #fcccc3 !important;
     padding: 20px 15px !important;
     border-radius: 20px !important;
+    display: flex;
 
     .MuiInputLabel-formControl{
         z-index: 999;
@@ -35,6 +36,8 @@
     }
     input{
         padding: 7px !important;
+        position: flex;
+        width: 100%;
     }
 }
 

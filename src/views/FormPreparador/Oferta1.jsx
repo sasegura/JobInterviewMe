@@ -175,9 +175,14 @@ const Oferta1 = (props) => {
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
                             >
-                                <Option value="jack">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
-                                <Option value="tom">Tom</Option>
+                                <Option value="lunes">Lunes</Option>
+                                <Option value="martes">Martes</Option>
+                                <Option value="miércoles">Miércoles</Option>
+                                <Option value="jueves">Jueves</Option>
+                                <Option value="viernes">Viernes</Option>
+                                <Option value="sabado">Sábado</Option>
+                                <Option value="domingo">Domingo</Option>
+                                
                             </Select>
                             </Form.Item>
                             <Form.Item

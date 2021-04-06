@@ -180,21 +180,21 @@ const ProfesionalesPreview = (props) => {
                   
                   <CardBody>
                   <div className={classes.profile}>
-                  <div className="divImg">
-                    <img src={profesional.imagen} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
-                    <div id="letras">
-                        <h3 className={classes.title}>{(profesional.nombreperfil).toUpperCase()}</h3>                         
-                        <p>{profesional.annosexperiencia} años de experiencia</p>
-                        <span className="span">{profesional.hashtags}</span> 
-                        <div>
-                        {profesional.idiomas !== null ?
-                        profesional.idiomas.split(",")
-                          .map((idioma, index) => (
-                              <Icono codigo={idioma} tipo="bandera" key={index} nombre={idioma} id={index} />
-                          )) : <Fragment />}                     
-                      </div> 
+                    <div className="divImg">
+                      <img src= {"data:image/png;base64,"+profesional.imagen} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
+                      <div id="letras">
+                          <h3 className={classes.title}>{(profesional.nombreperfil).toUpperCase()}</h3>                         
+                          <p>{profesional.annosexperiencia} años de experiencia</p>
+                          <span className="span">{profesional.hashtags}</span> 
+                          <div>
+                          {profesional.idiomas !== null ?
+                          profesional.idiomas.split(",")
+                            .map((idioma, index) => (
+                                <Icono codigo={idioma} tipo="bandera" key={index} nombre={idioma} id={index} />
+                            )) : <Fragment />}                     
+                        </div> 
+                      </div>
                     </div>
-                  </div>
                   </div>
                   </CardBody>
                   
@@ -203,6 +203,7 @@ const ProfesionalesPreview = (props) => {
                       <span className="precioText">{profesional.tarifa}€ / {profesional.duracion}’ entrevista</span>
                     </Button>                    
                   </CardFooter>
+
                 </form>
               </Card>
       )
@@ -328,17 +329,16 @@ const ProfesionalesPreview = (props) => {
                         <label htmlFor="autocomplete">Idioma</label>
                       </span>
                     </div>
-                    <CustomInput
-                        labelText="Tipo"
-                        id="tipo"
-                        formControlProps={{
-                            fullWidth: false
-                        }}
-                        inputProps={{
-                            type: "text",                        
-                            autoComplete: "on"
-                        }}
-                    />
+                    
+
+                    <div className="MuiFormControl-root makeStyles-formControl-87">
+                        <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">
+                            <InputText id="hashtag" 
+                                className="MuiInputBase-input MuiInput-input makeStyles-input-88" 
+                                 />
+                            <label htmlFor="hashtag">Tipo</label>
+                        </span>
+                    </div>
 
                     <div className="MuiFormControl-root makeStyles-formControl-87">
                         <span className="p-float-label MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-80 MuiInputBase-formControl MuiInput-formControl">

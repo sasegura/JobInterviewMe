@@ -80,8 +80,8 @@ export default function AreaPersonal(props) {
                 <div className={classes.container + " contenedorGris"}>
                    <h4>Próximas citas</h4>
                    <CardCitas tipo="warning" nombre="Isa" toolTipsText="Cita próxima sin confirmar"></CardCitas>
-                   <CardCitas tipo="pendiente" nombre="Isa" toolTipsText="Cita confirmada"></CardCitas>
-                   <CardCitas tipo="aceptado" nombre="Isa" toolTipsText="Confirmar Cita"></CardCitas>
+                   <CardCitas tipo="pendiente" nombre="Isa" toolTipsText="Confirmar Cita"></CardCitas>
+                   <CardCitas tipo="aceptado" nombre="Isa" toolTipsText="Cita confirmada"></CardCitas>
                 </div>               
               </GridItem>
 
