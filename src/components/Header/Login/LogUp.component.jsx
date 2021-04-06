@@ -10,6 +10,7 @@ import GoogleLogin from "components/GoogleLogin"
 import { makeStyles } from "@material-ui/core";
 import styles from "../../../assets/jss/material-kit-react/views/loginPage.js";
 import Button from "components/CustomButtons/Button.js";
+import LogUpCard from 'views/LoginPage/LogUpCard.component';
 
 const useStyles = makeStyles(styles);
 
@@ -25,16 +26,14 @@ const LogUpPopUp = (props) => {
     return (
       <>       
         <Modal 
-          style={{ top: 150 }}
+          
           visible={props.visibleUp}
           onCancel={()=>props.handleCancel()}
           footer={null}
           closable={false}
          >
-          <Card>
 
-Hello world
-</Card>
+          <LogUpCard animation="" />
         </Modal>
       </>
     );

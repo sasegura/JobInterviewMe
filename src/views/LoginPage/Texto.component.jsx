@@ -26,7 +26,7 @@ function Texto(props) {
     setCardAnimation3(""):setCardAnimation3("cardHidden");*/
 
 return (
-    <div className={classes[cardAnimation3] + " flotar"}>
+    < >
         
         <h3 id="question">¿Quieres ayudar a triunfar?</h3>
               <div id="margen"></div>
@@ -43,6 +43,8 @@ return (
               <ul><ArrowForwardIcon className="arrow" />Cuéntanos un poco de tu experiencia</ul>
 
               <ul><ArrowForwardIcon className="arrow" />En 3 minutos tu perfil estará listo</ul>
-              </div>
+
+              <div id="margen"></div>
+              </>
 )}
 export default Texto;

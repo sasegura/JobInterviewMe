@@ -83,31 +83,7 @@ function HeaderLinks(props) {
         </Link>
       </ListItem>
 
-      <ListItem className={classes.listItem}>
-
-          <Button
-            color="transparent"
-            target="_self"
-            className={classes.navLink}
-            onClick={()=>onChangeVisible()}
-          >
-            Conectarse
-            
-          </Button>
-          <LoginPopUp visible={visible} handleCancel={()=>setVisible(false)} />
-
-      </ListItem>
-
-      <ListItem className={classes.listItem}>
-          <Button
-            color="transparent"
-            className={classes.navLink}
-            onClick={()=>onChangeVisibleUp()}>
-            Inscribirse
-          </Button>
-          <LogUpPopUp visibleUp={visibleUp} handleCancel={()=>setVisibleUp(false)} />
-
-      </ListItem>
+      
 
 
 
@@ -177,7 +153,34 @@ function HeaderLinks(props) {
               Cerrar Sesión
           </Button>
           </Link>
-        </ListItem> : null}
+        </ListItem> : (
+          <>
+          <ListItem className={classes.listItem}>
+
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+            onClick={()=>onChangeVisible()}
+          >
+            Conectarse
+            
+          </Button>
+          <LoginPopUp visible={visible} handleCancel={()=>setVisible(false)} />
+
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+          <Button
+            color="transparent"
+            className={classes.navLink}
+            onClick={()=>onChangeVisibleUp()}>
+            Inscribirse
+          </Button>
+          <LogUpPopUp visibleUp={visibleUp} handleCancel={()=>setVisibleUp(false)} />
+
+      </ListItem></>
+        )}
     </List>
   );
 }

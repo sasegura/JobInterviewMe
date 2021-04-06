@@ -21,7 +21,6 @@ const LoginPopUp = (props) => {
     console.log(values);
   };
 
-
     return (
       <>       
         <Modal 
@@ -32,62 +31,58 @@ const LoginPopUp = (props) => {
           closable={false}
          >
           <Card>
+            <Form layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish}>
+              
+              <CardHeader color="primary" className={classes.cardHeader}>
+                <h4 className="blanco">Iniciar Sesión</h4>
+              </CardHeader>              
 
-<Form layout="vertical" name="dynamic_form_nest_item" onFinish={onFinish}>
-    <CardHeader color="primary" className={classes.cardHeader}>
-        <h4 className="blanco">Iniciar Sesión</h4>
-    </CardHeader>
+              <CardBody> 
+                <div className={classes.socialLine}>
+                  <GoogleLogin texto="Inicia sesión con Google"/>
+                </div>                 
+                <Form.Item
+                  name="email"
+                  label="E-mail"
+                  rules={[
+                    {
+                      type: 'email',
+                      message: 'The input is not valid E-mail!',
+                    },
+                    {
+                      required: true,
+                      message: 'Please input your E-mail!',
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
 
-    <div className={classes.socialLine}>
-        <GoogleLogin texto="Inicia sesión con Google"/>
-    </div>
+                <Form.Item
+                  name="password"
+                  label="Password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                    
+                >
+                  <Input.Password />
+                </Form.Item> 
+              </CardBody>
 
-    <CardBody>
-        
-        <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-                {
-                    type: 'email',
-                    message: 'The input is not valid E-mail!',
-                },
-                {
-                    required: true,
-                    message: 'Please input your E-mail!',
-                },
-            ]}
-        >
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            name="password"
-            label="Password"
-            rules={[
-                {
-                    required: true,
-                    message: 'Please input your password!',
-                },
-            ]}
-            
-        >
-            <Input.Password />
-        </Form.Item>    
-
-
-    </CardBody>
-
-    <CardFooter className={classes.cardFooter}>
-        <Button simple color="primary" size="lg" onClick={()=>props.handleCancel()}>
-            Cancelar
-        </Button>
-        <Button simple type="submit" color="primary" size="lg">
-            Iniciar Sesión
-        </Button>            
-    </CardFooter>
-</Form>
-</Card>
+              <CardFooter className={classes.cardFooter}>
+                <Button simple color="primary" size="lg" onClick={()=>props.handleCancel()}>
+                  Cancelar
+                </Button>
+                <Button simple type="submit" color="primary" size="lg">
+                  Iniciar Sesión
+                </Button>            
+              </CardFooter>
+            </Form>
+          </Card>
         </Modal>
       </>
     );
