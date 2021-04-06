@@ -21,47 +21,47 @@ const Icono = (props) => {
 
   const Banderas = () => {    
       switch (props.codigo) {        
-        case "ES":
+        case "Español":
           return (          
             <Flags.ES id={props.id} className="bandera" />            
           );
-        case "GB":
+        case "Inglés":
           return (            
             <Flags.GB id={props.id} className="bandera" />
           );      
-        case "FR":
+        case "Francés":
           return (   
             <Flags.FR id={props.id} className="bandera" />
           )
-        case "DE":
+        case "Alemán":
           return (
             <Flags.DE id={props.id} className="bandera" />
           );
-        case "SA":
+        case "Árabe":
           return (
             <Flags.SA id={props.id} className="bandera" />
           );      
-        case "CN":
+        case "Chino":
           return (
             <Flags.CN id={props.id} className="bandera" />
           )
-        case "NL":
+        case "Holandés":
           return (
             <Flags.NL id={props.id} className="bandera" />
           );
-        case "IN":
+        case "Hindú (Indio)":
           return (
             <Flags.IN id={props.id} className="bandera" />
           );      
-        case "IT":
+        case "Italiano":
           return (
             <Flags.IT id={props.id} className="bandera" />
           )
-          case "PT":
+          case "Portugués":
           return (
             <Flags.PT id={props.id} className="bandera" />
           );
-        case "RU":
+        case "Ruso":
           return (
             <Flags.RU id={props.id} className="bandera" />
           )
@@ -75,39 +75,39 @@ const Icono = (props) => {
 
   const Canales = () => {    
     switch (props.codigo) {        
-      case "SK":
+      case "Skype":
         return (   
           <div className="canales">       
             <img src={SK} id={props.id}  />
           </div>);
-      case "ZO":
+      case "Zoom":
         return (            
           <div className="canales">       
             <img src={ZO} id={props.id}  />
           </div>);      
-      case "TE":
+      case "Teams":
         return (   
           <div className="canales">       
             <img src={TE} id={props.id}  />
           </div>)
-      case "GM":
+      case "Google Meets":
         return (
           <div className="canales">       
             <img src={GM} id={props.id}  />
           </div>);
-      case "HG":
+      case "Google Hangouts":
         return (
           <div className="canales">       
             <img src={HG} id={props.id}  />
           </div>);      
-      case "JI":
+      case "Jitsi":
         return (
           <div className="canales">       
             <img src={JI} id={props.id}  />
           </div>)      
       default:
         return (
-          <div className="canales">{props.codigo} </div>
+          <div className="canales">{props.nombre} </div>
         );   
     }
 }

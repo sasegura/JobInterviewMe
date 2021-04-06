@@ -11,8 +11,9 @@ const WeekDayTime = (props) => {
         <div className="card">
             <div className="p-fluid p-grid">
                 <div className="p-field p-col-12 p-md-4">
-                <Checkbox inputId="cb1" value={dia} onChange={onArrayChange} checked={array.includes(dia)}></Checkbox>
-                    <span className="p-field p-col-12 p-md-3">{dia}</span></div>
+                    <Checkbox inputId="cb1" value={dia} onChange={onArrayChange} checked={array.includes(dia)}></Checkbox>
+                    <span className="p-field p-col-12 p-md-3">{dia}</span>
+                </div>
                 <div className="p-field p-col-12 p-md-4">
                     <Calendar timeOnly showTime hourFormat="24" value={value1} onChange={(e) => setValue1(e.value)}></Calendar>
                 </div>

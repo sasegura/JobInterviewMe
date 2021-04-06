@@ -1,7 +1,14 @@
 .headerGreen {
   background-color: #63b7af;
-  height: 250px !important;
-  
+  height: 250px !important;  
+}
+
+.imagenProfile{
+  margin-bottom: 15px !important;
+}
+
+.wrap{
+  word-wrap: break-word;
 }
 
 #sombra::before {
@@ -24,7 +31,7 @@
 }
 
 #banderasList{
-  margin-top: -80px !important;
+  margin-top: -40px !important;
 }
 
 .precio{

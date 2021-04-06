@@ -8,7 +8,6 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Icono from '../../components/Icono/Icono.component';
 
-
 //PrimeReact
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -215,14 +214,15 @@ export default function ProfilePage(props) {
           <div className={classes.container}>
 
             <GridContainer>
+
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
+
                   <div>
-                    <img src={usuario.imagen} alt="..." className={imageClasses} />
+                    <img src={usuario.imagen} alt={usuario.nombreperfil} className={imageClasses + " imagenProfile"} />
                   </div>
+
                   <div className={classes.name}>
-                    <h3 className={classes.title}></h3>
-                    <h6></h6>
 
                     <div id="banderasList">
                       {
@@ -237,30 +237,30 @@ export default function ProfilePage(props) {
                     <div className="precio">
                       <span className="precioText">{usuario.tarifa + "€ / " + usuario.duracion + '’ entrevista'}</span>
                     </div>
+
                   </div>
                 </div>
               </GridItem>
 
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
-
-                <div >
-                  {usuario.annosexperiencia} años de experiencia en el(los) sector(es): <br />
+                <div>
+                  <p> {usuario.annosexperiencia} años de experiencia en el(los) sector(es):
                   <div className="sectores">
-                    {usuario.sectores.split(",").map((sector, index) => {
-                      return (
-                        sectoresA(sector, index, "sectores")
-                      )
-                    })}
-                  </div>
+                      {usuario.sectores.split(",").map((sector, index) => {
+                        return (
+                          sectoresA(sector, index, "sectores")
+                        )
+                      })}
+                    </div></p>
                 </div>
-              </div><div className={classes.description}>
-                  <p>
-                    {usuario.experiencia}
-                  </p>
-                </div>
-                <div className={classes.description}>
+              </div>
 
+                <div className={classes.description + " wrap"}>
+                  <p>{usuario.experiencia}</p>
+                </div>
+
+                <div className={classes.description}>
                   <div className="hashtags">
                     {usuario.hashtags.split(",").map((hashtag, index) => {
                       return (
@@ -268,8 +268,8 @@ export default function ProfilePage(props) {
                       )
                     })}
                   </div>
-
                 </div>
+
                 <div className="contenedor">
                   <div className="canalesSection">
                     <span>Canales: </span>
