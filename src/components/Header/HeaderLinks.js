@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 // react components for routing our app without refresh
@@ -24,13 +24,26 @@ import { linkpreparador } from "configuracion/constantes";
 import { linklogout } from "configuracion/constantes";
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
+import LoginPopUp from "./Login/Login.component";
+import LogUpPopUp from "./Login/LogUp.component";
+
 
 const useStyles = makeStyles(styles);
 
- function HeaderLinks(props) {
+function HeaderLinks(props) {
 
   const classes = useStyles();
+  const [visible, setVisible]=useState(false);
+  const [visibleUp, setVisibleUp]=useState(false);
 
+
+
+  const onChangeVisible = () => {
+   setVisible(true);
+  }
+  const onChangeVisibleUp = () => {
+    setVisibleUp(true);
+   }
 
 
   return (
@@ -44,17 +57,7 @@ const useStyles = makeStyles(styles);
             Ser Preparador
           </Button>
         </Link>
-      </ListItem>
-
-      <ListItem className={classes.listItem}>
-        <Link to={linkpreparador}>
-            <Button
-              color="transparent"
-              className={classes.navLink}>
-            Inscribirse
-          </Button>
-        </Link>
-      </ListItem>
+      </ListItem>     
 
       <ListItem className={classes.listItem}>
         <Link to='/3'>
@@ -81,6 +84,34 @@ const useStyles = makeStyles(styles);
       </ListItem>
 
       <ListItem className={classes.listItem}>
+
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+            onClick={()=>onChangeVisible()}
+          >
+            Conectarse
+            
+          </Button>
+          <LoginPopUp visible={visible} handleCancel={()=>setVisible(false)} />
+
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+          <Button
+            color="transparent"
+            className={classes.navLink}
+            onClick={()=>onChangeVisibleUp()}>
+            Inscribirse
+          </Button>
+          <LogUpPopUp visibleUp={visibleUp} handleCancel={()=>setVisibleUp(false)} />
+
+      </ListItem>
+
+
+
+     {/* <ListItem className={classes.listItem}>
 
         <Tooltip
           id="instagram-twitter"
@@ -131,19 +162,22 @@ const useStyles = makeStyles(styles);
             <i className={classes.socialIcons + " fab fa-instagram"} />
           </Button>
         </Tooltip>
-      </ListItem>
-      {props.global.loginGoogle?
-      <ListItem className={classes.listItem}>
-        <Link to={linklogout}>
-          <Button
-            color="transparent"
-            target="_self"
-            className={classes.navLink}
-          >
-            Cerrar Sesión
+        </ListItem>
+        */
+  }
+      
+      {props.global.loginGoogle ?
+        <ListItem className={classes.listItem}>
+          <Link to={linklogout}>
+            <Button
+              color="transparent"
+              target="_self"
+              className={classes.navLink}
+            >
+              Cerrar Sesión
           </Button>
-        </Link>
-      </ListItem>:null}
+          </Link>
+        </ListItem> : null}
     </List>
   );
 }

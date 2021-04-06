@@ -26,9 +26,6 @@ import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import { Form, Input, Space, Select, TimePicker, Row, Col, Tag, InputNumber } from 'antd';
 import Texto from './Texto.component';
-import LogInCard from './LoginCard.component';
-
-
 
 
 //import image from "assets/img/bg7.jpg";
@@ -47,11 +44,8 @@ function LoginPage(props) {
     setCardAnimation("");
   }, 700);
 
-  const [cardLoginApper, setCardLoginApper] = React.useState(false);
 
-  setTimeout(function () {
-    setCardLoginApper(true);
-  }, 4000);
+
 
   const classes = useStyles();
   const { ...rest } = props;
@@ -92,8 +86,7 @@ function LoginPage(props) {
         <div className={classes.container + " contenedorLogin"}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={5}>
-              <LogInCard hidden={cardLoginApper} />
-              <Texto hidden={cardLoginApper} />
+              <Texto hidden={false} />
             </GridItem>
 
             <GridItem xs={12} sm={12} md={5}>
@@ -204,9 +197,7 @@ function LoginPage(props) {
             </GridItem>
           </GridContainer>
 
-          <GridContainer>
-            <LogInCard />
-          </GridContainer>
+
         </div>
       </div>
     </div>
