@@ -1,10 +1,9 @@
 import React from 'react';
 
 import {Tooltip, makeStyles, Icon} from '@material-ui/core';
-import styles from "../../../assets/jss/material-kit-react/tooltipsStyle.js";
+import styles from "../../assets/jss/material-kit-react/tooltipsStyle.js";
 import './CardCitas.style.scss';
 import Button from "components/CustomButtons/Button.js";
-import { Check, Close } from '@material-ui/icons';
 
 const useStyles = makeStyles(styles);
 

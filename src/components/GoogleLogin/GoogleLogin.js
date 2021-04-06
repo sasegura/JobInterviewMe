@@ -1,7 +1,7 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
 
-import * as authAction from "../store/actions/authAction"
+import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import { Button } from 'antd';
 

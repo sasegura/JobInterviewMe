@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import { ErrorMessage, Formik, Field } from "formik";
-import { FileUpload } from 'primereact/fileupload';
-import * as yup from "yup";
 import { Button } from 'primereact/button';
-import { AutoComplete } from 'primereact/autocomplete';
 import sectorJSON from '../../assets/json/sectores.json';
 import perfilJSON from '../../assets/json/perfiles.json';
 
 import idiomasJSON from '../../assets/json/idiomas.json';
-import { InputText } from "primereact/inputtext";
 import { Form, Input, Upload, Space, Select, TimePicker, Row, Col, Tag, InputNumber } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import TextArea from "antd/lib/input/TextArea";
@@ -87,10 +82,10 @@ const Presentacion = (props) => {
             values.imagenperfil = imgPefil
             values.sectores = selectedSectores
             values.idiomas = selectedIdiomas*/
-            if(values.nombrePerfil===undefined){
-                values.nombrePerfil=nombrePerfil
+            if (values.nombrePerfil === undefined) {
+                values.nombrePerfil = nombrePerfil
             }
-            values.imagenperfil=imgPefil
+            values.imagenperfil = imgPefil
             props.primerosValores(values)
             props.goToStep(3);
         } else {

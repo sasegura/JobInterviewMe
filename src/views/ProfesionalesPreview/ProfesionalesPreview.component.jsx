@@ -1,37 +1,43 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
+
+//styles
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
-import Header from 'components/Header/Header';
-import HeaderLinks from 'components/Header/HeaderLinks';
-import GridContainer from 'components/Grid/GridContainer';
-import GridItem from 'components/Grid/GridItem';
-import profile from "../../assets/img/faces/christian.jpg";
 import './ProfesionalesPreview.style.scss';
-import CustomInput from 'components/CustomInput/CustomInput';
-import Card from 'components/Card/Card';
-import CardHeader from 'components/Card/CardHeader';
-import CardBody from 'components/Card/CardBody';
-import CardFooter from 'components/Card/CardFooter';
-import Button from "components/CustomButtons/Button.js";
-import idiomas from '../../assets/json/idiomas.json'
-import Icono from 'views/Components/Icono/Icono.component';
-import Canales from '../../assets/json/canales.json';
-import { useHistory } from 'react-router';
-import { linkperfilpor } from 'configuracion/constantes';
-import { urlProfesional,urlCount } from 'configuracion/constantes';
-import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
-import { Paginator } from 'primereact/paginator';
-import { InputText } from 'primereact/inputtext';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import { AutoComplete } from 'primereact/autocomplete';
 
+//componentes
+import Header from '../../components/Header/Header';
+import HeaderLinks from '../../components/Header/HeaderLinks';
+import GridContainer from '../../components/Grid/GridContainer';
+import GridItem from '../../components/Grid/GridItem';
+import Card from '../../components/Card/Card';
+import CardHeader from '../../components/Card/CardHeader';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
+import Button from "../../components/CustomButtons/Button.js";
+import Icono from '../../components/Icono/Icono.component';
+import Loading from '../../components/Loading/Loading';
+
+//JSON
+import Canales from '../../assets/json/canales.json';
 import sectorJSON from '../../assets/json/sectores.json';
 import idiomasJSON from '../../assets/json/idiomas.json';
-import Loading from 'components/Loading/Loading';
+
+//Constantes
+import { linkperfilpor } from 'configuracion/constantes';
+import { urlProfesional,urlCount } from 'configuracion/constantes';
+
+//PrimeReact
+import { Paginator } from 'primereact/paginator';
+import { InputText } from 'primereact/inputtext';
+import { AutoComplete } from 'primereact/autocomplete';
+
 
 const useStyles = makeStyles(styles);
 

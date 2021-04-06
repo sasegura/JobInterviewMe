@@ -2,8 +2,8 @@
 import React from "react";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles } from "@material-ui/core";
-import styles from "../../../src/assets/jss/material-kit-react/views/loginPage.js";
-import Card from "components/Card/Card.js";
+import styles from "../../assets/jss/material-kit-react/views/loginPage.js";
+import './LogUpCard.styles.scss';
 
 const useStyles = makeStyles(styles);
 

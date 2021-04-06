@@ -18,9 +18,9 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import GoogleLogin from "components/GoogleLogin"
+import GoogleLogin from "components/GoogleLogin/GoogleLogin"
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-import './LoginPage.style.scss';
+import './LogUpCard.styles.scss';
 import { Link } from "react-router-dom";
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";

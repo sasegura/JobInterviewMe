@@ -1,34 +1,32 @@
 import React, { Fragment, useEffect, useState } from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
+
+//componentes
 import Header from "components/Header/Header.js";
-import Footer from "components/Footer/Footer.js";
-import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
-import NavPills from "components/NavPills/NavPills.js";
 import Parallax from "components/Parallax/Parallax.js";
+import Icono from '../../components/Icono/Icono.component';
+
+
+//PrimeReact
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Calendar } from "primereact/calendar";
+import { InputText } from "primereact/inputtext";
 
-import profile from "assets/img/faces/christian.jpg";
-
+//style
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './ProfilePage.styles.scss'
-import Flags from 'country-flag-icons/react/3x2';
-import { Icon } from '@iconify/react';
-import skypeIcon from '@iconify-icons/mdi/skype';
-import Icono from '../Components/Icono/Icono.component';
+import classNames from "classnames";
+import { makeStyles } from "@material-ui/core/styles";
+
+//JSON
 import idiomas from '../../assets/json/idiomas.json'
 import canales from '../../assets/json/canales.json'
-import { Calendar } from "primereact/calendar";
 import Horas from '../../assets/json/horas.json'
-import { InputText } from "primereact/inputtext";
+
+//Configuracion
 import { urlProfesional } from "configuracion/constantes";
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 
@@ -220,7 +218,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={ usuario.imagen} alt="..." className={imageClasses} />
+                    <img src={usuario.imagen} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}></h3>

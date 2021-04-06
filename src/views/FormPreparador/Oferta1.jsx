@@ -5,7 +5,7 @@ import { CalendarOutlined, CalendarTwoTone, MinusCircleOutlined, PlusOutlined } 
 import moment, { duration } from 'moment';
 import canalesJSON from "../../assets/json/canales.json"
 import './Oferta.style.scss';
-import Calendario from './Calendario.component';
+import Calendario from '../../components/Calendario/Calendario.component';
 
 
 

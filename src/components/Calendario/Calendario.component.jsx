@@ -3,7 +3,6 @@ import {  Drawer, Button, Radio, Space } from 'antd';
 import { CalendarTwoTone } from "@ant-design/icons";
 import { Calendar } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-import { now } from "moment";
 
 
 

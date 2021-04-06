@@ -17,7 +17,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { Dropdown } from "primereact/dropdown";
 import canalesJSON from "../../assets/json/canales.json"
 import { MultiSelect } from "primereact/multiselect";
-import WeekDayTime from "views/Components/WeekDaysTime/WeekDaysTime.component";
+import WeekDayTime from "components/WeekDaysTime/WeekDaysTime.component";
 import { addLocale } from 'primereact/api';
 
 const Oferta = (props) => {

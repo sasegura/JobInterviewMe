@@ -4,15 +4,11 @@ import classNames from "classnames";
 import StepWizard from 'react-step-wizard';
 import { ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { InputTextarea } from 'primereact/inputtextarea';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
-import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -21,10 +17,6 @@ import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import './FormPreparador.styles.scss'
-import CustomInput from "components/CustomInput/CustomInput";
-import { InputAdornment, Link } from "@material-ui/core";
-import { Email, People } from "@material-ui/icons";
-import Oferta from "./Oferta";
 import Presentacion from "./Presentacion";
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 import { urlProfesional, urlUsuarios } from "configuracion/constantes";
@@ -173,7 +165,7 @@ const FormPrepador = (props) => {
       nombreperfil: nombrePerfil,
       annosexperiencia: annosExperiencia,
       experiencia: experiencia,
-      imagen: (imagenperfil!==undefined&&imagenperfil[0]!==undefined?imagenperfil[0].thumbUrl:null),
+      imagen: (imagenperfil !== undefined && imagenperfil[0] !== undefined ? imagenperfil[0].thumbUrl : null),
       sectores: sectores.toString(),
       perfiles: perfiles.toString(),
       idiomas: idiomas.toString(),
@@ -189,7 +181,7 @@ const FormPrepador = (props) => {
       const respuesta = await AxiosConexionConfig.post(url, JSON.stringify(dataValue));
       console.log(respuesta.status === 200)
       if (respuesta.status === 200) {
-        history.push(linkperfilpor+"?"+idusuario)
+        history.push(linkperfilpor + "?" + idusuario)
         //return (<Link to={linkperfilpor}/>)
       }
     } catch (e) {

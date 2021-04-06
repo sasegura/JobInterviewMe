@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 import Flags from 'country-flag-icons/react/3x2';
 import { Button, makeStyles, Tooltip } from '@material-ui/core';
 import './Icono.style.scss';
-import styles from "../../../assets/jss/material-kit-react/tooltipsStyle.js";
+import styles from "../../assets/jss/material-kit-react/tooltipsStyle.js";
 import './Icono.style.scss'
-import SK from '../../../assets/img/iconos/SK.png';
-import TE from '../../../assets/img/iconos/TE.png';
-import ZO from '../../../assets/img/iconos/ZO.png';
-import JI from '../../../assets/img/iconos/JI.png';
-import HG from '../../../assets/img/iconos/HG.png';
-import GM from '../../../assets/img/iconos/GM.png';
+import SK from '../../assets/img/iconos/SK.png';
+import TE from '../../assets/img/iconos/TE.png';
+import ZO from '../../assets/img/iconos/ZO.png';
+import JI from '../../assets/img/iconos/JI.png';
+import HG from '../../assets/img/iconos/HG.png';
+import GM from '../../assets/img/iconos/GM.png';
 
 
 
