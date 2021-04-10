@@ -181,7 +181,7 @@ const ProfesionalesPreview = (props) => {
                   <CardBody>
                   <div className={classes.profile}>
                   <div className="divImg">
-                    <img src={profesional.imagen} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
+                    <img src={"data:image/png;base64,"+profesional.imagen} alt="..." className="imgRaised imgRoundedCircle imgFluid" />  
                     <div id="letras">
                         <h3 className={classes.title}>{(profesional.nombreperfil).toUpperCase()}</h3>                         
                         <p>{profesional.annosexperiencia} años de experiencia</p>
