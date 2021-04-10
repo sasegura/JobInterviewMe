@@ -27,6 +27,8 @@ import { connect } from "react-redux";
 import { Form, Input, Space, Select, TimePicker, Row, Col, Tag, InputNumber } from 'antd';
 import Texto from './Texto.component';
 import LogInCard from './LoginCard.component';
+import AxiosConexionConfig from "conexion/AxiosConexionConfig";
+import { urlUsuarios } from "configuracion/constantes";
 
 
 
@@ -68,12 +70,29 @@ function LoginPage(props) {
 
   useEffect(() => {
     if (props.global.loginGoogle === true) {
+      
       setRequerido(false)
       props.setUsuario(usuario)
       props.goToStep(2);
 
     }
   }, [props.global.loginGoogle]);
+
+  async function BuscarUsuarioPorEmail(usuarioEmail) {
+    const condisiones = JSON.stringify({ where: { correo: { like: '%' + usuarioEmail + '%' } } })
+    const url = urlUsuarios + "?filter=" + encodeURIComponent(condisiones);
+    try {
+      const respuesta = await AxiosConexionConfig.get(url);
+      console.log(respuesta.data[0].idusuario)
+      if (respuesta.data.length > 0) {
+        setidUsuario(respuesta.data[0].idusuario)
+        setExiste(true)
+
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const onFinish = values => {
     goToStep2();

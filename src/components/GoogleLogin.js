@@ -16,7 +16,8 @@ const GoogleLoginComponent = (props) => {
       nombre: response.profileObj.givenName,
       apellidos: response.profileObj.familyName,
       email: response.profileObj.email,
-      loginGoogle: true
+      loginGoogle: true,
+      suscribeGoogle: props.suscribeGoogle?true:false
     }
     props.setUsuarioValues(usuario)
   }
