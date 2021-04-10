@@ -1,35 +1,18 @@
-export const baseURL="http://localhost:3010";
-export const urlProfesional="/profesionals";
-export const urlCount="/count";
-export const urlUsuarios="/usuarios";
-export const linkperfilpor="/perfilpro"
-export const linkpreparador="/formpreparador"
-export const linkloginPage="/login-page"
-export const linkSearchPage="/search-page"
-export const linklogout="/logout"
-export const pisos = [
-    {
-      id:1,
-      nombre: "Piso 1",
-      cantHab: 1,
-      imagen:""
-    },
-    {
-      id:2,
-      nombre: "Piso 2",
-      cantHab: 2,
-      imagen:""
-    },
-    {
-      id:3,
-      nombre: "Piso 3",
-      cantHab: 1,
-      imagen:""
-    },
-    {
-      id:4,
-      nombre: "Piso 4",
-      cantHab: 5,
-      imagen:""
-    },
-  ];
+export const baseURL = "http://localhost:3010";
+
+//BBDD
+export const urlProfesional = "/profesionals";
+export const urlUsuarios = "/usuarios";
+export const urlAgenda = "/agenda";
+export const urlCitas = "/citas";
+export const urlProfesionalAgenda = "/profesional-agenda"
+
+export const urlCount = "/count";
+export const linkperfilpor = "/perfilpro"
+
+//link sistema
+export const linkpreparador = "/formpreparador"
+export const linklogout = "/logout"
+export const linkloginPage = "/login-page"
+export const linkSearchPage = "/search-page"
+

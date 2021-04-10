@@ -9,8 +9,29 @@ const useStyles = makeStyles(styles);
 
 const CardCitas = (props) => {
 
-const {nombre, toolTipsText,tipo}= props;
+const {nombre, toolTipsText, confirmada, fecha, lugar}= props;
 const classes = useStyles();
+let tipo = props.tipo;
+const today = new Date();
+
+
+if(tipo!=="deshabilitado"){
+    
+if(confirmada === "true"   ){
+    tipo = "aceptado";
+}else{
+    if(confirmada === "false" && (fecha-today<(2*86400000))  ){
+        
+       tipo = "warning"}
+        else{
+            tipo = "pendiente";
+        }
+        
+    
+}}
+
+
+
 
     return (
         <>
@@ -28,7 +49,7 @@ const classes = useStyles();
             className="cardCitas"            
         >
 
-        Preparación {nombre}<br/>
+        {nombre}<br/>
 
         {tipo!=="deshabilitado"?
             tipo==="warning"?(<span id="alerta">¡Cita próxima sin confirmación!</span>)

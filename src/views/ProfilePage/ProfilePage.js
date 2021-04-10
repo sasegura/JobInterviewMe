@@ -8,11 +8,12 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Icono from '../../components/Icono/Icono.component';
 
+//ANTD
+import { Table, Tag } from 'antd';
+
 //PrimeReact
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { addLocale } from 'primereact/api';
 import { Calendar } from "primereact/calendar";
-import { InputText } from "primereact/inputtext";
 
 //style
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
@@ -20,12 +21,7 @@ import './ProfilePage.styles.scss'
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 
-//JSON
-import idiomas from '../../assets/json/idiomas.json'
-import canales from '../../assets/json/canales.json'
-import Horas from '../../assets/json/horas.json'
-
-//Configuracion
+//Conexión BBDD
 import { urlProfesional } from "configuracion/constantes";
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 
@@ -34,78 +30,22 @@ const useStyles = makeStyles(styles);
 export default function ProfilePage(props) {
 
 
+  const [date15, setDate15] = useState(null);
+
   const id = props.location.search.split("?")[1]
-  const prod1 = {
-    "data": [
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      },
-      {
-        "id": "1000",
-        "code": "f230fh0g3",
-        "name": "Bamboo Watch",
-      }]
-  }
 
-  const [products1, setProducts1] = useState(prod1);
 
-  const dataTableFuncMap = {
-    'products1': setProducts1
-  };
+  addLocale('es', {
+    firstDayOfWeek: 1,
+    dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+    dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+    dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+    today: 'Hoy',
+    clear: 'Claro'
+  });
 
-  const columns = [
-    { field: 'code', header: 'Code' },
-    { field: 'name', header: 'Name' },
-  ];
-
-  useEffect(() => {
-    setProducts1(Horas.data);
-  }, []);
-
-  const onEditorValueChange = (productKey, props, value) => {
-    let updatedProducts = [...props.value];
-    updatedProducts[props.rowIndex][props.field] = value;
-    dataTableFuncMap[`${productKey}`](updatedProducts);
-  }
-
-  const inputTextEditor = (productKey, props, field) => {
-    return <InputText type="text" value={props.rowData[field]} onChange={(e) => onEditorValueChange(productKey, props, e.target.value)} />;
-  }
-
-  const codeEditor = (productKey, props) => {
-    return inputTextEditor(productKey, props, 'code');
-  }
-
-  const nameEditor = (productKey, props) => {
-    return inputTextEditor(productKey, props, 'name');
-  }
 
   const classes = useStyles();
   const { ...rest } = props;
@@ -116,10 +56,6 @@ export default function ProfilePage(props) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-
-  const idiomasArray = idiomas.idiomas;
-  const canalesArray = canales.canales;
 
   useEffect(() => {
     RefreshUsuario()
@@ -135,33 +71,86 @@ export default function ProfilePage(props) {
       console.log(e);
     }
   }
-  const sectores = [
+
+
+  const columns1 = [
     {
-      id: 1,
-      sector: "RRHH",
+      title: 'Día de la semana',
+      dataIndex: 'dia',
+      key: 'dia',
     },
     {
-      id: 2,
-      sector: "Agricultura",
+      title: 'Hora Inicio',
+      dataIndex: 'horaInicio',
+      key: 'hInicio',
+      render: hInicio => (
+        <>
+          {hInicio !== null ? (
+            <Tag color='green' key={hInicio}>
+              {hInicio.toUpperCase()}
+            </Tag>
+          ) :
+            (
+              <Tag color='volcano' key="no">
+                {("No disponible").toUpperCase()}
+              </Tag>
+            )}
+        </>
+      ),
     },
+
     {
-      id: 3,
-      sector: "Informática",
-    }
+      title: 'Hora fin',
+      key: 'hFin',
+      dataIndex: 'horaFin',
+      render: horaFin => (
+        <>
+          {horaFin !== null ? (
+            <Tag color='green' key={horaFin}>
+              {horaFin.toUpperCase()}
+            </Tag>
+          ) :
+            (
+              <Tag color='volcano' key="no">
+                {("No disponible").toUpperCase()}
+              </Tag>
+            )}
+        </>
+      ),
+    },
   ];
 
-  const hashtag = [
+  //borrar luego que coja los datos de la BD
+  const data = [
     {
-      id: 1,
-      hashtag: "#ingeniería",
+      dia: 'lunes',
+      horaInicio: '13:10',
+      horaFin: '15:40'
     },
     {
-      id: 2,
-      hashtag: "#navales",
-    },
-    {
-      id: 3,
-      hashtag: "#projectManager",
+      dia: 'martes',
+      horaInicio: null,
+      horaFin: null
+    }, {
+      dia: 'miércoles',
+      horaInicio: '13:10',
+      horaFin: '15:40'
+    }, {
+      dia: 'jueves',
+      horaInicio: '13:10',
+      horaFin: '15:40'
+    }, {
+      dia: 'viernes',
+      horaInicio: '13:10',
+      horaFin: '15:40'
+    }, {
+      dia: 'sábado',
+      horaInicio: '13:10',
+      horaFin: '15:40'
+    }, {
+      dia: 'domingo',
+      horaInicio: null,
+      horaFin: null
     }
   ];
 
@@ -244,15 +233,16 @@ export default function ProfilePage(props) {
 
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
-                <div>
+                <div className="experiencia">
                   <p> {usuario.annosexperiencia} años de experiencia en el(los) sector(es):
-                  <div className="sectores">
+                    <div className="sectores">
                       {usuario.sectores.split(",").map((sector, index) => {
                         return (
                           sectoresA(sector, index, "sectores")
                         )
                       })}
-                    </div></p>
+                    </div>
+                  </p>
                 </div>
               </div>
 
@@ -267,165 +257,38 @@ export default function ProfilePage(props) {
                         sectoresA(hashtag, index, "hashtags")
                       )
                     })}
+                    #variante, #comedor, #laflaca
                   </div>
                 </div>
 
                 <div className="contenedor">
                   <div className="canalesSection">
-                    <span>Canales: </span>
+                    <p>Canales:
                     {usuario.canales !== null ?
-                      usuario.canales.split(",").map((canal, index) => {
-                        return (
-                          <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
-                        )
-                      }) : <Fragment></Fragment>
-                    }
+                        usuario.canales.split(",").map((canal, index) => {
+                          return (
+                            <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
+                          )
+                        }) : <Fragment></Fragment>
+                      }</p>
                   </div></div>
-
               </GridItem>
             </GridContainer>
 
             <GridContainer>
-              <GridItem xs={12} sm={12} md={4}>
-                <div className="card">
-                  <h5>Basic Cell Editing</h5>
-                  <DataTable value={products1} editMode="cell" className="editable-cells-table">
-                    <Column field="dia" header="Día" /*editor={(props) => codeEditor('products1', props)}*/></Column>
-                    <Column field="horainicio" header="Hora inicio" /*editor={(props) => nameEditor('products1', props)}*/></Column>
-                    <Column field="horafin" header="Hora fin" /*editor={(props) => nameEditor('products1', props)}*/></Column>
-                  </DataTable>
-                </div>
+              <GridItem xs={12} sm={12} md={6}>
+                <Table id="tabla" columns={columns1} dataSource={data} pagination={false} />
               </GridItem>
-              <GridItem xs={12} sm={12} md={8}>
-                <Calendar selectionMode="multiple" inline numberOfMonths={2} minDate={new Date()} disabledDays={[1, 2]} readOnlyInput onChange={(e) => setDate(e.value)}></Calendar>
+
+              <GridItem id="calendario1" xs={12} sm={12} md={6}>
+                <div className="margen"></div>
+                {
+                  //poner clase usuarioCliente cuando sea Cliente y cuando sea profesional quitarla para activar o desactivar el css del calendario
+                }
+                <Calendar className="usuarioCliente" locale="es" value={date15} onChange={(e) => setDate15(e.value)} minDate={new Date()} disabledDays={[1, 2]} inline />
               </GridItem>
               <div className="margen"></div>
             </GridContainer>
-
-            {/* <div className={classes.description}>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-              </p>
-            </div>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
-                <NavPills
-                  alignCenter
-                  color="primary"
-                  tabs={[
-                    {
-                      tabButton: "Studio",
-                      tabIcon: Camera,
-                      tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={studio1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio2}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={studio5}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio4}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                      )
-                    },
-                    {
-                      tabButton: "Work",
-                      tabIcon: Palette,
-                      tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work2}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work3}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work4}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work5}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                      )
-                    },
-                    {
-                      tabButton: "Favorite",
-                      tabIcon: Favorite,
-                      tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work4}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio3}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work2}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio1}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                      )
-                    }
-                  ]}
-                />
-              </GridItem>
-                </GridContainer>*/}
           </div>
         </div>
       </div>
@@ -442,6 +305,6 @@ export default function ProfilePage(props) {
           <div className={classes.container}>
             Seleccione un preparador antes de poder ver su perfil.</div></div></div></Fragment>}
 
-    </div >
+    </div>
   );
 }
