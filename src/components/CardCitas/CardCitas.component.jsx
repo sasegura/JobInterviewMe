@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {Tooltip, makeStyles, Icon} from '@material-ui/core';
+import { Tooltip } from 'antd';
+import { makeStyles, Icon} from '@material-ui/core';
 import styles from "../../assets/jss/material-kit-react/tooltipsStyle.js";
 import './CardCitas.style.scss';
 import Button from "components/CustomButtons/Button.js";
@@ -30,17 +31,11 @@ if(confirmada === "true"   ){
 
     return (
         <>
-        <Tooltip
-            id="MyToolTip"
-            title={toolTipsText}
-            interactive={true}
-            placement={window.innerWidth > 959 ? "top" : "left"} 
-            classes={(tipo==="deshabilitado")?" hidden": ""}
-        >
         <Button 
             onClick={e => e.preventDefault()}
             id={tipo}
-            className="cardCitas"            
+            className="cardCitas"  
+            tooltip="Enter your username" tooltipOptions={{position: 'right'}}         
         >
 
         {nombre}<br/>
@@ -56,7 +51,6 @@ if(confirmada === "true"   ){
         
 
         </Button>
-        </Tooltip>
         </>
     );
 }
