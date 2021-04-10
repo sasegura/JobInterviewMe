@@ -26,12 +26,7 @@ if(confirmada === "true"   ){
         else{
             tipo = "pendiente";
         }
-        
-    
 }}
-
-
-
 
     return (
         <>
@@ -39,9 +34,8 @@ if(confirmada === "true"   ){
             id="MyToolTip"
             title={toolTipsText}
             interactive={true}
-            
             placement={window.innerWidth > 959 ? "top" : "left"} 
-            classes={{ tooltip: classes.tooltip }} 
+            classes={(tipo==="deshabilitado")?" hidden": ""}
         >
         <Button 
             onClick={e => e.preventDefault()}
