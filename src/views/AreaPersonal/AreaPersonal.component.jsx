@@ -55,19 +55,16 @@ export default function AreaPersonal(props) {
   }, []);
 
 
-  async function hola(usuarioUrl){
-    const usuarioCita = await AxiosConexionConfig.get(usuarioUrl); 
-    return usuarioCita.data;    
-  }
-
-  
   async function RefreshUsuario() {
     
     const citasProfesionalURL = "/citas?filter="
+    const ProfesionalURL = "/profesionals/" + id;
+    const UsuarioURL = "/usuarios/" + id;
+
 
     const otro = {
       where:{
-      idprofesional: 38       
+      idprofesional: id       
       },  
       include: [{
         relation: "CitaUsuario"
@@ -76,42 +73,17 @@ export default function AreaPersonal(props) {
    
     try {
       const citasProfesional = await AxiosConexionConfig.get(citasProfesionalURL + encodeURIComponent(JSON.stringify(otro)));
-
       setCitasPendiente(citasProfesional.data);
-
+      const Profesionaal = await AxiosConexionConfig.get(ProfesionalURL);
+      setProfesional(Profesionaal.data);
+      const Usuarioo = await AxiosConexionConfig.get(UsuarioURL);
+      setUsuario(Usuarioo.data);
        
     } catch (e) {
       console.log(e);
     }
   }
-
-  const PintarCita = () => {
-    
-    if(citasPendiente!==null){
-      citasPendiente.map((cita,index)=>{
-
-        const fecha = new Date(cita.fecha);
-        console.log(fecha);
-
-        PintaYa();
         
-           
-      });
-    }    
-  }
-
-  const PintaYa = () => {
-    console.log("hola");
-    <CardCitas tipo="warning" nombre="Isa" toolTipsText="Cita próxima sin confirmar"></CardCitas>
-
-  }
-
-  
-    
-    
-  
-        
-         
 
   return (
     <div>
@@ -191,8 +163,11 @@ export default function AreaPersonal(props) {
               <GridItem xs={12} sm={12} md={4}>   
                 <div className={classes.container + " contenedorGris"}>
                    <h4>Información de contacto</h4> 
-                   <p>{usuario !== null ? usuario.nombre : ""}</p>
-                   <p>{usuario !== null ? usuario.correo : ""}</p>
+                   <h6>{usuario !== null ? usuario.nombre : ""}</h6>
+                   <h6>{usuario !== null ? usuario.apellidos : ""}</h6>
+                   <h6>{profesional !== null ? profesional.nombreperfil : ""}</h6>
+                   <h6>{usuario !== null ? usuario.correo : ""}</h6>
+                   
 
                 </div>    
               </GridItem>
