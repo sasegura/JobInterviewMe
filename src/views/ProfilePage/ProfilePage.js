@@ -1,4 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 //componentes
 import Header from "components/Header/Header.js";
@@ -7,9 +9,10 @@ import GridItem from "components/Grid/GridItem.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Icono from '../../components/Icono/Icono.component';
+import Cargando from 'components/Cargando/Cargando.component'
 
 //ANTD
-import { Table, Tag } from 'antd';
+import { Table, Tag, Tooltip } from 'antd';
 
 //PrimeReact
 import { addLocale } from 'primereact/api';
@@ -211,6 +214,12 @@ export default function ProfilePage(props) {
                     <img src={usuario.imagen} alt={usuario.nombreperfil} className={imageClasses + " imagenProfile"} />
                   </div>
 
+                  <Link to="/">
+                    <Tooltip title="Editar perfil">
+                      <i className="editarUsserIcon pi pi-user-edit p-mr-2"></i>
+                    </Tooltip>
+                  </Link>
+
                   <div className={classes.name}>
 
                     <div id="banderasList">
@@ -303,7 +312,8 @@ export default function ProfilePage(props) {
       {usuario !== null ? body() : <Fragment><div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
-            Seleccione un preparador antes de poder ver su perfil.</div></div></div></Fragment>}
+            <Cargando />
+          </div></div></div></Fragment>}
 
     </div>
   );

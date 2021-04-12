@@ -36,6 +36,7 @@ var hist = createBrowserHistory();
 //componentes
 import Footer from "components/Footer/Footer";
 import LogOut from "./components/LogOut/LogOut";
+import Cargando from "components/Cargando/Cargando.component";
 
 
 
@@ -51,6 +52,7 @@ ReactDOM.render(
         <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
         <Route exact path="/3" component={AreaPersonal} />
         <Route exact path={linklogout} component={LogOut} />
+        <Route exact path="/cargando" component={Cargando} />
 
       </Switch>
       <Footer></Footer>

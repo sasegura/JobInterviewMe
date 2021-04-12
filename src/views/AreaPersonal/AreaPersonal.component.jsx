@@ -24,6 +24,9 @@ import { urlUsuarios } from "configuracion/constantes";
 import { urlProfesional } from "configuracion/constantes";
 import { urlCitas } from "configuracion/constantes";
 
+import { Link } from "react-router-dom";
+
+
 
 const useStyles = makeStyles(styles);
 
@@ -46,13 +49,18 @@ export default function AreaPersonal(props) {
 
   const [citasPendiente, setCitasPendiente] = useState(null)
 
-
+  const [reload,setReload] = useState(true);
 
   const fechaHoy = new Date();
+  
 
   useEffect(() => {
-    RefreshUsuario()
-  }, []);
+    if(reload){
+      console.log("use")
+      RefreshUsuario()
+      setReload(false);
+    }      
+  }, [reload]);
 
 
   async function RefreshUsuario() {
@@ -103,10 +111,12 @@ export default function AreaPersonal(props) {
 
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">
-
-            <GridItem xs={12} sm={12} md={6}>
-              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombre : ""}</h3>
-            </GridItem>
+          
+            <Link to={"/perfilpro?"+(usuario !== null ? usuario.idusuario : "")}>
+              <GridItem xs={12} sm={12} md={6}>
+                <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombre : ""}</h3>
+              </GridItem>
+            </Link>
 
             <GridItem xs={12} sm={12} md={2}>
             </GridItem>
@@ -125,9 +135,14 @@ export default function AreaPersonal(props) {
 
                    {citasPendiente !== null ?
                       citasPendiente.map((cita, index) => {
-                        if(new Date(cita.fecha) > fechaHoy){
+
+                        const fechaA = cita.fecha.split("-");
+                        const horaA = cita.hora.split(":");
+                        const fechaCita =new Date(fechaA[0],fechaA[1]-1,fechaA[2],horaA[0],horaA[1]);
+
+                        if(fechaCita >= fechaHoy){
                           return(
-                            <CardCitas tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
+                            <CardCitas setReload={(value)=>setReload(value)} tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
                           )
                         }else{
                           return (<></>);
@@ -145,7 +160,12 @@ export default function AreaPersonal(props) {
                    <h4>Historial</h4> 
                    {citasPendiente !== null ?
                       citasPendiente.map((cita, index) => {
-                        if(new Date(cita.fecha) < fechaHoy){
+
+                        const fechaA = cita.fecha.split("-");
+                        const horaA = cita.hora.split(":");
+                        const fechaCita =new Date(fechaA[0],fechaA[1]-1,fechaA[2],horaA[0],horaA[1]);
+
+                        if(fechaCita < fechaHoy){
                           return(
                             <CardCitas tipo="deshabilitado" confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
                           )
@@ -166,8 +186,7 @@ export default function AreaPersonal(props) {
                    <h6>{usuario !== null ? usuario.nombre : ""}</h6>
                    <h6>{usuario !== null ? usuario.apellidos : ""}</h6>
                    <h6>{profesional !== null ? profesional.nombreperfil : ""}</h6>
-                   <h6>{usuario !== null ? usuario.correo : ""}</h6>
-                   
+                   <h6>{usuario !== null ? usuario.correo : ""}</h6>                  
 
                 </div>    
               </GridItem>
