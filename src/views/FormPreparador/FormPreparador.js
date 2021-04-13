@@ -224,12 +224,3 @@ const FormPrepador = (props) => {
 }
 export default FormPrepador;
 
-const validationSchema = yup.object().shape({
-  nombrePerfil: yup.string().required("Nombre de perfil requerido."),
-  annosExperiencia: yup.string().required("Años de experiencia requerido."),
-  experiencia: yup.string().required("Experiencia requerido."),
-  imagenperfil: yup.string().required("Imagen de perfil requerido."),
-  sectores: yup.string().required("Sectores requerido."),
-  perfiles: yup.string().required("Perfiles requerido."),
-  idiomas: yup.string().required("Idiomas requerido.")
-});

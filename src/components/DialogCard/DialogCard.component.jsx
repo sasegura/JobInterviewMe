@@ -1,26 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Button, Modal  } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
 
 const { confirm } = Modal;
 
 const DialogCard = (props) => {
 
+  const [cita,setCita] = useState(props.cita);
+
+  useEffect(() => {
+    setCita(props.cita);
+    console.log(props.cita);
+  }, [props.cita]);
+
+
   function ConfirmarCita() {
+
+    const UrlModificarCita = "/citas/"+ cita.idcita
+
+    setCita(props.cita);
+    
+    const jsonActivada={
+      confirmada:"true"
+    }    
+
     confirm({
       title: 'Confirmar Cita',
       icon: <ExclamationCircleOutlined />,
       content: 'Está seguro que desea confirmar esta cita?',
-      onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errores!'));
+       onOk() {
+        return AxiosConexionConfig.patch(UrlModificarCita,JSON.stringify(jsonActivada)).then(()=>cerrarLosDos() ).catch(() => console.log('Oops errores!'));
       },
-      onCancel() {},
+      onCancel() {
+        console.log('Cancel');
+      },
     });
   }
 
   function DeclinarCita() {
+
+    const UrlModificarCita = "/citas/"+ cita.idcita
+
+    const jsonDeclinar={
+      confirmada:"decline"
+    }    
+
     confirm({
       title: 'Declinar Cita',
       icon: <ExclamationCircleOutlined />,
@@ -29,16 +54,37 @@ const DialogCard = (props) => {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0 ? resolve : reject, 2000)
-          
-        }).then(()=>props.setReload(true)).catch(() => console.log('Oops errores!'));
+        return AxiosConexionConfig.patch(UrlModificarCita,JSON.stringify(jsonDeclinar)).then(()=>cerrarLosDos() ).catch(() => console.log('Oops errores!'));
       },
       onCancel() {
         console.log('Cancel');
       },
     });
   }
+
+  const cerrarLosDos = () =>{
+    props.setReload(true);
+    props.setModal1Visible(false)
+  }
+  
+  const botonFooter = () => {
+    if(cita!==undefined && cita.confirmada==="false"){
+    return(  [
+        <Button key="back" onClick={() => props.setModal1Visible(false)}>
+          Cancelar
+        </Button>,
+        <Button onClick={DeclinarCita} >Declinar Cita</Button>,
+        <Button onClick={ConfirmarCita}>Confirmar Cita</Button>,            
+      ])      
+    }
+    
+    else{
+     return( [
+        <Button key="back" onClick={() => props.setModal1Visible(false)}>
+          Aceptar
+        </Button>,                   
+      ])
+    }}
   
   
   return(<>
@@ -50,18 +96,11 @@ const DialogCard = (props) => {
           onCancel={() => props.setModal1Visible(false)}
           centered
           width={1000}
-          footer={[
-            <Button key="back" onClick={() => props.setModal1Visible(false)}>
-              Cancelar
-            </Button>,
-            <Button onClick={DeclinarCita} >Declinar Cita</Button>,
-            <Button onClick={ConfirmarCita}>Confirmar Cita</Button>,            
-          ]}
+          footer={botonFooter()} >
 
-        >
-        <p>Tu cita con Adele, el día XX / XX / XXXX</p>
-        <p>Reunión por ZOOM.</p>
-        <p>Cualquier duda en relación a esta preparación, no dudes en contactar con: jobinterviewme@gmail.com</p>       
+            <p>Cita con {cita!==undefined?cita.CitaUsuario.nombre + " " + cita.CitaUsuario.apellidos + " el día " + cita.fecha + " a las " + cita.hora:""},  </p>
+            <p>Reunión por ZOOM.</p>
+            <p>Cualquier duda en relación a esta preparación, no dudes en contactar con: jobinterviewme@gmail.com</p>       
 
       </Modal>    
     </>)

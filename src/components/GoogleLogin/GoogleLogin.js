@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import { Button } from 'antd';
+import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
 
 
 
@@ -18,8 +19,31 @@ const GoogleLoginComponent = (props) => {
       email: response.profileObj.email,
       loginGoogle: true
     }
-    props.setUsuarioValues(usuario)
+    props.setUsuarioValues(usuario);
+    Profesional(usuario);
   }
+
+  async function Profesional(usuario) {
+
+    const UsuarioURL = "/usuarios?filter[where][correo]=" + usuario.email;
+    const ProfesionalURL = "/profesionals?filter[where][idusuario]=";
+
+    try {
+      AxiosConexionConfig.get(UsuarioURL).then((usser) => {
+        AxiosConexionConfig.get(ProfesionalURL + usser.data[0].idusuario).then((prof) => {
+
+          if (prof.data.length > 0) {
+            props.setUsuario(prof.data[0]);
+          }
+        })
+      }
+      )
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
   return (
     <GoogleLogin
       clientId="549030926812-jbmfjsqpv4du9u2ns9gahsn7oi91qdo8.apps.googleusercontent.com"

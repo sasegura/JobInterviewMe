@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 // react components for routing our app without refresh
@@ -59,29 +59,9 @@ function HeaderLinks(props) {
         </Link>
       </ListItem>     
 
-      <ListItem className={classes.listItem}>
-        <Link to='/3'>
-          <Button
-            color="transparent"
-            target="_self"
-            className={classes.navLink}
-          >
-            Área personal
-        </Button>
-        </Link>
-      </ListItem>
+      
 
-      <ListItem className={classes.listItem}>
-        <Link to={linkpreparador}>
-          <Button
-            color="transparent"
-            target="_self"
-            className={classes.navLink}
-          >
-            Ayuda
-          </Button>
-        </Link>
-      </ListItem>
+      
 
       
 
@@ -141,6 +121,31 @@ function HeaderLinks(props) {
         </ListItem>
         */
   }
+
+      {props.global.loginGoogle ?
+        <ListItem className={classes.listItem}>
+        <Link to='/3'>
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+          >
+            Área personal
+          </Button>
+        </Link>
+      </ListItem> : <Fragment></Fragment>}
+
+      <ListItem className={classes.listItem}>
+        <Link to={linkpreparador}>
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+          >
+            Ayuda
+          </Button>
+        </Link>
+      </ListItem>
       
       {props.global.loginGoogle ?
         <ListItem className={classes.listItem}>

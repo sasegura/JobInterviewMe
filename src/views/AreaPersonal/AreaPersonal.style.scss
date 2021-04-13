@@ -6,6 +6,9 @@
     display: flex;
     align-items: center;
     flex-direction: column !important;
+    height: 88%;
+    margin-bottom: 30px;
+    border-radius: 5px;
 }
 
 .contenedorGris h4{
@@ -21,6 +24,7 @@
     text-align: center;
     padding: 10px;
     margin-top: 5px;
+    
 }
 
 .contenedorGris .cardCitas{
@@ -63,4 +67,8 @@
 
     .headerNameTitle{
         z-index: 1100;
+    }
+
+    .iconoVerPerfil{
+        color:white;
     }

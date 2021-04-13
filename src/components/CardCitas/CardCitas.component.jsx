@@ -12,6 +12,7 @@ const useStyles = makeStyles(styles);
 const CardCitas = (props) => {
 
 const {nombre, toolTipsText, confirmada, fecha, lugar}= props;
+const cita=props.cita;
 
 let tipo = props.tipo;
 const today = new Date();
@@ -30,7 +31,6 @@ if(confirmada === "true"   ){
             tipo = "pendiente";
         }
 }}
-
 
  const ConfirmarCita=(e)=>{
     e.preventDefault();
@@ -54,7 +54,7 @@ if(confirmada === "true"   ){
 
             </Button>
 
-            <DialogCard setReload={(value)=>props.setReload(value)} modal1Visible={Modal1Visible} setModal1Visible={(value)=>setModal1Visible(value)}/>
+            <DialogCard cita={cita} setReload={(value)=>props.setReload(value)} modal1Visible={Modal1Visible} setModal1Visible={(value)=>setModal1Visible(value)}/>
         </>
     );
 }

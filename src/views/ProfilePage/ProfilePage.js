@@ -28,11 +28,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import { urlProfesional } from "configuracion/constantes";
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 
+//redux
+import * as authAction from "../../store/actions/authAction"
+import { connect } from "react-redux";
+
+
 const useStyles = makeStyles(styles);
 
-export default function ProfilePage(props) {
+const ProfilePage = (props) => {
 
-
+  console.log(props);
   const [date15, setDate15] = useState(null);
 
   const id = props.location.search.split("?")[1]
@@ -52,7 +57,8 @@ export default function ProfilePage(props) {
 
   const classes = useStyles();
   const { ...rest } = props;
-  const [usuario, setUsuario] = useState(null)
+  const [usuario, setUsuario] = useState(props.global.usuario)
+  const [usserName, setUsseName] = useState(props.global)
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -67,9 +73,11 @@ export default function ProfilePage(props) {
   async function RefreshUsuario() {
     const url = urlProfesional + "/" + id;
     try {
-      const respuesta = await AxiosConexionConfig.get(url);
+      //const respuesta = await AxiosConexionConfig.get(url);
       //console.log(respuesta.data)
-      setUsuario(respuesta.data)
+      setUsuario(props.global.usuario)
+      setUsseName(props.global)
+      console.log(props.global)
     } catch (e) {
       console.log(e);
     }
@@ -187,7 +195,7 @@ export default function ProfilePage(props) {
           <GridContainer justify="flex-end">
 
             <GridItem xs={12} sm={12} md={6}>
-              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombreperfil : ""}</h3>
+              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usserName.nombre + " " + usserName.apellidos : ""}</h3>
             </GridItem>
 
             <GridItem xs={12} sm={12} md={2}>
@@ -318,3 +326,9 @@ export default function ProfilePage(props) {
     </div>
   );
 }
+
+const mapStateToProps = (rootReducer) => {
+  return { global: rootReducer.auth };
+};
+
+export default connect(mapStateToProps, authAction)(ProfilePage);

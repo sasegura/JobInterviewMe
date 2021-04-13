@@ -21,8 +21,7 @@ const LogUpPopUp = (props) => {
 
     return (
       <>       
-        <Modal 
-          
+        <Modal           
           visible={props.visibleUp}
           onCancel={()=>props.handleCancel()}
           footer={null}
