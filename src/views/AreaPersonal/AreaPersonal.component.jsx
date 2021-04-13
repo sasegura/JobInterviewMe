@@ -18,6 +18,8 @@ import '../ProfilePage/ProfilePage.styles.scss'
 import './AreaPersonal.style.scss'
 import CardCitas from "components/CardCitas/CardCitas.component";
 
+import { PrimeIcons } from 'primereact/api';
+
 //conexion BBDD
 import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 import { urlUsuarios } from "configuracion/constantes";
@@ -26,53 +28,45 @@ import { urlCitas } from "configuracion/constantes";
 
 import { Link } from "react-router-dom";
 
-
+import * as authAction from "../../store/actions/authAction"
+import { connect } from "react-redux";
+import { Tooltip } from "antd";
 
 const useStyles = makeStyles(styles);
 
-export default function AreaPersonal(props) {
+const AreaPersonal=(props)=> {
   const classes = useStyles();
   const { ...rest } = props;
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );  
 
-  //const id = props.location.search.split("?")[1]
-  const id = 38;
-  
   const [usuario, setUsuario] = useState(null)
   const [profesional, setProfesional] = useState(null)
-  const [cita, setCita] = useState(null)
-  const [NombreUsuariosCita, setNombreUsuariosCita] = useState(null)
-
   const [citasPendiente, setCitasPendiente] = useState(null)
-
   const [reload,setReload] = useState(true);
-
+  const [id, setId] = useState(false);
   const fechaHoy = new Date();
-  
+  let is1 = "";
 
-  useEffect(() => {
-    if(reload){
-      console.log("use")
-      RefreshUsuario()
-      setReload(false);
-    }      
-  }, [reload]);
+    if(props.global.usuario!==null){
+      is1 = props.global.usuario.idusuario;
+    }
 
+    useEffect(() => {
+      if(reload){
+        RefreshUsuario()
+        setReload(false);
+      }      
+    }, [reload]);
 
-  async function RefreshUsuario() {
-    
+    useEffect(() => {
+      setCitasPendiente(null)    
+    }, [props.global.usuario]);  
+
+  async function RefreshUsuario() {    
     const citasProfesionalURL = "/citas?filter="
-    const ProfesionalURL = "/profesionals/" + id;
-    const UsuarioURL = "/usuarios/" + id;
-
-
+    
     const otro = {
       where:{
-      idprofesional: id       
+      idprofesional: is1       
       },  
       include: [{
         relation: "CitaUsuario"
@@ -82,10 +76,19 @@ export default function AreaPersonal(props) {
     try {
       const citasProfesional = await AxiosConexionConfig.get(citasProfesionalURL + encodeURIComponent(JSON.stringify(otro)));
       setCitasPendiente(citasProfesional.data);
-      const Profesionaal = await AxiosConexionConfig.get(ProfesionalURL);
-      setProfesional(Profesionaal.data);
-      const Usuarioo = await AxiosConexionConfig.get(UsuarioURL);
-      setUsuario(Usuarioo.data);
+
+      if(props.global.usuario){
+        setProfesional(props.global.usuario);
+      }
+      
+      const Usuarioo = {        
+        nombre:props.global.nombre,
+        apellidos:props.global.apellidos,
+        correo: props.global.email,
+        idusuario: props.global.usuario.idusuario
+      }  
+
+      setUsuario(Usuarioo);
        
     } catch (e) {
       console.log(e);
@@ -108,13 +111,17 @@ export default function AreaPersonal(props) {
       />
 
       <Parallax id="sombra" small filter color="headerGreen" >
-
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">
-          
+          {console.log(props.global)}
             <Link to={"/perfilpro?"+(usuario !== null ? usuario.idusuario : "")}>
-              <GridItem xs={12} sm={12} md={6}>
-                <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombre : ""}</h3>
+              {console.log(usuario)}
+              <GridItem xs={12} sm={12} md={12}>
+                <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombre +" "+ usuario.apellidos +" ": ""}
+                <Tooltip title="Ver perfil">
+                      <i className="iconoVerPerfil pi pi-user p-mr-2"></i>
+                    </Tooltip>
+                    </h3>
               </GridItem>
             </Link>
 
@@ -140,9 +147,9 @@ export default function AreaPersonal(props) {
                         const horaA = cita.hora.split(":");
                         const fechaCita =new Date(fechaA[0],fechaA[1]-1,fechaA[2],horaA[0],horaA[1]);
 
-                        if(fechaCita >= fechaHoy){
+                        if(fechaCita >= fechaHoy&&cita.confirmada!="decline"){
                           return(
-                            <CardCitas setReload={(value)=>setReload(value)} tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
+                            <CardCitas cita={cita} setReload={(value)=>setReload(value)} tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
                           )
                         }else{
                           return (<></>);
@@ -165,9 +172,9 @@ export default function AreaPersonal(props) {
                         const horaA = cita.hora.split(":");
                         const fechaCita =new Date(fechaA[0],fechaA[1]-1,fechaA[2],horaA[0],horaA[1]);
 
-                        if(fechaCita < fechaHoy){
+                        if(fechaCita < fechaHoy&&cita.confirmada==="true"){
                           return(
-                            <CardCitas tipo="deshabilitado" confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
+                            <CardCitas cita={cita} setReload={(value)=>setReload(value)} tipo="deshabilitado" confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
                           )
                         }else{
                           return (<></>);
@@ -199,3 +206,10 @@ export default function AreaPersonal(props) {
     </div >
   );
 }
+
+const mapStateToProps = (rootReducer) => {
+  return { global: rootReducer.auth };
+};
+
+export default connect(mapStateToProps, authAction)(AreaPersonal);
+
