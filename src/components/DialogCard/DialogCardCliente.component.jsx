@@ -96,13 +96,17 @@ const DialogCardCliente = (props) => {
           onCancel={() => props.setModal1Visible(false)}
           centered
           width={1000}
-          footer={botonFooter()} >
-{/*
-            <p>Cita con {cita!==undefined?cita.CitaUsuario.nombre + " " + cita.CitaUsuario.apellidos + " el día " + cita.fecha + " a las " + cita.hora:""},  </p>
+          footer={ [
+            <Button key="back" onClick={() => props.setModal1Visible(false)}>
+              Aceptar
+            </Button>,                   
+          ]} >
+
+            <p>Cita con {cita!==undefined?cita.CitaProfesional.nombreperfil  + " el día " + cita.fecha + " a las " + cita.hora:""},  </p>
             <p>Reunión por ZOOM.</p>
-            <p>Cualquier duda en relación a esta preparación, no dudes en contactar con: jobinterviewme@gmail.com</p>   */
+            <p>Cualquier duda en relación a esta preparación, no dudes en contactar con: jobinterviewme@gmail.com</p>   
             
-}
+
 
       </Modal>    
     </>)

@@ -161,7 +161,7 @@ const AreaPersonalCiente=(props)=> {
 
                         if(fechaCita >= fechaHoy&&cita.confirmada!="decline"){
                           return(
-                            <CardCitasCliente cita={cita} setReload={(value)=>setReload(value)} tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaProfesional.nombreperfil} toolTipsText="Confirmar Cita"></CardCitasCliente>
+                            <CardCitasCliente cita={cita} setReload={(value)=>setReload(value)} tipo={null} confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaProfesional.nombreperfil} ></CardCitasCliente>
                           )
                         }else{
                           return (<></>);
@@ -177,8 +177,8 @@ const AreaPersonalCiente=(props)=> {
               <GridItem xs={12} sm={12} md={4}>  
               <div className={classes.container + " contenedorGris"}>
                    <h4>Historial</h4> 
-                   {/*citasPendiente !== null ?
-                      citasPendiente.map((cita, index) => {
+                   {citas !== null ?
+                      citas.map((cita, index) => {
 
                         const fechaA = cita.fecha.split("-");
                         const horaA = cita.hora.split(":");
@@ -186,13 +186,13 @@ const AreaPersonalCiente=(props)=> {
 
                         if(fechaCita < fechaHoy&&cita.confirmada==="true"){
                           return(
-                            <CardCitas cita={cita} setReload={(value)=>setReload(value)} tipo="deshabilitado" confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaUsuario.nombre} toolTipsText="Confirmar Cita"></CardCitas>
+                            <CardCitasCliente cita={cita} setReload={(value)=>setReload(value)} tipo="deshabilitado" confirmada={cita.confirmada} lugar="activa" fecha={new Date(cita.fecha)} nombre={cita.CitaProfesional.nombreperfil} ></CardCitasCliente>
                           )
                         }else{
                           return (<></>);
                         }
                       }                  
-                      ) : <></>*/
+                      ) : <></>
                     } 
                    
                 </div>              

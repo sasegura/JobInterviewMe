@@ -24,12 +24,10 @@ if(tipo!=="deshabilitado"){
 if(confirmada === "true"   ){
     tipo = "aceptado";
 }else{
-    if(confirmada === "false" && (fecha-today<(2*86400000))  ){
+    if(confirmada === "false" ){
         
-       tipo = "warning"}
-        else{
-            tipo = "pendiente";
-        }
+       tipo = "pendiente"}
+        
 }}
 
  const ConfirmarCita=(e)=>{
@@ -47,11 +45,8 @@ if(confirmada === "true"   ){
             >
 
             {nombre}<br/>
-
-            {tipo!=="deshabilitado"?
-                tipo==="warning"?(<span id="alerta">¡Cita próxima sin confirmación!</span>)
-            :(<></>):(<></>)}
-
+            {tipo!=="deshabilitado"?<span id="alerta">{cita.confirmada==="true"?"Confirmada":"Pendiente de confirmación  "}
+            </span>:<></>}
             </Button>
 
             <DialogCardCliente cita={cita} setReload={(value)=>props.setReload(value)} modal1Visible={Modal1Visible} setModal1Visible={(value)=>setModal1Visible(value)}/>
