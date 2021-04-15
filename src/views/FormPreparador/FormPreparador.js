@@ -121,10 +121,13 @@ const FormPrepador = (props) => {
 
   const history = useHistory()
   useEffect(() => {
+    console.log(existe)
     if (existe) {
       history.push(linkperfilpor + "?" + idusuario)
     }
   }, [existe]);
+
+
 
   async function UploadUsuario() {
     const dataValue = {

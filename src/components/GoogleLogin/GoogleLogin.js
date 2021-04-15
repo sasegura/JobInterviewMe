@@ -5,6 +5,9 @@ import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import { Button } from 'antd';
 import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
+import { linkperfilpor } from 'configuracion/constantes';
+import { useHistory } from 'react-router';
+import { linkAreaPersonalProfesional } from 'configuracion/constantes'
 
 
 
@@ -22,7 +25,7 @@ const GoogleLoginComponent = (props) => {
     props.setUsuarioValues(usuario);
     Profesional(usuario);
   }
-
+  const history = useHistory()
   async function Profesional(usuario) {
 
     const UsuarioURL = "/usuarios?filter[where][correo]=" + usuario.email;
@@ -30,12 +33,22 @@ const GoogleLoginComponent = (props) => {
 
     try {
       AxiosConexionConfig.get(UsuarioURL).then((usser) => {
-        AxiosConexionConfig.get(ProfesionalURL + usser.data[0].idusuario).then((prof) => {
-
-          if (prof.data.length > 0) {
-            props.setUsuario(prof.data[0]);
+        if (usser.data.length === 0) {
+          let valores = {
+            nombre: usuario.nombre,
+            apellidos: usuario.apellidos,
+            correo: usuario.email
           }
-        })
+          AxiosConexionConfig.post("/usuarios", JSON.stringify(valores));
+        } else {
+          AxiosConexionConfig.get(ProfesionalURL + usser.data[0].idusuario).then((prof) => {
+            if (prof.data.length > 0) {
+              props.setUsuario(prof.data[0]);
+              history.push({ linkAreaPersonalProfesional })
+            }
+          })
+        }
+
       }
       )
     } catch (e) {

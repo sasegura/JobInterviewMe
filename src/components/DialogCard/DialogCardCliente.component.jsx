@@ -5,7 +5,7 @@ import AxiosConexionConfig from 'conexion/AxiosConexionConfig';
 
 const { confirm } = Modal;
 
-const DialogCard = (props) => {
+const DialogCardCliente = (props) => {
 
   const [cita,setCita] = useState(props.cita);
 
@@ -108,4 +108,4 @@ const DialogCard = (props) => {
     </>)
 
 }
-export default DialogCard;
+export default DialogCardCliente;

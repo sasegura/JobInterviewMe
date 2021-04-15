@@ -19,6 +19,8 @@ import LoginPage from "views/LoginPage/LoginPage.js";
 import FormPrepador from "views/FormPreparador/FormPreparador.js"
 import ProfesionalesPreview from "views/ProfesionalesPreview/ProfesionalesPreview.component";
 import AreaPersonal from "views/AreaPersonal/AreaPersonal.component";
+import AreaPersonalClient from "views/AreaPersonal/AreaPersonalClient.component";
+
 
 //configuracion
 import { linkloginPage } from "configuracion/constantes";
@@ -37,6 +39,9 @@ var hist = createBrowserHistory();
 import Footer from "components/Footer/Footer";
 import LogOut from "./components/LogOut/LogOut";
 import Cargando from "components/Cargando/Cargando.component";
+import Presentacion from "views/FormPreparador/Presentacion";
+import { linkAreaPersonalCliente } from "configuracion/constantes";
+import { linkAreaPersonalProfesional } from "configuracion/constantes";
 
 
 
@@ -47,12 +52,15 @@ ReactDOM.render(
         <Route exact path="/" component={LandingPage} />
         <Route exact path={linkperfilpor} component={ProfilePage} />
         <Route exact path={linkloginPage} component={LoginPage} />
-        <Route exact path="/component" component={Components} />
         <Route exact path={linkpreparador} component={FormPrepador} />
         <Route exact path={linkSearchPage} component={ProfesionalesPreview} />
-        <Route exact path="/3" component={AreaPersonal} />
+        <Route exact path={linkAreaPersonalProfesional} component={AreaPersonal} />
+        <Route exact path={linkAreaPersonalCliente} component={AreaPersonalClient} />
         <Route exact path={linklogout} component={LogOut} />
         <Route exact path="/cargando" component={Cargando} />
+        <Route exact path="/presentacion" component={Presentacion} />
+
+
 
       </Switch>
       <Footer></Footer>

@@ -20,8 +20,8 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 import './HeaderLink.styles.scss';
-import { linkpreparador } from "configuracion/constantes";
-import { linklogout } from "configuracion/constantes";
+import { linkpreparador, linkAreaPersonalCliente } from "configuracion/constantes";
+import { linklogout, linkAreaPersonalProfesional } from "configuracion/constantes";
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
 import LoginPopUp from "./Login/Login.component";
@@ -43,6 +43,41 @@ function HeaderLinks(props) {
   }
   const onChangeVisibleUp = () => {
     setVisibleUp(true);
+   }
+
+   const AreaPersonal=()=>{
+    if(props.global.email!==""){
+      if(props.global.usuario!==null){
+        return(
+        <ListItem className={classes.listItem}>
+        <Link to={linkAreaPersonalCliente}>
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+          >
+            Área personal
+          </Button>
+        </Link>
+      </ListItem>)
+      }else{
+        return(
+        <ListItem className={classes.listItem}>
+        <Link to={linkAreaPersonalProfesional}>
+          <Button
+            color="transparent"
+            target="_self"
+            className={classes.navLink}
+          >
+            Área personal
+          </Button>
+        </Link>
+      </ListItem>)
+      }
+    } else{
+      return(
+      <Fragment></Fragment>)
+    }
    }
 
 
@@ -122,18 +157,7 @@ function HeaderLinks(props) {
         */
   }
 
-      {props.global.loginGoogle ?
-        <ListItem className={classes.listItem}>
-        <Link to='/3'>
-          <Button
-            color="transparent"
-            target="_self"
-            className={classes.navLink}
-          >
-            Área personal
-          </Button>
-        </Link>
-      </ListItem> : <Fragment></Fragment>}
+      {AreaPersonal() }
 
       <ListItem className={classes.listItem}>
         <Link to={linkpreparador}>

@@ -15,4 +15,8 @@ export const linkpreparador = "/formpreparador"
 export const linklogout = "/logout"
 export const linkloginPage = "/login-page"
 export const linkSearchPage = "/search-page"
+export const linkAreaPersonalProfesional = "/area-profesional"
+export const linkAreaPersonalCliente = "/area-cliente"
+
+
 
