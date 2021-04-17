@@ -28,7 +28,7 @@ const LogUpPopUp = (props) => {
           closable={false}
          >
 
-          <LogUpCard animation="" />
+          <LogUpCard link= {props.link} animation="" />
         </Modal>
       </>
     );

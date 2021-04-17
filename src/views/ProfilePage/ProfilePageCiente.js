@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 //componentes
@@ -10,6 +10,8 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Icono from '../../components/Icono/Icono.component';
 import Cargando from 'components/Cargando/Cargando.component'
+import Button from "components/CustomButtons/Button.js";
+
 
 //ANTD
 import { Table, Tag, Tooltip } from 'antd';
@@ -31,13 +33,17 @@ import AxiosConexionConfig from "conexion/AxiosConexionConfig";
 //redux
 import * as authAction from "../../store/actions/authAction"
 import { connect } from "react-redux";
+import { linkContratarCita } from "configuracion/constantes";
+import LoginPopUp from "components/Header/Login/Login.component";
 
 
 const useStyles = makeStyles(styles);
 
-const ProfilePage = (props) => {
+const ProfilePageCliente = (props) => {
 
-  console.log(props);
+  const history = useHistory()
+
+
   const [date15, setDate15] = useState(null);
 
   const id = props.location.search.split("?")[1]
@@ -73,16 +79,26 @@ const ProfilePage = (props) => {
   async function RefreshUsuario() {
     const url = urlProfesional + "/" + id;
     try {
-      //const respuesta = await AxiosConexionConfig.get(url);
+      const respuesta = await AxiosConexionConfig.get(url);
       //console.log(respuesta.data)
-      setUsuario(props.global.usuario)
-      setUsseName(props.global)
-      console.log(props.global)
+      setUsuario(respuesta.data);
+      //setUsseName(props.global)
+      //console.log(props.global)
     } catch (e) {
       console.log(e);
     }
   }
 
+  const [visible, setVisible] = useState(false);
+
+
+  const goToContratar = (id) => {
+    if (props.global.email === "") {
+      setVisible(true);
+    } else {
+      history.push(linkContratarCita + "?" + id)
+    }
+  }
 
   const columns1 = [
     {
@@ -166,6 +182,8 @@ const ProfilePage = (props) => {
   ];
 
 
+
+
   const sectoresA = (atributo, index, clase) => {
     return (
       (index === 0) ? <div className={clase} key={index}>{atributo}</div> : <div className={clase} key={index}>{", " + atributo}</div>
@@ -196,8 +214,8 @@ const ProfilePage = (props) => {
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">
 
-            <GridItem xs={12} sm={12} md={6}>
-              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usserName.nombre + " " + usserName.apellidos : ""}</h3>
+            <GridItem xs={12} sm={12} md={4}>
+              <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario?.nombreperfil : ""}</h3>
             </GridItem>
 
             <GridItem xs={12} sm={12} md={2}>
@@ -210,7 +228,6 @@ const ProfilePage = (props) => {
   }
 
   const body = () => {
-    console.log(usuario)
     return (
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -222,20 +239,14 @@ const ProfilePage = (props) => {
                 <div className={classes.profile}>
 
                   <div>
-                    <img src={usuario.imagen} alt={usuario.nombreperfil} className={imageClasses + " imagenProfile"} />
+                    <img src={usuario?.imagen} alt={usuario?.nombreperfil} className={imageClasses + " imagenProfile"} />
                   </div>
-
-                  <Link to="/">
-                    <Tooltip title="Editar perfil">
-                      <i className="editarUsserIcon pi pi-user-edit p-mr-2"></i>
-                    </Tooltip>
-                  </Link>
 
                   <div className={classes.name}>
 
                     <div id="banderasList">
                       {
-                        usuario.idiomas.split(",").map((idioma, index) => {
+                        usuario?.idiomas.split(",").map((idioma, index) => {
                           return (
                             <Icono codigo={idioma} tipo="bandera" key={index} nombre={idioma} id={index} />
                           )
@@ -244,8 +255,12 @@ const ProfilePage = (props) => {
                     </div>
 
                     <div className="precio">
-                      <span className="precioText">{usuario.tarifa + "€ / " + usuario.duracion + '’ entrevista'}</span>
+                      <span className="precioText">{usuario?.tarifa + "€ / " + usuario?.duracion + '’ entrevista'}</span>
                     </div>
+
+                    <Button className="precio" simple color="primary" onClick={() => goToContratar(id)} size="lg">
+                      <span className="precioText">CONTRATAR</span>
+                    </Button>
 
                   </div>
                 </div>
@@ -254,9 +269,9 @@ const ProfilePage = (props) => {
               <GridItem xs={12} sm={12} md={8}><div className={classes.description}>
 
                 <div className="experiencia">
-                  <p> {usuario.annosexperiencia} años de experiencia en el(los) sector(es):
+                  <p> {usuario?.annosexperiencia} años de experiencia en el(los) sector(es):
                     <div className="sectores">
-                      {usuario.sectores.split(",").map((sector, index) => {
+                      {usuario?.sectores.split(",").map((sector, index) => {
                         return (
                           sectoresA(sector, index, "sectores")
                         )
@@ -267,12 +282,12 @@ const ProfilePage = (props) => {
               </div>
 
                 <div className={classes.description + " wrap"}>
-                  <p>{usuario.experiencia}</p>
+                  <p>{usuario?.experiencia}</p>
                 </div>
 
                 <div className={classes.description}>
                   <div className="hashtags">
-                    {usuario.hashtags.split(",").map((hashtag, index) => {
+                    {usuario?.hashtags.split(",").map((hashtag, index) => {
                       return (
                         sectoresA(hashtag, index, "hashtags")
                       )
@@ -284,8 +299,8 @@ const ProfilePage = (props) => {
                 <div className="contenedor">
                   <div className="canalesSection">
                     <p>Canales:
-                    {usuario.canales !== null ?
-                        usuario.canales.split(",").map((canal, index) => {
+                    {usuario?.canales !== null ?
+                        usuario?.canales.split(",").map((canal, index) => {
                           return (
                             <Icono codigo={canal} tipo="canal" key={index} nombre={canal} id={index} />
                           )
@@ -311,6 +326,9 @@ const ProfilePage = (props) => {
             </GridContainer>
           </div>
         </div>
+
+        <LoginPopUp link="contratar" visible={visible} handleCancel={() => setVisible(false)} />
+
       </div>
     )
   }
@@ -320,7 +338,7 @@ const ProfilePage = (props) => {
       {header()}
       {parallax()}
 
-      {usuario !== null ? body() :
+      {props.global !== null ? body() :
 
         <Fragment>
           <div className={classNames(classes.main, classes.mainRaised)}>
@@ -340,4 +358,4 @@ const mapStateToProps = (rootReducer) => {
   return { global: rootReducer.auth };
 };
 
-export default connect(mapStateToProps, authAction)(ProfilePage);
+export default connect(mapStateToProps, authAction)(ProfilePageCliente);

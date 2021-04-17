@@ -12,16 +12,22 @@ import Calendario from '../../components/Calendario/Calendario.component';
 const Oferta1 = (props) => {
     //console.log(props.valores)
 
-    const [duracion, setDuracion]=useState("");
     const [tipoPreparación, settipoPreparación]=useState(props.valores.tipoPreparación)
     const [duracionX, setDuracionX]=useState(props.valores.duracion)
     const [agenda, setagenda]=useState(props.valores.agenda)
     const [tarifa, settarifa]=useState(props.valores.tarifa)
     const [canales, setcanales]=useState(props.valores.canales)
     const onFinish = values => {
-      console.log('Received values of form:', values);
-      props.segundosValores(values)
-      props.UploadUsuario()
+        let valores={}
+        valores.tipoPreparacion=tipoPreparación
+        valores.duracion=duracionX
+        valores.canales=canales
+        valores.tarifa=tarifa
+        valores.agenda=agenda
+        console.log(valores)
+      console.log('Received values of form:', valores);
+      props.segundosValores(valores)
+      
     };
     const initialValue={
         duracion:duracionX,
@@ -34,7 +40,7 @@ const Oferta1 = (props) => {
         //console.log(agenda)
         let values={}
         values.tipoPreparación=tipoPreparación
-        values.duracion=duracion
+        values.duracion=duracionX
         values.canales=canales
         values.tarifa=tarifa
         values.agenda=agenda
@@ -57,7 +63,7 @@ const Oferta1 = (props) => {
     }
 
     function onChangeDuracion(value) {
-        setDuracion(value);
+        setDuracionX(value);
     }
 
   

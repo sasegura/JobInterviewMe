@@ -50,7 +50,7 @@ function HeaderLinks(props) {
       if(props.global.usuario!==null){
         return(
         <ListItem className={classes.listItem}>
-        <Link to={linkAreaPersonalCliente}>
+        <Link to={linkAreaPersonalProfesional}>
           <Button
             color="transparent"
             target="_self"
@@ -63,7 +63,7 @@ function HeaderLinks(props) {
       }else{
         return(
         <ListItem className={classes.listItem}>
-        <Link to={linkAreaPersonalProfesional}>
+        <Link to={linkAreaPersonalCliente}>
           <Button
             color="transparent"
             target="_self"
@@ -80,11 +80,12 @@ function HeaderLinks(props) {
     }
    }
 
+   const SerPreparador=()=>{
 
-  return (
-    <List id="header" className={classes.list}>
-
-      <ListItem className={classes.listItem}>
+   
+    if(props.global.usuario===null){
+      return(
+        <ListItem className={classes.listItem}>
         <Link to={linkpreparador}>
           <Button
             color="transparent"
@@ -92,16 +93,15 @@ function HeaderLinks(props) {
             Ser Preparador
           </Button>
         </Link>
-      </ListItem>     
+      </ListItem> 
+      )
+    }
+  }
 
+  return (
+    <List id="header" className={classes.list}>
+      {SerPreparador()}
       
-
-      
-
-      
-
-
-
      {/* <ListItem className={classes.listItem}>
 
         <Tooltip
@@ -195,7 +195,7 @@ function HeaderLinks(props) {
             Conectarse
             
           </Button>
-          <LoginPopUp visible={visible} handleCancel={()=>setVisible(false)} />
+          <LoginPopUp link="areaPersonal" visible={visible} handleCancel={()=>setVisible(false)} />
 
       </ListItem>
 
@@ -206,7 +206,7 @@ function HeaderLinks(props) {
             onClick={()=>onChangeVisibleUp()}>
             Inscribirse
           </Button>
-          <LogUpPopUp visibleUp={visibleUp} handleCancel={()=>setVisibleUp(false)} />
+          <LogUpPopUp link="areaPersonal" visibleUp={visibleUp} handleCancel={()=>setVisibleUp(false)} />
 
       </ListItem></>
         )}

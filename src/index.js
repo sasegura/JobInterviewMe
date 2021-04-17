@@ -42,6 +42,10 @@ import Cargando from "components/Cargando/Cargando.component";
 import Presentacion from "views/FormPreparador/Presentacion";
 import { linkAreaPersonalCliente } from "configuracion/constantes";
 import { linkAreaPersonalProfesional } from "configuracion/constantes";
+import { linkperfilporClient } from "configuracion/constantes";
+import ProfilePageCiente from "views/ProfilePage/ProfilePageCiente";
+import { linkContratarCita } from "configuracion/constantes";
+import ContratarCita from "views/ContratarCita/ContratarCita.component";
 
 
 
@@ -59,6 +63,11 @@ ReactDOM.render(
         <Route exact path={linklogout} component={LogOut} />
         <Route exact path="/cargando" component={Cargando} />
         <Route exact path="/presentacion" component={Presentacion} />
+        <Route exact path={linkperfilporClient} component={ProfilePageCiente} />
+        <Route exact path={linkContratarCita} component={ContratarCita} />
+
+
+
 
 
 

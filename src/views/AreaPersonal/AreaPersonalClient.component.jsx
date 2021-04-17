@@ -126,16 +126,13 @@ const AreaPersonalCiente=(props)=> {
       <Parallax id="sombra" small filter color="headerGreen" >
         <div className={classes.container + " headerNameTitle"}>
           <GridContainer justify="flex-end">
-          {      console.log(citas)
-
-          }
-            <Link to={"/perfilpro?"+(usuario !== null ? usuario.idusuario : "")}>
-              <GridItem xs={12} sm={12} md={12}>
+            
+              <GridItem xs={12} sm={12} md={4}>
                 <h3 className={classes.title + " nameTitle"}>{usuario !== null ? usuario.nombre +" "+ usuario.apellidos +" ": ""}
-                  
+                
+                  {props.global?.nombre + " " + props.global?.apellidos} 
                 </h3>
               </GridItem>
-            </Link>
 
             <GridItem xs={12} sm={12} md={2}>
             </GridItem>
@@ -201,11 +198,16 @@ const AreaPersonalCiente=(props)=> {
 
               <GridItem xs={12} sm={12} md={4}>   
                 <div className={classes.container + " contenedorGris"}>
-                   <h4>Información de contacto</h4> 
-                   <h6>{usuario !== null ? usuario.nombre : ""}</h6>
-                   <h6>{usuario !== null ? usuario.apellidos : ""}</h6>
-                   <h6>{profesional !== null ? profesional.nombreperfil : ""}</h6>
-                   <h6>{usuario !== null ? usuario.correo : ""}</h6>                  
+                  <h4>Información de contacto</h4> 
+                  <div>
+                  <h6>{props.global?.nombre}</h6>
+                  </div>
+                  <div>
+                  <h6>{props.global?.apellidos}</h6>  
+                  </div> 
+                  <div> 
+                    <h6>{props.global?.email}</h6>
+                  </div>             
 
                 </div>    
               </GridItem>

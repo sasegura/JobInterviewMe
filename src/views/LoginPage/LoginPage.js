@@ -39,6 +39,15 @@ function LoginPage(props) {
       if (props.global.usuario !== null) {
         history.push(linkperfilpor + "?" + props.global.usuario.idusuario)
       } else {
+        const usuario = {
+          nombre: props.global.nombre,
+          apellido: props.global.apellidos,
+          email: props.global.email,
+          idusuario: props.global.idusuario
+        }
+        console.log(usuario)
+        //props.setUsuario(usuario)
+        props.setValoresUsuarios(usuario)
         props.goToStep(2)
       }
       //BuscarUsuarioPorEmail(props.global.email)

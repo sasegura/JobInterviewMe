@@ -51,6 +51,18 @@ const AreaPersonal=(props)=> {
     }
 
     useEffect(() => {
+      if(props.global.idusuario!==""){
+        const Usuarioo = {        
+          nombre:props.global.nombre,
+          apellidos:props.global.apellidos,
+          correo: props.global.email,
+          idusuario: props.global.usuario.idusuario
+        } 
+        setUsuario(Usuarioo);
+      }     
+    }, [props.global.idusuario]);
+
+    useEffect(() => {
       if(reload){
         RefreshUsuario()
         setReload(false);
@@ -81,15 +93,8 @@ const AreaPersonal=(props)=> {
         setProfesional(props.global.usuario);
       }
       
-      const Usuarioo = {        
-        nombre:props.global.nombre,
-        apellidos:props.global.apellidos,
-        correo: props.global.email,
-        idusuario: props.global.usuario.idusuario
-      }  
-
-      setUsuario(Usuarioo);
-       
+     
+       //console.log(props)
     } catch (e) {
       console.log(e);
     }
@@ -190,10 +195,9 @@ const AreaPersonal=(props)=> {
               <GridItem xs={12} sm={12} md={4}>   
                 <div className={classes.container + " contenedorGris"}>
                    <h4>Información de contacto</h4> 
-                   <h6>{usuario !== null ? usuario.nombre : ""}</h6>
-                   <h6>{usuario !== null ? usuario.apellidos : ""}</h6>
-                   <h6>{profesional !== null ? profesional.nombreperfil : ""}</h6>
-                   <h6>{usuario !== null ? usuario.correo : ""}</h6>                  
+                   <div><h6>{usuario !== null ? usuario.nombre : ""}</h6></div>
+                   <div><h6>{usuario !== null ? usuario.apellidos : ""}</h6></div>
+                   <div><h6>{usuario !== null ? usuario.correo : ""}</h6></div>            
 
                 </div>    
               </GridItem>

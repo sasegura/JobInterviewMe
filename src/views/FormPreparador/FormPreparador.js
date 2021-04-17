@@ -25,6 +25,9 @@ import Oferta1 from "./Oferta1";
 import { useHistory } from "react-router";
 import { linkperfilpor } from "../../configuracion/constantes"
 
+import * as authAction from "../../store/actions/authAction"
+import { connect } from "react-redux";
+
 const useStyles = makeStyles(styles);
 
 const FormPrepador = (props) => {
@@ -42,7 +45,7 @@ const FormPrepador = (props) => {
   const [perfiles, setperfiles] = useState("")
   const [idiomas, setidiomas] = useState("")
   const [tipoPreparación, settipoPreparación] = useState("")
-  const [duracion, setduracion] = useState(0)
+  const [duracion, setduracion] = useState("")
   const [canales, setcanales] = useState([])
   const [hashtags, setHashtags] = useState("")
   const [tarifa, settarifa] = useState(0)
@@ -78,13 +81,16 @@ const FormPrepador = (props) => {
   }
 
   const setValoresUsuarios = (valores) => {
+    console.log(valores)
     setNombre(valores.nombre)
-    setApellido(valores.apelido)
+    setApellido(valores.apellido)
     setEmail(valores.email)
-    setPassword(valores.password)
-    setAgenda(valores.agenda)
+    setidUsuario(valores.idusuario)
+    //setPassword(valores.password)
+    //setAgenda(valores.agenda)
     //console.log(valores)
     BuscarUsuarioPorEmail(valores.email)
+    console.log(valores)
   }
   const primerosValores = (valores) => {
     setNombrePerfil(valores.nombrePerfil)
@@ -96,37 +102,63 @@ const FormPrepador = (props) => {
     setidiomas(valores.idiomas)
     console.log(valores)
   }
-  const segundosValores = (valores) => {
-    //console.log(valores)
+  async function segundosValores(valores) {
+    console.log(valores)
     settarifa(valores.tarifa)
-    settipoPreparación(valores.tipoPreparación)
+    settipoPreparación(valores.tipoPreparacion)
     setcanales(valores.canales)
     setduracion(valores.duracion)
     setAgenda(valores.agenda)
     //setHashtags(valores.hashtags)
     //UploadUsuario()
-    /*if(idusuario!==""){
-      uploadData()
-    }*/
+    if (idusuario !== "") {
+      const dataValue = {
+        idusuario: idusuario,
+        nombreperfil: nombrePerfil,
+        annosexperiencia: annosExperiencia,
+        experiencia: experiencia,
+        imagen: (imagenperfil !== undefined && imagenperfil[0] !== undefined ? imagenperfil[0].thumbUrl : null),
+        sectores: sectores.toString(),
+        perfiles: perfiles.toString(),
+        idiomas: idiomas.toString(),
+        tipopreparacion: valores.emailtipoPreparacion,
+        duracion: valores.duracion,
+        hashtags: hashtags,
+        canales: valores.canales.toString(),
+        tarifa: valores.tarifa
+      }
+      //console.log(dataValue)
+      const url = urlProfesional;
+      try {
+        const respuesta = await AxiosConexionConfig.post(url, JSON.stringify(dataValue));
+        if (respuesta.status === 200) {
+          props.setUsuario(dataValue)
+          history.push(linkperfilpor + "?" + idusuario)
+          //return (<Link to={linkperfilpor}/>)
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
   /*useEffect(() => {
     
   }, [load]);
 */
-  useEffect(() => {
+  /*useEffect(() => {
     if (idusuario !== "" && !existe) {
       uploadData()
     }
   }, [idusuario]);
-
+*/
   const history = useHistory()
-  useEffect(() => {
+  /*useEffect(() => {
     console.log(existe)
     if (existe) {
       history.push(linkperfilpor + "?" + idusuario)
     }
   }, [existe]);
-
+*/
 
 
   async function UploadUsuario() {
@@ -153,7 +185,7 @@ const FormPrepador = (props) => {
       const respuesta = await AxiosConexionConfig.get(url);
       console.log(respuesta.data[0].idusuario)
       if (respuesta.data.length > 0) {
-        setidUsuario(respuesta.data[0].idusuario)
+        //setidUsuario(respuesta.data[0].idusuario)
         setExiste(true)
 
       }
@@ -182,8 +214,8 @@ const FormPrepador = (props) => {
     const url = urlProfesional;
     try {
       const respuesta = await AxiosConexionConfig.post(url, JSON.stringify(dataValue));
-      console.log(respuesta.status === 200)
       if (respuesta.status === 200) {
+        props.setUsuario(dataValue)
         history.push(linkperfilpor + "?" + idusuario)
         //return (<Link to={linkperfilpor}/>)
       }
@@ -217,13 +249,17 @@ const FormPrepador = (props) => {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <StepWizard isLazyMount={true}>
-          <LoginPage usuario={usuario} setUsuario={(valores) => { setValoresUsuarios(valores) }} />
+          <LoginPage usuario={usuario} setValoresUsuarios={(valores) => { setValoresUsuarios(valores) }} />
           <Presentacion valores={valoresIniciales} primerosValores={(valores) => { primerosValores(valores) }} />
-          <Oferta1 valores={valoresSecundarios} UploadUsuario={() => UploadUsuario()} segundosValores={(valores) => { segundosValores(valores) }} />
+          <Oferta1 valores={valoresSecundarios} segundosValores={(valores) => { segundosValores(valores) }} />
         </StepWizard>
       </div>
     </div>
   );
 }
-export default FormPrepador;
+const mapStateToProps = (rootReducer) => {
+  return { global: rootReducer.auth };
+};
+
+export default connect(mapStateToProps, authAction)(FormPrepador);
 
